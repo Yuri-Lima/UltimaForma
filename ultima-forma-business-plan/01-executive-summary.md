@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-A Ultima Forma é uma infraestrutura neutra de orquestração de identidade e credenciais que conecta emissores, verificadores e usuários finais sem centralizar dados. A empresa oferece uma camada de consentimento e interoperabilidade que reduz custos de KYC, elimina redundância e devolve o controle de dados aos titulares. Empresas utilizam a API para realizar verificações de credenciais; usuários mantêm suas credenciais em carteiras soberanas e decidem o que compartilhar.
+A Ultima Forma é uma infraestrutura neutra de orquestração de identidade e credenciais que conecta emissores, verificadores e usuários finais sem centralizar dados. A empresa oferece uma camada de consentimento e interoperabilidade que reduz custos de KYC, elimina redundância e devolve o controle de dados aos titulares, ao mesmo tempo que visa utilizar o produtor da credencial como fonte da verdade - Single Source of Truth (SSOT). Empresas utilizam a API para realizar verificações de credenciais, ao mesmo tempo que usuários mantêm suas credenciais em carteiras soberanas e decidem o que compartilhar.
 
 ## Oportunidade de Mercado
 
@@ -30,4 +30,4 @@ Estágio atual: pré-operacional / pre-seed. Busca-se captação para validaçã
 
 ---
 
-**Posicionamento estratégico em uma frase:** A Ultima Forma é a infraestrutura neutra que orquestra credenciais de identidade com consentimento do titular, permitindo que empresas reduzam custos de KYC e usuários mantenham soberania sobre seus dados.
+**Posicionamento estratégico em uma frase:** A Ultima Forma é a infraestrutura neutra que orquestra credenciais de identidade com consentimento do titular, permitindo que empresas reduzam custos de KYC e usuários mantenham soberania sobre seus dados, provendo uma camada neutra de identifidade portátil interoperável.

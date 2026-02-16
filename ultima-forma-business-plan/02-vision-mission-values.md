@@ -18,7 +18,7 @@ A missão é orientada por métricas de adoção (verificações, clientes) e qu
 
 ### 1. Neutralidade
 
-A infraestrutura não favorece emissores, verificadores ou carteiras específicas. O design é agnóstico; a escolha permanece com o ecossistema.
+A infraestrutura não favorece emissores ou verificadores. O design é agnóstico; a escolha permanece com o ecossistema.
 
 ### 2. Consentimento em Primeiro Lugar
 
@@ -34,4 +34,4 @@ Minimização de dados, ausência de armazenamento centralizado de dados do usu�
 
 ### 5. Transparência
 
-Políticas de dados, fluxos técnicos e posicionamento regulatório são documentados e acessíveis. Evita-se opacidade em decisões que afetam titulares e clientes.
+Políticas de dados, fluxos técnicos e posicionamento regulatório são documentados e acessíveis. Evita-se a falta de transparência em decisões que afetam titulares e clientes.
