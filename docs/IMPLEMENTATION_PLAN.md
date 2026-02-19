@@ -30,6 +30,7 @@ flowchart TB
         REST[REST API]
         GQL[GraphQL pre-configurado]
         MS[Microservices Redis]
+        Worker[NestJS Worker]
         Auth[Auth + MFA TOTP]
         OpenAI[OpenAI Module]
         DB[TypeORM + PostgreSQL]
@@ -54,6 +55,8 @@ flowchart TB
     GQL --> DB
     GQL --> Vec
     MS --> Redis
+    Worker --> Redis
+    Worker --> DB
     DB --> PG
     Vec --> PGVec
 ```
@@ -62,24 +65,28 @@ flowchart TB
 
 ## 1. Estrutura do Monorepo (Nx)
 
+- **Package manager**: pnpm
 - **Workspace**: Nx monorepo com `@nx/workspace`
 - **Apps**:
   - `apps/api` - Backend NestJS
   - `apps/web` - Frontend Angular
+  - `apps/worker` - NestJS Worker (processamento assíncrono via Redis)
 - **Libs** (conforme evolução): `libs/shared-types`, `libs/api-client`
 
 Estrutura de diretórios:
 
 ```
-Ultima-Forma/
+Ultima-Forma/               # pnpm como package manager
 ├── apps/
 │   ├── api/                    # NestJS
-│   └── web/                    # Angular
+│   ├── web/                    # Angular
+│   └── worker/                 # NestJS Worker (Redis consumer)
 ├── deploy/                     # Docker Compose produção (Traefik, VPS)
 ├── libs/
 ├── ultima-forma-business-plan/ # Existente - não modificar
 ├── nx.json
 ├── package.json
+├── pnpm-lock.yaml
 └── tsconfig.base.json
 ```
 
@@ -182,6 +189,155 @@ Ultima-Forma/
 - **Validação**: Message handlers validam payload com DTOs e `class-validator`
 - **Secrets**: `REDIS_PASSWORD` em env quando autenticação habilitada
 
+### 2.7 Migrações de Banco de Dados (fully functional)
+
+Sistema de migrações TypeORM configurado e operacional. **synchronize** sempre `false` em todos os ambientes.
+
+**Estrutura**:
+
+```
+apps/api/
+├── src/
+│   ├── db/
+│   │   └── data-source.ts      # Config para CLI (carrega .env)
+│   └── migrations/
+│   │   ├── 1730000000000-InitialSchema.ts
+│   │   ├── 1730000000001-PgvectorExtension.ts
+│   │   └── ...
+│   └── ...
+```
+
+**Arquivo `data-source.ts`** (fora do NestJS DI, para o CLI):
+
+```typescript
+import { config } from 'dotenv';
+import { DataSource } from 'typeorm';
+
+config();
+
+export default new DataSource({
+  type: 'postgres',
+  host: process.env.DB_HOST || 'localhost',
+  port: +(process.env.DB_PORT || 5432),
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  migrations: [__dirname + '/../migrations/*{.ts,.js}'],
+  synchronize: false,
+  migrationsTableName: 'migrations',
+});
+```
+
+**Scripts `package.json`** (no projeto ou em `apps/api`):
+
+```json
+{
+  "db:migration:create": "typeorm-ts-node-commonjs migration:create",
+  "db:migration:generate": "typeorm-ts-node-commonjs migration:generate -d apps/api/src/db/data-source.ts",
+  "db:migration:run": "typeorm-ts-node-commonjs migration:run -d apps/api/src/db/data-source.ts",
+  "db:migration:revert": "typeorm-ts-node-commonjs migration:revert -d apps/api/src/db/data-source.ts",
+  "db:migration:show": "typeorm-ts-node-commonjs migration:show -d apps/api/src/db/data-source.ts"
+}
+```
+
+**Fluxo de trabalho**:
+
+| Comando | Uso |
+|---------|-----|
+| `pnpm run db:migration:create apps/api/src/migrations/NomeDaMigracao` | Criar migração em branco |
+| `pnpm run db:migration:generate apps/api/src/migrations/NomeDaMigracao` | Gerar migração a partir das entidades |
+| `pnpm run db:migration:run` | Executar migrações pendentes |
+| `pnpm run db:migration:revert` | Reverter última migração |
+| `pnpm run db:migration:show` | Listar status das migrações |
+
+**PGVector (raw SQL)** — migração manual para extensão e tabela com vetores:
+
+```typescript
+// 1730000000001-PgvectorExtension.ts
+import { MigrationInterface, QueryRunner } from 'typeorm';
+
+export class PgvectorExtension1730000000001 implements MigrationInterface {
+  async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS vector`);
+    await queryRunner.query(`
+      CREATE TABLE IF NOT EXISTS embeddings (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        content TEXT,
+        embedding vector(1536),
+        metadata JSONB,
+        created_at TIMESTAMPTZ DEFAULT now()
+      )
+    `);
+  }
+  async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`DROP TABLE IF EXISTS embeddings`);
+    await queryRunner.query(`DROP EXTENSION IF EXISTS vector`);
+  }
+}
+```
+
+**Workflow em produção**:
+
+A ordem deve ser sempre: **migrations primeiro** → depois subir a API. A API nunca sobe com schema desatualizado.
+
+| Etapa | Ação |
+|-------|------|
+| 1 | Deploy carrega artefatos (imagem Docker ou código) na VPS |
+| 2 | Carregar `.env.prod` (DB_HOST, DB_* apontando para Postgres de produção) |
+| 3 | Executar `pnpm run db:migration:run` (ou equivalente) **antes** de iniciar a API |
+| 4 | Se migrations falharem → **não** iniciar a API; investigar e reverter se necessário |
+| 5 | Se migrations OK → iniciar/restart da API |
+
+**Integração com Docker Compose (deploy/)**:
+
+**Recomendado — Opção C (Script de deploy / pipeline)**: Melhor opção de segurança. Migrations rodam fora dos containers de produção; API não carrega ferramentas de migration (least privilege). Auditável via CI/deploy logs.
+
+- Script `deploy/deploy.sh` ou pipeline CI: (1) executa `db:migration:run` contra o DB de produção; (2) em seguida `docker compose up -d`. A API sobe apenas após migrations concluídas.
+
+Alternativas (evitar para produção sensível):
+- **Opção A — Init container**: Serviço `migrate` em `depends_on`; container efêmero. Menor privilégio que B, porém migration tooling ainda dentro de container.
+- **Opção B — Entrypoint da API**: Não recomendado; combina migration e runtime no mesmo container (maior superfície de ataque).
+
+**Variáveis em produção**:
+- `data-source.ts` lê de `process.env`; em produção usar `DB_HOST=postgres` (nome do serviço), `DB_NAME`, `DB_USERNAME`, `DB_PASSWORD` de `.env.prod` ou secrets.
+- O comando de migration deve rodar no contexto onde essas variáveis estão disponíveis (container com mesmo `.env`, ou `env_file: .env.prod`).
+
+**Em caso de falha**:
+- Se `migration:run` falhar, a tabela `migrations` indica até qual migração foi aplicada; não commitar transação parcial.
+- Para rollback: `migration:revert` (reverte a última); repetir se necessário. Atenção: `down()` deve ser destrutivo de forma reversível quando possível.
+- Após correção, gerar nova migração e repetir o deploy.
+
+**Regras**:
+
+- Revisar migrações geradas antes de commitar; ajustar SQL se necessário
+- Nunca editar migração já aplicada em produção; criar nova migração para correções
+- Testar `up` e `down` em ambiente de dev/staging
+
+### 2.7.1 Segurança obrigatória (Migrations)
+
+- Credenciais do banco via variáveis de ambiente; nunca em `data-source.ts`
+- Migrações versionadas no repositório; não gerar em runtime
+
+### 2.8 NestJS Worker (apps/worker)
+
+Aplicação NestJS standalone que consome jobs do Redis via **[BullMQ](https://bullmq.io/)**; utilizada quando necessário para processamento assíncrono pesado ou em background.
+
+- **BullMQ**: Message queue e background jobs para Node.js sobre Redis; retry com backoff, delayed jobs, rate limiting, job flows, cron/recurring jobs.
+- **Arquitetura**: App NestJS com `@nestjs/bullmq`; `Queue` na API para enfileirar; `Worker` no apps/worker para processar. Redis como broker.
+- **Uso típico**: Jobs pesados (embeddings, processamento OpenAI, notificações em lote), tarefas agendadas, filas com retry automático.
+- **Shared code**: Reutilizar libs ou módulos (TypeORM, OpenAI, Vector) via `libs/` quando o worker precisar acessar DB ou serviços externos.
+- **Docker**: Serviço `worker` no docker-compose; `depends_on: redis`; escala independente da API.
+- **Pré-implementado**: Estrutura base; fila stub (ex: `tasks`) com processor; API injeta `Queue` para adicionar jobs.
+
+**Integração API ↔ Worker**: A API registra `BullModule.forRoot()` e `BullModule.registerQueue()`; injeta `@InjectQueue('tasks')` para enfileirar. O worker usa `@Processor('tasks')` para processar. Mesmo Redis, filas BullMQ.
+
+**Pacotes**: `@nestjs/bullmq`, `bullmq`.
+
+### 2.8.1 Segurança obrigatória (Worker)
+
+- Mesmas regras de Redis e validação que microservices; credenciais via env.
+
 ---
 
 ## 3. Autenticação e MFA
@@ -278,6 +434,36 @@ Ultima-Forma/
 - **CSP**: Content Security Policy configurada no servidor/proxy
 - Conteúdo dinâmico (markdown) sempre sanitizado
 
+### 4.6 Produção: Docker + Nginx (production-grade)
+
+**Dockerfile** multi-stage para `apps/web`:
+- **Stage 1 (build)**: Node image; `pnpm install`; `pnpm run build` (Angular production, `--configuration=production`)
+- **Stage 2 (serve)**: `nginx:alpine`; copia artefatos de `dist/` para `/usr/share/nginx/html`; copia `nginx.conf`
+
+**Arquivo `apps/web/nginx.conf`** (production-scalable):
+
+- **worker_processes** `auto`; `worker_connections` adequado (ex: 1024)
+- **gzip** on; tipos: text/css, application/javascript, application/json
+- **Caching**: `expires` para assets com hash (1y); `index.html` sem cache ou curto
+- **SPA routing**: `location / { try_files $uri $uri/ /index.html; }`
+- **Security headers**: `add_header X-Frame-Options "SAMEORIGIN"`; `X-Content-Type-Options "nosniff"`
+- **Client body size**: `client_max_body_size` se uploads forem necessários
+- **Listen**: porta 80 no container; Traefik faz proxy
+
+**Estrutura**:
+
+```
+apps/web/
+├── Dockerfile
+├── nginx.conf
+└── ...
+```
+
+### 4.6.1 Segurança obrigatória (Docker/nginx Web)
+
+- Imagem nginx:alpine (superfície mínima)
+- Headers de segurança; sem expor versões
+
 ---
 
 ## 5. Comunicação Frontend-Backend
@@ -298,8 +484,8 @@ Ultima-Forma/
 
 - `docker-compose.yml` com:
   - PostgreSQL 16 + pgvector
-  - Redis 7 (para microservices transport)
-  - (Opcional) API e Web em containers para dev
+  - Redis 7 (para microservices e worker)
+  - (Opcional) API, Web e Worker em containers para dev
 - `.env` para desenvolvimento local (localhost); `.env.example` como template de produção (copiar para `.env.prod` no VPS)
 
 ### 6.1 Segurança obrigatória (Docker)
@@ -313,10 +499,17 @@ Ultima-Forma/
 
 Compose production-grade para deploy em VPS remoto com **Traefik** como reverse proxy e gerenciamento de certificados HTTPS automáticos (Let's Encrypt).
 
+**Script `deploy.sh`** (Opção C — recomendada):
+1. Carrega `.env.prod`
+2. Executa `db:migration:run` (via `docker run` temporário ou `pnpm run` no host com DB acessível)
+3. Se migrations OK → `docker compose -f docker-compose.prod.yml up -d`
+4. Se migrations falharem → exit 1; não sobe a API
+
 **Estrutura sugerida**:
 
 ```
 deploy/
+├── deploy.sh                  # Script de deploy (migrations + compose up)
 ├── docker-compose.prod.yml    # Stack principal
 ├── traefik/
 │   ├── traefik.yml            # Config estática (providers, entrypoints, certificatesResolvers)
@@ -332,12 +525,15 @@ deploy/
 
 **Serviços e rotas**:
 - **api**: `api.ultimaforma.id` → container API
-- **web**: `app.ultimaforma.id` ou `ultimaforma.id` → container Web (Nginx/Caddy servindo build estático Angular)
+- **web**: `app.ultimaforma.id` ou `ultimaforma.id` → container Web (Nginx servindo build Angular; ver `apps/web/Dockerfile` e `nginx.conf`)
 - Labels Traefik por serviço: `traefik.http.routers.*.rule`, `traefik.http.routers.*.entrypoints`, `traefik.http.routers.*.tls.certresolver`
 
 **Variáveis de ambiente** (`.env.prod`):
 - `DOMAIN=ultimaforma.id`, `API_SUBDOMAIN=api`, `APP_SUBDOMAIN=app`, `EMAIL_LETSENCRYPT` (para notificações ACME)
 - Secrets: `DB_*`, `JWT_*`, `OPENAI_API_KEY`, `REDIS_*`, etc.
+
+**Migrations em produção**:
+- Usar **Opção C** (script de deploy): `deploy.sh` executa `db:migration:run` e depois `docker compose up -d`. Ver seção 2.7 workflow em produção.
 
 **Requisitos VPS**:
 - Docker e Docker Compose instalados
@@ -355,18 +551,20 @@ deploy/
 
 ## 7. Ordem de Implementação Sugerida
 
-1. Criar workspace Nx e apps (api, web)
-2. Configurar backend: TypeORM, PostgreSQL, módulos base
+1. Criar workspace Nx e apps (api, web, worker)
+2. Configurar backend: TypeORM, PostgreSQL, módulos base, migrações (2.7)
 3. Configurar PGVector (migration + módulo stub)
 4. Implementar auth + MFA (backend e frontend)
 5. Integrar OpenAI no backend
 6. Pré-configurar GraphQL no backend
 7. Pré-configurar microservices (hybrid app + Redis)
-8. Configurar frontend: PrimeNG, Tailwind, dark mode padrão
-9. Implementar i18n no frontend
-10. Implementar visualizador de documentação Markdown (base em ultima-forma-business-plan)
-11. Integrar frontend com API (login, docs)
-12. Docker Compose produção (Traefik + HTTPS automático para VPS)
+8. Pré-configurar NestJS Worker (apps/worker)
+9. Configurar frontend: PrimeNG, Tailwind, dark mode padrão
+10. Implementar i18n no frontend
+11. Implementar visualizador de documentação Markdown (base em ultima-forma-business-plan)
+12. Integrar frontend com API (login, docs)
+13. Angular production: Dockerfile + nginx.conf (4.6)
+14. Docker Compose produção (Traefik + HTTPS automático para VPS)
 
 ---
 
@@ -381,7 +579,7 @@ A implementação deve seguir o [OWASP Top 10](https://owasp.org/www-project-top
 | A03 Injection | Queries parametrizadas, class-validator, sanitização |
 | A04 Insecure Design | Princípios deste plano; defesa em profundidade |
 | A05 Security Misconfiguration | Helmet, CORS estrito, CSP, sem sync em prod |
-| A06 Vulnerable Components | Dependências atualizadas; auditoria (npm audit) |
+| A06 Vulnerable Components | Dependências atualizadas; auditoria (`pnpm audit`) |
 | A07 Auth Failures | MFA obrigatório, JWT curto, lockout, refresh tokens |
 | A08 Integrity Failures | Verificação de assinaturas, integridade de dados |
 | A09 Logging Failures | Logs sem PII/tokens; auditoria de eventos sensíveis |
@@ -423,17 +621,19 @@ flowchart TB
 | # | Etapa | Status | Data | Verificação de Segurança | Observações |
 |---|-------|--------|------|--------------------------|-------------|
 | 1 | Workspace Nx + apps | Pendente | - | - | |
-| 2 | Backend TypeORM, PostgreSQL | Pendente | - | Checklist 2.1.1 | |
+| 2 | Backend TypeORM, PostgreSQL + Migrações | Pendente | - | Checklists 2.1.1, 2.7.1 | |
 | 3 | PGVector | Pendente | - | Checklist 2.4.1 | |
 | 4 | Auth + MFA | Pendente | - | Checklists 3.2.1, 3.3.1 | |
 | 5 | OpenAI | Pendente | - | Checklist 2.5.1 | |
 | 6 | GraphQL | Pendente | - | Checklist 2.3.1 | |
 | 7 | Microservices (hybrid + Redis) | Pendente | - | Checklist 2.6.1 | |
-| 8 | Frontend PrimeNG, Tailwind, dark | Pendente | - | Checklist 4.5.1 | |
-| 9 | i18n | Pendente | - | - | |
-| 10 | Visualizador Markdown | Pendente | - | Sanitização ngx-markdown | |
-| 11 | Integração frontend-API | Pendente | - | Checklists 5.1, 6.1 | |
-| 12 | Docker Compose produção (Traefik + VPS) | Pendente | - | Checklist 6.2.1 | |
+| 8 | NestJS Worker (apps/worker) | Pendente | - | Checklist 2.8.1 | |
+| 9 | Frontend PrimeNG, Tailwind, dark | Pendente | - | Checklist 4.5.1 | |
+| 10 | i18n | Pendente | - | - | |
+| 11 | Visualizador Markdown | Pendente | - | Sanitização ngx-markdown | |
+| 12 | Integração frontend-API | Pendente | - | Checklists 5.1, 6.1 | |
+| 13 | Angular production (Dockerfile + nginx) | Pendente | - | Checklist 4.6.1 | |
+| 14 | Docker Compose produção (Traefik + VPS) | Pendente | - | Checklist 6.2.1 | |
 
 **Nota**: Marque uma etapa como concluída somente após validar o checklist de segurança correspondente.
 
@@ -443,3 +643,8 @@ flowchart TB
 - **2025-02-16**: Adicionados princípios obrigatórios de produção e segurança; checklists de segurança por seção; alinhamento OWASP; diagrama de camadas; coluna de verificação de segurança na tabela de progresso. Regra Cursor `.cursor/rules/production-security.mdc` criada.
 - **2025-02-16**: Adicionada seção 2.6 Microservices pré-configurados (hybrid app NestJS + Redis Pub/Sub); Redis no docker-compose; nova etapa 7 na ordem de implementação.
 - **2025-02-16**: Adicionada seção 6.2 Docker Compose produção para VPS com Traefik; certificados HTTPS automáticos (Let's Encrypt); nova etapa 12.
+- **2025-02-16**: Adicionada seção 2.7 Migrações de banco de dados (fully functional): data-source.ts, scripts CLI, fluxo generate/run/revert, exemplo PGVector raw SQL, integração deploy.
+- **2025-02-16**: Migrations em produção: Opção C (deploy.sh) recomendada; least privilege, auditável; deploy.sh adicionado à estrutura e ao fluxo.
+- **2025-02-16**: Package manager alterado para pnpm em todo o plano.
+- **2025-02-16**: Adicionado NestJS Worker (apps/worker); Angular production Dockerfile + nginx.conf escalável; etapas 8 e 13.
+- **2025-02-16**: NestJS Worker atualizado para usar [BullMQ](https://bullmq.io/) (@nestjs/bullmq, bullmq); retry, delayed jobs, filas.
