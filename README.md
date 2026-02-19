@@ -46,6 +46,8 @@ Meta: predominância de receita recorrente (assinatura + SLA).
 
 ## Estrutura do Projeto
 
+- **[docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md)** — Plano de implementação técnica (Nx, NestJS, Angular, PGVector, OpenAI, MFA, etc.) com controle de progresso
+
 ```
 ultima-forma-business-plan/   # Plano de negócio completo
 ├── 01-executive-summary.md
