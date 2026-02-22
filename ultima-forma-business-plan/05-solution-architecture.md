@@ -2,18 +2,18 @@
 
 ## Componentes Principais
 
-### 1. Carteira de Identidade
+### 1. Carteira (Wallet) de Identidade
 
-Aplicação controlada pelo usuário que armazena credenciais de forma soberana. O titular decide quais credenciais compartilhar, com quem e em qual momento. A Ultima Forma não retém cópias das credenciais; a carteira pode ser hospedada localmente ou em ambiente escolhido pelo usuário.
+Aplicação controlada pelo usuário que armazena credenciais de forma soberana. O titular decide quais credenciais compartilhar, com quem e em qual momento. A Ultima Forma não retém cópias das credenciais; a carteira será hospedada localmente em seu dispositivo inteligente. A utilização de tecnologia blockchain também é factível em outro momento, tanto para rastreamento de atividades quanto para wallet em si.
 
 **Características principais:**
-- Armazenamento descentralizado (dispositivo do usuário ou provedor de sua escolha)
+- Armazenamento descentralizado (dispositivo do usuário)
 - Consentimento granular por verificação
-- Suporte a padrões W3C Verifiable Credentials
+- Suporte a padrões W3C* Verifiable Credentials
 
 ### 2. Plataforma de Orquestração
 
-Backend que conecta emissores, verificadores e carteiras sem centralizar dados de identidade. Gerencia fluxos de emissão e verificação, resolução de DIDs, validação de assinaturas e registro de auditoria (logs de consentimento, não conteúdo das credenciais).
+Backend que conecta emissores, verificadores e carteiras sem centralizar dados de identidade. Gerencia fluxos de emissão e verificação, resolução de DID*, validação de assinaturas e registro de auditoria (logs de consentimento, não conteúdo das credenciais).
 
 ### 3. Emissores de Credenciais
 
@@ -21,7 +21,7 @@ Entidades que emitem credenciais verificáveis (governos, bancos, universidades,
 
 ### 4. API Enterprise
 
-Interface para integração de verificadores (empresas que precisam validar atributos). Permite solicitar verificação de credenciais específicas, receber resultados attestados e integrar fluxos de KYC/AML existentes.
+API* para integração de verificadores (empresas que precisam validar atributos). Permite solicitar verificação de credenciais específicas, receber resultados attestados e integrar fluxos de KYC*/AML* existentes.
 
 ---
 
@@ -76,3 +76,13 @@ A plataforma permite que verificadores definam quais níveis aceitam para cada t
 - **Zero-knowledge / selective disclosure**: Possibilidade de revelar apenas atributos necessários, não a credencial inteira.
 - **Sem armazenamento centralizado**: A plataforma não mantém repositório de credenciais do usuário.
 - **Auditoria**: Registros imutáveis de consentimentos e eventos de verificação para conformidade e disputas.
+
+---
+
+## Glossário (siglas e termos)
+
+- **AML**: Anti-Money Laundering; regras e controles de combate à lavagem de dinheiro.
+- **API**: Application Programming Interface; interface para integração entre sistemas.
+- **DID**: Decentralized Identifier; identificador descentralizado.
+- **KYC**: Know Your Customer; processo de verificação de identidade de clientes.
+- **W3C**: World Wide Web Consortium; organismo de padronização (ex.: Verifiable Credentials).

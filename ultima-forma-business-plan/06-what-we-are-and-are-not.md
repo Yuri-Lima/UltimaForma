@@ -1,6 +1,6 @@
 # O Que Somos e O Que Não Somos
 
-Esta seção reduz ambiguidade regulatória e alinha expectativas de parceiros e investidores.
+Esta seção visa reduzir ambiguidade regulatória e alinhar expectativas de parceiros e investidores.
 
 ---
 
@@ -8,11 +8,11 @@ Esta seção reduz ambiguidade regulatória e alinha expectativas de parceiros e
 
 ### Infraestrutura Neutra
 
-Não favorecemos emissores, verificadores ou carteiras específicas. A arquitetura é agnóstica; a escolha de provedores permanece com o ecossistema. Isso permite interoperabilidade e evita conflitos de interesse.
+Não favorecemos emissores nem verificadores. Avaliamos, de forma pragmática e imparcial, a capacidade de cada parte em assegurar a autenticidade dos dados. A arquitetura é agnóstica, e a escolha de provedores fica a cargo do ecossistema. Isso garante interoperabilidade e reduz conflitos de interesse.
 
 ### Camada de Consentimento
 
-Garantimos que compartilhamento de dados ocorra apenas com consentimento explícito, granular e revogável do titular. Não tomamos decisões em nome do usuário sobre o que compartilhar.
+O compartilhamento de dados só acontece com consentimento explícito, granular e revogável do titular. O usuário mantém o controle total: o que compartilhar, quando e com quem.
 
 ### Motor de Interoperabilidade
 
@@ -32,7 +32,7 @@ Não avaliamos risco de crédito nem tomamos decisões de concessão. Fornecemos
 
 ### Depósito Centralizado de Dados
 
-Não armazenamos credenciais nem dados de identidade do usuário em repositórios próprios. O armazenamento soberano permanece com o titular (carteira). Reduzimos exposição regulatória e responsabilidade por vazamentos.
+Não armazenamos credenciais nem dados de identidade do usuário em repositórios próprios. O armazenamento soberano permanece com o titular (carteira - wallet). Reduzimos drasticamente exposição regulatória e responsabilidade por vazamentos.
 
 ### Autoridade de Identidade
 
@@ -46,5 +46,12 @@ Não emitimos identidades nem credenciais de identidade oficial. Conectamos emis
 |-----------|--------|
 | **Não banco** | Evita licenciamento bancário e regulação complexa; mantém escopo em infraestrutura de dados |
 | **Não provedor de crédito** | Evita regulação de crédito e scoring; foco em verificação, não decisão |
-| **Não depósito de dados** | Minimiza obrigações de LGPD/GDPR como controlador; reduz risco de vazamento e custos de conformidade |
+| **Não depósito de dados** | Minimiza obrigações de LGPD*/GDPR* como controlador; reduz risco de vazamento e custos de conformidade |
 | **Não autoridade de identidade** | Evita conflito com governos e reguladores; posiciona como facilitador, não competidor |
+
+---
+
+## Glossário (siglas e termos)
+
+- **GDPR**: General Data Protection Regulation; regulação europeia de proteção de dados.
+- **LGPD**: Lei Geral de Proteção de Dados (Brasil).
