@@ -1,0 +1,190 @@
+---
+description: Use Ultima Forma reusable form components (uf-button, uf-input, uf-select, uf-language-select) instead of raw PrimeNG or native elements
+globs: apps/web/**/*.ts
+---
+
+# Ultima Forma Reusable Components
+
+Use shared components `uf-button`, `uf-input`, `uf-select`, and `uf-language-select` for consistent form patterns across the app.
+
+## Why
+
+- Consistent API and styling
+- Single place to enforce accessibility (e.g. ariaLabel for icon-only buttons, label/id for inputs)
+- Easier to change global behavior or styling
+- Integrates with Angular Signal Forms (uf-input)
+
+---
+
+## uf-button (AppButtonComponent)
+
+Use `uf-button` instead of `p-button` (PrimeNG Button) directly.
+
+### Import
+
+```ts
+import { AppButtonComponent } from '../shared/components/app-button/app-button.component';
+```
+
+### Usage
+
+```ts
+// Primary button with click
+<uf-button label="Save" (clicked)="onSave()" />
+
+// Secondary, loading state
+<uf-button label="Submit" type="submit" severity="secondary" [loading]="loading()" />
+
+// Router link
+<uf-button label="Go to Docs" [routerLink]="['/docs']" />
+
+// Icon-only (provide ariaLabel)
+<uf-button icon="pi pi-times" severity="secondary" ariaLabel="Close" (clicked)="close()" />
+
+// Danger variant
+<uf-button label="Delete" severity="danger" (clicked)="onDelete()" />
+```
+
+### API
+
+| Input       | Type                         | Default     |
+| ----------- | ---------------------------- | ----------- |
+| label       | string                       | ''          |
+| severity    | primary \| secondary \| ...  | 'primary'   |
+| type        | 'button' \| 'submit' \| 'reset' | 'button' |
+| loading     | boolean                      | false       |
+| disabled    | boolean                      | false       |
+| icon        | string (e.g. 'pi pi-check')  | undefined   |
+| iconPos     | 'left' \| 'right' \| ...     | 'left'      |
+| routerLink  | string \| string[]           | undefined   |
+| styleClass  | string                       | ''          |
+| ariaLabel   | string                       | undefined   |
+| fluid       | boolean                      | false       |
+
+| Output  | Type  |
+| ------- | ----- |
+| clicked | Event |
+
+---
+
+## uf-input (UfInputComponent)
+
+Use `uf-input` instead of raw `<input>` or PrimeNG InputText for form fields. Integrates with **Angular Signal Forms** via `FormValueControl` (no `NG_VALUE_ACCESSOR`).
+
+### Import
+
+```ts
+import { UfInputComponent } from '../shared/components/uf-input/uf-input.component';
+import { FormField } from '@angular/forms/signals';
+```
+
+### Usage (Signal Forms)
+
+Requires `form()` and `FormField` from `@angular/forms/signals`:
+
+```ts
+// In component
+loginModel = signal({ email: '', password: '' });
+loginForm = form(this.loginModel, (p) => {
+  required(p.email, { message: 'auth.login.emailRequired' });
+  email(p.email, { message: 'auth.login.emailRequired' });
+  required(p.password, { message: 'auth.login.passwordRequired' });
+});
+
+// In template
+<uf-input [formField]="loginForm.email" [label]="'Email' | translate" id="login-email" type="email" [placeholder]="'email@example.com' | translate" />
+<uf-input [formField]="loginForm.password" [label]="'Password' | translate" id="login-password" type="password" [placeholder]="'Password' | translate" />
+```
+
+Validation errors are displayed automatically from the form schema. Use translation keys (e.g. `auth.login.emailRequired`) for `message` in validators; uf-input translates them.
+
+When `type="password"`, uf-input renders PrimeNG Password (toggle-mask, optional strength meter). Use `usePrimePassword="false"` to keep a plain input.
+
+### API
+
+| Input           | Type                         | Default   |
+| --------------- | ---------------------------- | --------- |
+| formField       | FieldTree (from Signal Forms) | required  |
+| label           | string                       | ''        |
+| id              | string                       | ''        |
+| type            | 'text' \| 'email' \| 'password' | 'text'  |
+| placeholder     | string                       | ''        |
+| styleClass      | string                       | ''        |
+| maxlength       | number \| undefined          | undefined |
+| usePrimePassword | boolean                     | true      |
+| toggleMask      | boolean                      | true      |
+| feedback        | boolean                      | false     |
+| promptLabel     | string                       | ''        |
+| weakLabel       | string                       | ''        |
+| mediumLabel     | string                       | ''        |
+| strongLabel     | string                       | ''        |
+
+When `feedback` is true, pass `auth.password.prompt`, `auth.password.weak`, etc. for translated strength labels.
+
+FormField directive binds: `value`, `disabled`, `errors`, `invalid`, `touched`, `hidden`, `readonly`.
+
+---
+
+## uf-select (UfSelectComponent)
+
+Generic dropdown for single-select. Wraps PrimeNG Select. Use for any choice from a collection of options.
+
+### Import
+
+```ts
+import { UfSelectComponent } from '../shared/components/uf-select/uf-select.component';
+```
+
+### Usage
+
+```ts
+// Options: { value: string, label: string } or any shape with optionLabel/optionValue
+options = [{ value: 'a', label: 'Option A' }, { value: 'b', label: 'Option B' }];
+selected = model<string | null>(null);
+
+<uf-select [options]="options" [(value)]="selected" optionLabel="label" optionValue="value" [placeholder]="'Select...' | translate" />
+```
+
+### API
+
+| Input       | Type              | Default   | Description              |
+| ----------- | ----------------- | --------- | ------------------------ |
+| options     | unknown[]         | required  | Array of option objects   |
+| optionLabel | string            | 'label'   | Property for display text |
+| optionValue | string            | 'value'   | Property for option value |
+| value       | model (two-way)   | -         | Selected value           |
+| placeholder | string            | ''        | Placeholder when empty    |
+| disabled    | boolean           | false     | Disabled state           |
+| styleClass  | string            | ''        | Additional CSS classes    |
+| showClear   | boolean           | false     | Show clear icon          |
+| ariaLabel   | string            | undefined | A11y label               |
+
+---
+
+## uf-language-select (UfLanguageSelectComponent)
+
+Language switcher built on uf-select. Integrates with ngx-translate. Options from `common.languages` i18n keys.
+
+### Import
+
+```ts
+import { UfLanguageSelectComponent } from '../shared/components/uf-language-select/uf-language-select.component';
+```
+
+### Usage
+
+```ts
+// No inputs required; self-contained
+<uf-language-select />
+
+// Compact mode in header
+<uf-language-select styleClass="min-w-[100px]" />
+```
+
+### API
+
+| Input     | Type   | Default           | Description                 |
+| --------- | ------ | ----------------- | --------------------------- |
+| styleClass | string | 'min-w-[120px]'  | Additional CSS classes      |
+
+Requires i18n keys: `common.language`, `common.languages.en`, `common.languages.pt-BR` (or other codes).

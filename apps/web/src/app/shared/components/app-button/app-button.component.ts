@@ -19,7 +19,7 @@ export type AppButtonSeverity =
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-button',
+  selector: 'uf-button',
   standalone: true,
   imports: [Button, ButtonDirective, RouterLink],
   template: `
