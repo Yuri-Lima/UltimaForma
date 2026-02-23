@@ -13,3 +13,4 @@ http:
       entryPoints:
         - web
       priority: 1
+      service: noop@internal

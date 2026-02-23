@@ -70,11 +70,16 @@ echo "Building and pushing images with tag: $TAG"
 cd "$PROJECT_ROOT"
 
 # Build for linux/amd64 (typical for cloud servers) even when building on ARM (e.g. Apple Silicon)
+# Use buildx for reliable cross-platform builds; fallback to plain build if buildx unavailable
 PLATFORM="linux/amd64"
 
 for app in api web worker; do
   img="${REGISTRY}/ultimaforma-${app}"
-  docker build --platform "$PLATFORM" -t "${img}:${TAG}" -f "apps/${app}/Dockerfile" .
+  if docker buildx version >/dev/null 2>&1; then
+    docker buildx build --platform "$PLATFORM" --load -t "${img}:${TAG}" -f "apps/${app}/Dockerfile" .
+  else
+    docker build --platform "$PLATFORM" -t "${img}:${TAG}" -f "apps/${app}/Dockerfile" .
+  fi
   docker tag "${img}:${TAG}" "${img}:latest"
   docker push "${img}:${TAG}"
   docker push "${img}:latest"

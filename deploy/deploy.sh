@@ -34,6 +34,9 @@ docker run --rm \
   node:22-alpine \
   sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install --frozen-lockfile && pnpm run db:migration:run"
 
+# Let's Encrypt requires acme.json to be 600 (Traefik refuses 644)
+[[ -f "$SCRIPT_DIR/traefik/acme.json" ]] && chmod 600 "$SCRIPT_DIR/traefik/acme.json"
+
 echo "Starting full stack..."
 cd "$SCRIPT_DIR"
 docker compose -f docker-compose.prod.yml --env-file "$ENV_FILE" up -d
