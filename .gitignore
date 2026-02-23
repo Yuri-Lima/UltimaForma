@@ -1,6 +1,7 @@
 # Environment and secrets
 .env
 .env.local
+deploy/.build-tag
 .env.*.local
 *.pem
 id_rsa
