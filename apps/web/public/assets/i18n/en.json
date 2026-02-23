@@ -1,0 +1,113 @@
+{
+  "common": {
+    "send": "Send",
+    "continue": "Continue",
+    "loading": "Loading...",
+    "close": "Close",
+    "verify": "Verify",
+    "language": "Language",
+    "languages": {
+      "en": "English",
+      "pt-BR": "Português"
+    }
+  },
+  "app": {
+    "title": "Ultima Forma"
+  },
+  "auth": {
+    "password": {
+      "prompt": "Enter a password",
+      "weak": "Weak",
+      "medium": "Medium",
+      "strong": "Strong"
+    },
+    "login": {
+      "title": "Continue to your workspace",
+      "email": "Email",
+      "emailPlaceholder": "email@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "Password",
+      "emailRequired": "Email is required",
+      "passwordRequired": "Password is required",
+      "continue": "Continue",
+      "signUpLink": "Don't have an account? Sign up",
+      "failed": "Login failed"
+    },
+    "register": {
+      "title": "Create your workspace",
+      "email": "Email",
+      "emailPlaceholder": "email@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "Min 8 characters",
+      "validEmailRequired": "Valid email is required",
+      "passwordMinLength": "Password must be at least 8 characters",
+      "createAccount": "Create account",
+      "logInLink": "Already have an account? Log in",
+      "failed": "Registration failed"
+    },
+    "mfa": {
+      "setup": {
+        "title": "Setup MFA",
+        "instructions": "Scan the QR code with Google Authenticator or Microsoft Authenticator.",
+        "orEnterManually": "Or enter manually: {{secret}}",
+        "codeLabel": "6-digit code",
+        "codePlaceholder": "000000",
+        "enter6Digits": "Enter 6 digits",
+        "verifyEnable": "Verify & Enable",
+        "loadFailed": "Failed to load MFA setup",
+        "invalidCode": "Invalid code"
+      },
+      "verify": {
+        "title": "MFA Verification",
+        "instructions": "Enter the 6-digit code from your authenticator app.",
+        "codeLabel": "Code",
+        "codePlaceholder": "000000",
+        "enter6Digits": "Enter 6 digits",
+        "verify": "Verify",
+        "invalidCode": "Invalid code"
+      }
+    },
+    "theme": {
+      "switchToLight": "Switch to light mode",
+      "switchToDark": "Switch to dark mode"
+    },
+    "nav": {
+      "docs": "Docs",
+      "apiHealth": "API Health",
+      "logout": "Logout",
+      "login": "Login",
+      "register": "Register"
+    }
+  },
+  "docs": {
+    "title": "Documentation",
+    "closeSidebar": "Close sidebar",
+    "openMenu": "Open doc menu",
+    "loading": "Loading documentation...",
+    "notFound": "Document not found: {{id}}"
+  },
+  "errors": {
+    "apiUnavailable": "API unavailable",
+    "apiStatus": "API: {{status}} @ {{timestamp}}"
+  },
+  "docTitles": {
+    "01-executive-summary": "Executive Summary",
+    "02-vision-mission-values": "Vision, Mission & Values",
+    "03-problem-statement": "Problem Statement",
+    "04-market-thesis": "Market Thesis",
+    "05-solution-architecture": "Solution Architecture",
+    "06-what-we-are-and-are-not": "What We Are and Aren't",
+    "07-business-model": "Business Model",
+    "08-go-to-market": "Go To Market",
+    "09-roadmap-36-months": "Roadmap 36 Months",
+    "10-technology-strategy": "Technology Strategy",
+    "11-regulatory-strategy": "Regulatory Strategy",
+    "12-competitive-landscape": "Competitive Landscape",
+    "13-moat-and-defensibility": "Moat and Defensibility",
+    "14-unit-economics": "Unit Economics",
+    "15-risk-analysis": "Risk Analysis",
+    "16-fundraising-strategy": "Fundraising Strategy",
+    "17-appendix": "Appendix",
+    "plano-negocios-kb": "Business Plan (KB)"
+  }
+}

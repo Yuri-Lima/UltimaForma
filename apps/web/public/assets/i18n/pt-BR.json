@@ -1,0 +1,113 @@
+{
+  "common": {
+    "send": "Enviar",
+    "continue": "Continuar",
+    "loading": "Carregando...",
+    "close": "Fechar",
+    "verify": "Verificar",
+    "language": "Idioma",
+    "languages": {
+      "en": "English",
+      "pt-BR": "Português"
+    }
+  },
+  "app": {
+    "title": "Ultima Forma"
+  },
+  "auth": {
+    "password": {
+      "prompt": "Digite uma senha",
+      "weak": "Fraca",
+      "medium": "Média",
+      "strong": "Forte"
+    },
+    "login": {
+      "title": "Continue para seu workspace",
+      "email": "E-mail",
+      "emailPlaceholder": "email@exemplo.com",
+      "password": "Senha",
+      "passwordPlaceholder": "Senha",
+      "emailRequired": "E-mail é obrigatório",
+      "passwordRequired": "Senha é obrigatória",
+      "continue": "Continuar",
+      "signUpLink": "Não tem conta? Cadastre-se",
+      "failed": "Falha no login"
+    },
+    "register": {
+      "title": "Crie seu workspace",
+      "email": "E-mail",
+      "emailPlaceholder": "email@exemplo.com",
+      "password": "Senha",
+      "passwordPlaceholder": "Mín. 8 caracteres",
+      "validEmailRequired": "E-mail válido é obrigatório",
+      "passwordMinLength": "A senha deve ter pelo menos 8 caracteres",
+      "createAccount": "Criar conta",
+      "logInLink": "Já tem conta? Entrar",
+      "failed": "Falha no cadastro"
+    },
+    "mfa": {
+      "setup": {
+        "title": "Configurar MFA",
+        "instructions": "Escaneie o código QR com o Google Authenticator ou Microsoft Authenticator.",
+        "orEnterManually": "Ou insira manualmente: {{secret}}",
+        "codeLabel": "Código de 6 dígitos",
+        "codePlaceholder": "000000",
+        "enter6Digits": "Digite 6 dígitos",
+        "verifyEnable": "Verificar e Ativar",
+        "loadFailed": "Falha ao carregar configuração MFA",
+        "invalidCode": "Código inválido"
+      },
+      "verify": {
+        "title": "Verificação MFA",
+        "instructions": "Digite o código de 6 dígitos do seu app autenticador.",
+        "codeLabel": "Código",
+        "codePlaceholder": "000000",
+        "enter6Digits": "Digite 6 dígitos",
+        "verify": "Verificar",
+        "invalidCode": "Código inválido"
+      }
+    },
+    "theme": {
+      "switchToLight": "Alternar para modo claro",
+      "switchToDark": "Alternar para modo escuro"
+    },
+    "nav": {
+      "docs": "Documentos",
+      "apiHealth": "API Status",
+      "logout": "Sair",
+      "login": "Entrar",
+      "register": "Cadastrar"
+    }
+  },
+  "docs": {
+    "title": "Documentação",
+    "closeSidebar": "Fechar menu",
+    "openMenu": "Abrir menu de documentos",
+    "loading": "Carregando documentação...",
+    "notFound": "Documento não encontrado: {{id}}"
+  },
+  "errors": {
+    "apiUnavailable": "API indisponível",
+    "apiStatus": "API: {{status}} @ {{timestamp}}"
+  },
+  "docTitles": {
+    "01-executive-summary": "Resumo Executivo",
+    "02-vision-mission-values": "Visão, Missão e Valores",
+    "03-problem-statement": "Declaração do Problema",
+    "04-market-thesis": "Tese de Mercado",
+    "05-solution-architecture": "Arquitetura da Solução",
+    "06-what-we-are-and-are-not": "O que Somos e Não Somos",
+    "07-business-model": "Modelo de Negócios",
+    "08-go-to-market": "Go To Market",
+    "09-roadmap-36-months": "Roadmap 36 Meses",
+    "10-technology-strategy": "Estratégia de Tecnologia",
+    "11-regulatory-strategy": "Estratégia Regulatória",
+    "12-competitive-landscape": "Panorama Competitivo",
+    "13-moat-and-defensibility": "Vantagem e Defensibilidade",
+    "14-unit-economics": "Economia Unitária",
+    "15-risk-analysis": "Análise de Riscos",
+    "16-fundraising-strategy": "Estratégia de Captação",
+    "17-appendix": "Apêndice",
+    "plano-negocios-kb": "Plano de Negócios (KB)"
+  }
+}
