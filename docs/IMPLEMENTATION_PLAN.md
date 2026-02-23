@@ -83,7 +83,7 @@ Ultima-Forma/               # pnpm como package manager
 │   └── worker/                 # NestJS Worker (Redis consumer)
 ├── deploy/                     # Docker Compose produção (Traefik, VPS)
 ├── libs/
-├── ultima-forma-business-plan/ # Existente - não modificar
+├── ultima-forma-business-plan/ # pt-BR/ (português) + en/ (inglês)
 ├── nx.json
 ├── package.json
 ├── pnpm-lock.yaml
@@ -413,8 +413,10 @@ Aplicação NestJS standalone que consome jobs do Redis via **[BullMQ](https://b
 
 - Pacote: `ngx-markdown` (^21.x, compatível com Angular 17+)
 - Páginas que listam e exibem documentos de `ultima-forma-business-plan/`
-- **Leitura somente**: os arquivos .md serão servidos via API (ou copiados para `assets` em build) e renderizados no frontend; **nenhuma alteração** nos arquivos originais
-- Estrutura sugerida: rota `/docs` com sidebar listando os 17 documentos; rota `/docs/:id` exibindo o markdown renderizado
+- **Leitura somente**: os arquivos .md são copiados para `assets/docs` em build e renderizados no frontend
+- **Documentação localizada**: estrutura `en/` e `pt-BR/` em `ultima-forma-business-plan/`; o visualizador carrega o conteúdo conforme o idioma do usuário (`TranslateService.currentLang`); fallback para `en` se a tradução não existir
+- **Build**: `project.json` copia `ultima-forma-business-plan/**/*.md` para `assets/docs/`, preservando `en/` e `pt-BR/`
+- Rota `/docs` com sidebar listando os 18 documentos; rota `/docs/:id` exibindo o markdown renderizado; conteúdo recarrega ao trocar o idioma (`uf-language-select`)
 
 ### 4.4 i18n (Angular)
 
@@ -619,7 +621,7 @@ flowchart TB
 
 ## 10. Restrições e Observações
 
-- **Documentos ultima-forma-business-plan**: Não alterar. Usar apenas como fonte de conteúdo para leitura e exibição. Se for necessário copiar ou transformar para servir via API/assets, solicitar autorização antes de qualquer mudança nos arquivos originais.
+- **Documentos ultima-forma-business-plan**: Estrutura atual: `pt-BR/` (português original) e `en/` (traduções em inglês). Arquivos servidos via `assets/docs` em build; não modificar a estrutura de pastas nem os IDs dos documentos sem atualizar `DOC_LIST` e `DocViewComponent`. Script `publish-to-youtrack-kb.sh` publica em artigos separados: UF-A-4 (Plano de Negocios / pt-BR) e UF-A-5 (Business Plan / en).
 - **Versões**: Manter dependências nas versões mais recentes estáveis no momento da implementação.
 - **MFA**: Obrigatório para todos os usuários; não permitir acesso sem MFA ativo após primeiro login.
 
@@ -647,6 +649,7 @@ flowchart TB
 | 14 | Docker Compose produção (Traefik + VPS) | Concluído | 2025-02-19 | Checklist 6.2.1 | deploy/, traefik, deploy.sh |
 | 15 | Angular Zoneless + OnPush | Concluído | 2025-02-19 | - | provideZonelessChangeDetection, signals em DocViewComponent, OnPush em todos os componentes, regra angular-onpush.mdc |
 | 16 | Build: budgets e CommonJS | Concluído | 2025-02-19 | - | maximumWarning 700kb, allowedCommonJsDependencies qrcode |
+| 17 | Documentação localizada (en/pt-BR) | Concluído | 2025-02-23 | - | Estrutura `ultima-forma-business-plan/{en,pt-BR}/`; DocViewComponent carrega por `currentLang`; 18 arquivos traduzidos; `publish-to-youtrack-kb.sh` com LOCALE (UF-A-4 pt-BR, UF-A-5 en) |
 
 **Nota**: Marque uma etapa como concluída somente após validar o checklist de segurança correspondente.
 
@@ -662,3 +665,4 @@ flowchart TB
 - **2025-02-16**: Adicionado NestJS Worker (apps/worker); Angular production Dockerfile + nginx.conf escalável; etapas 8 e 13.
 - **2025-02-16**: NestJS Worker atualizado para usar [BullMQ](https://bullmq.io/) (@nestjs/bullmq, bullmq); retry, delayed jobs, filas.
 - **2025-02-19**: Angular atualizado para ^21.x; PrimeNG ^21.x. Seção 4.1.1 Angular Zoneless: provideZonelessChangeDetection, OnPush obrigatório, regra Cursor angular-onpush.mdc. Etapas 15–16: zoneless implementado, build config (budgets 700kb, allowedCommonJsDependencies qrcode).
+- **2025-02-23**: Documentação localizada (Option A): Seção 4.3 atualizada — estrutura `en/` e `pt-BR/` em `ultima-forma-business-plan/`; DocViewComponent carrega markdown por idioma; fallback para `en`. Seção 10 atualizada — restrições refletem nova estrutura e script YouTrack. Etapa 17: 18 arquivos traduzidos; `publish-to-youtrack-kb.sh` com LOCALE (pt-BR → UF-A-4 Plano de Negocios; en → UF-A-5 Business Plan).

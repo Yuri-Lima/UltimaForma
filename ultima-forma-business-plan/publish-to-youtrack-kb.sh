@@ -11,15 +11,19 @@
 #   or
 #   YOUTRACK_TOKEN="your-permanent-token" ./publish-to-youtrack-kb.sh
 #
+# Optional: LOCALE env var selects language (en or pt-BR). Default: en
+#   LOCALE=pt-BR ./publish-to-youtrack-kb.sh
+#
 # To create a token: YouTrack → Profile → Account Security → Permanent tokens
 
 set -e
 
 YOUTRACK_URL="${YOUTRACK_URL:-https://youtrack.ultimaforma.id}"
 PROJECT_KEY="${PROJECT_KEY:-UF}"
+LOCALE="${LOCALE:-en}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-CONTENT_FILE="${SCRIPT_DIR}/plano-negocios-kb.md"
+CONTENT_FILE="${SCRIPT_DIR}/${LOCALE}/plano-negocios-kb.md"
 
 # Load .env from project root if YOUTRACK_TOKEN not already set
 if [ -z "$YOUTRACK_TOKEN" ] && [ -f "$PROJECT_ROOT/.env" ]; then
@@ -41,7 +45,12 @@ if [ ! -f "$CONTENT_FILE" ]; then
   exit 1
 fi
 
-SUMMARY="Plano de Negocios"
+# Locale-specific article titles (en and pt-BR are separate articles)
+case "$LOCALE" in
+  en)      SUMMARY="Business Plan" ;;
+  pt-BR)   SUMMARY="Plano de Negocios" ;;
+  *)       SUMMARY="Business Plan" ;;
+esac
 
 # Check for existing article to avoid duplicates
 echo "Checking for existing article..."
@@ -56,6 +65,7 @@ EXISTING_ID=$(echo "$ARTICLES" | jq -r --arg summary "$SUMMARY" --arg project "$
 echo "Publishing article to YouTrack Knowledge Base..."
 echo "URL: $YOUTRACK_URL"
 echo "Project: $PROJECT_KEY"
+echo "Locale: $LOCALE (Summary: $SUMMARY)"
 echo ""
 
 if [ -n "$EXISTING_ID" ]; then

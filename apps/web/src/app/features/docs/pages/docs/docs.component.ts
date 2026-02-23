@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppButtonComponent } from '../../../../shared/components/app-button/app-button.component';
 import { DOC_LIST } from '../../doc-list';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-docs',
   standalone: true,
-  imports: [RouterModule, AppButtonComponent],
+  imports: [RouterModule, AppButtonComponent, TranslatePipe],
   template: `
     <div class="flex gap-6">
       <!-- Mobile overlay -->
@@ -17,7 +18,7 @@ import { DOC_LIST } from '../../doc-list';
           (click)="sidebarOpen.set(false)"
           role="button"
           tabindex="-1"
-          aria-label="Close sidebar"
+          [attr.aria-label]="'docs.closeSidebar' | translate"
         ></div>
       }
       <!-- Sidebar: drawer on mobile, fixed on desktop -->
@@ -28,12 +29,14 @@ import { DOC_LIST } from '../../doc-list';
         style="background-color: var(--color-surface); border-color: var(--color-border)"
       >
         <div class="mb-4 flex items-center justify-between">
-          <h2 class="text-lg font-semibold" style="color: var(--color-text)">Documentação</h2>
-          <app-button
+          <h2 class="text-lg font-semibold" style="color: var(--color-text)">
+            {{ 'docs.title' | translate }}
+          </h2>
+          <uf-button
             icon="pi pi-times"
             severity="secondary"
             styleClass="rounded p-2 md:hidden"
-            ariaLabel="Close sidebar"
+            [ariaLabel]="'docs.closeSidebar' | translate"
             (clicked)="sidebarOpen.set(false)"
           />
         </div>
@@ -46,18 +49,18 @@ import { DOC_LIST } from '../../doc-list';
               (click)="sidebarOpen.set(false)"
               class="docs-nav-link rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-offset-2"
             >
-              {{ doc.title }}
+              {{ 'docTitles.' + doc.id | translate }}
             </a>
           }
         </nav>
       </aside>
       <!-- Main content -->
       <section class="min-w-0 flex-1 md:pl-0">
-        <app-button
+        <uf-button
           icon="pi pi-bars"
           severity="secondary"
           styleClass="mb-4 rounded p-2 md:hidden"
-          ariaLabel="Open doc menu"
+          [ariaLabel]="'docs.openMenu' | translate"
           (clicked)="sidebarOpen.set(true)"
         />
         <router-outlet />
