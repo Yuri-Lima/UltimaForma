@@ -1,4 +1,3 @@
-import '@angular/localize/init';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -7,6 +6,7 @@ import Aura from '@primeuix/themes/aura';
 import { App } from './app';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -18,6 +18,7 @@ describe('App', () => {
         providePrimeNG({ theme: { preset: Aura } }),
         provideRouter([]),
         provideHttpClient(),
+        provideTranslateService({ lang: 'en' }),
       ],
     }).compileComponents();
   });

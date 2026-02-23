@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -8,4 +9,14 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App {}
+export class App {
+  private translate = inject(TranslateService);
+
+  constructor() {
+    this.translate.addLangs(['en', 'pt-BR']);
+    this.translate.setFallbackLang('en');
+    const browserLang = this.translate.getBrowserLang();
+    const lang = browserLang?.startsWith('pt') ? 'pt-BR' : 'en';
+    this.translate.use(lang);
+  }
+}

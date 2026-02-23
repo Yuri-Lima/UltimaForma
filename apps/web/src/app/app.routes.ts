@@ -1,5 +1,4 @@
 import { Route } from '@angular/router';
-import { docsRoutes } from './features/docs/docs.routes';
 import { authGuard } from './core/guards/auth.guard';
 import { LayoutComponent } from './layout/layout.component';
 import { authRoutes } from './features/auth/auth.routes';
