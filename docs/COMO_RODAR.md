@@ -125,6 +125,7 @@ O frontend usa proxy para `/api` → `http://localhost:3100`.
 
 | Comando                       | Descrição                        |
 |------------------------------|----------------------------------|
+| `deploy/build-and-push.sh [versão]` | Build e push de imagens prod para Docker Hub |
 | `pnpm run docker:dev:up`     | Sobe Postgres e Redis (Docker)   |
 | `pnpm run docker:dev:down`   | Para Postgres e Redis            |
 | `pnpm run start:api`         | Inicia a API NestJS              |
@@ -142,8 +143,31 @@ O frontend usa proxy para `/api` → `http://localhost:3100`.
 
 ### Preparação
 
-1. Copie `.env.example` para `deploy/.env.prod`
+1. Copie `deploy/.env.prod.example` para `deploy/.env.prod`
 2. Preencha todas as variáveis (incluindo `JWT_SECRET`, `DB_PASSWORD`, etc.)
+
+### Build e push de imagens para Docker Hub
+
+As imagens de produção (api, web, worker) são construídas localmente e enviadas ao Docker Hub antes do deploy. No servidor, o compose apenas faz pull dessas imagens.
+
+**Fluxo:**
+
+1. Faça login: `docker login`
+2. Execute o script de build e push:
+
+```bash
+cd deploy
+./build-and-push.sh 1.0.0
+```
+
+O script determina a versão por: argumento CLI → git tag → `package.json`. Exemplos:
+
+- `./build-and-push.sh 1.0.0` — usa a versão informada
+- `./build-and-push.sh` — usa git tag (ex: `v1.0.0`) ou versão do `package.json`
+
+As imagens são publicadas como `yurimatoslima/ultimaforma-{api,web,worker}:<versão>` e `:latest`.
+
+**Fixar versão em produção:** defina `IMAGE_TAG=1.0.0` em `deploy/.env.prod` para garantir deploys reproduzíveis. Se omitir, será usada a tag `latest`.
 
 ### Deploy com Docker
 
@@ -158,6 +182,12 @@ O script:
 2. Aguarda o Postgres ficar pronto
 3. Executa as migrações
 4. Sobe API, Web e Worker com Traefik (HTTPS via Let's Encrypt)
+
+**Alternativa – build local (sem pull):** para testar builds localmente sem enviar ao Docker Hub:
+
+```bash
+docker compose -f docker-compose.prod.yml -f docker-compose.prod.build.yml --env-file .env.prod up -d
+```
 
 ### Arquitetura de Produção
 

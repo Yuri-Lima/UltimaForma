@@ -44,9 +44,7 @@ services:
     restart: unless-stopped
 
   api:
-    build:
-      context: ..
-      dockerfile: apps/api/Dockerfile
+    image: yurimatoslima/ultimaforma-api:${IMAGE_TAG:-latest}
     environment:
       - DB_HOST=postgres
       - DB_PORT=5432
@@ -73,9 +71,7 @@ services:
     restart: unless-stopped
 
   web:
-    build:
-      context: ..
-      dockerfile: apps/web/Dockerfile
+    image: yurimatoslima/ultimaforma-web:${IMAGE_TAG:-latest}
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.web.rule=Host(`${APP_SUBDOMAIN}.${DOMAIN}`) || Host(`${DOMAIN}`)"
@@ -85,9 +81,7 @@ services:
     restart: unless-stopped
 
   worker:
-    build:
-      context: ..
-      dockerfile: apps/worker/Dockerfile
+    image: yurimatoslima/ultimaforma-worker:${IMAGE_TAG:-latest}
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
