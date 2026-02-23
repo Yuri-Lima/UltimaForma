@@ -1,1 +1,21 @@
-{"mcpServers":{"youtrack":{"name":"Youtrack Ultima Forma","type":"http","url":"https://youtrack.ultimaforma.id/mcp","headers":{"Authorization":"Bearer perm-WUxpbWE=.NDgtMQ==.GSzKtYuHcHoKpyEA3a1BpGbCNyl1BU"}},"angular-cli":{"command":"npx","args":["-y","@angular/cli","mcp"],"type":"stdio"},"primeng":{"command":"npx","args":["-y","@primeng/mcp"]}}}
+{
+  "mcpServers": {
+    "youtrack": {
+      "name": "Youtrack Ultima Forma",
+      "type": "http",
+      "url": "https://youtrack.ultimaforma.id/mcp",
+      "headers": {
+        "Authorization": "Bearer perm-WUxpbWE=.NDgtMQ==.GSzKtYuHcHoKpyEA3a1BpGbCNyl1BU"
+      }
+    },
+    "angular-cli": {
+      "command": "npx",
+      "args": ["-y", "@angular/cli", "mcp"],
+      "type": "stdio"
+    },
+    "primeng": {
+      "command": "npx",
+      "args": ["-y", "@primeng/mcp"]
+    }
+  }
+}
