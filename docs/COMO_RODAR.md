@@ -133,6 +133,7 @@ O frontend usa proxy para `/api` → `http://localhost:3100`.
 | `pnpm run start:worker`      | Inicia o worker BullMQ           |
 | `pnpm run build:api`         | Build da API                     |
 | `pnpm run build:web`         | Build do frontend                |
+| `pnpm nx build shared`       | Build da lib compartilhada       |
 | `pnpm run db:migration:run`  | Executa migrações                |
 | `pnpm run db:migration:show` | Lista migrações aplicadas        |
 | `pnpm run db:migration:revert` | Reverte última migração        |

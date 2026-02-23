@@ -8,11 +8,13 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import {
+  LoginDto,
+  RegisterDto,
+  MfaVerifyDto,
+  RefreshDto,
+} from '@ultima-forma/shared';
 import { AuthService } from './auth.service';
-import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
-import { MfaVerifyDto } from './dto/mfa-verify.dto';
-import { RefreshDto } from './dto/refresh.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 interface RequestWithUser {

@@ -71,7 +71,9 @@ flowchart TB
   - `apps/api` - Backend NestJS
   - `apps/web` - Frontend Angular
   - `apps/worker` - NestJS Worker (processamento assíncrono via Redis)
-- **Libs** (conforme evolução): `libs/shared-types`, `libs/api-client`
+- **Libs**:
+  - `libs/shared` — implementado: tipos, DTOs e constantes compartilhados entre frontend e backend (`@ultima-forma/shared`)
+  - (conforme evolução): `libs/api-client`
 
 Estrutura de diretórios:
 
@@ -83,6 +85,7 @@ Ultima-Forma/               # pnpm como package manager
 │   └── worker/                 # NestJS Worker (Redis consumer)
 ├── deploy/                     # Docker Compose produção (Traefik, VPS)
 ├── libs/
+│   └── shared/                 # Tipos, DTOs (class-validator), constantes; import: @ultima-forma/shared
 ├── ultima-forma-business-plan/ # pt-BR/ (português) + en/ (inglês)
 ├── nx.json
 ├── package.json
@@ -326,7 +329,7 @@ Aplicação NestJS standalone que consome jobs do Redis via **[BullMQ](https://b
 - **BullMQ**: Message queue e background jobs para Node.js sobre Redis; retry com backoff, delayed jobs, rate limiting, job flows, cron/recurring jobs.
 - **Arquitetura**: App NestJS com `@nestjs/bullmq`; `Queue` na API para enfileirar; `Worker` no apps/worker para processar. Redis como broker.
 - **Uso típico**: Jobs pesados (embeddings, processamento OpenAI, notificações em lote), tarefas agendadas, filas com retry automático.
-- **Shared code**: Reutilizar libs ou módulos (TypeORM, OpenAI, Vector) via `libs/` quando o worker precisar acessar DB ou serviços externos.
+- **Shared code**: Reutilizar libs ou módulos (TypeORM, OpenAI, Vector) via `libs/` quando o worker precisar acessar DB ou serviços externos. O worker pode importar tipos e DTOs de `@ultima-forma/shared`.
 - **Docker**: Serviço `worker` no docker-compose; `depends_on: redis`; escala independente da API.
 - **Pré-implementado**: Estrutura base; fila stub (ex: `tasks`) com processor; API injeta `Queue` para adicionar jobs.
 
@@ -659,6 +662,7 @@ flowchart TB
 | 15 | Angular Zoneless + OnPush | Concluído | 2025-02-19 | - | provideZonelessChangeDetection, signals em DocViewComponent, OnPush em todos os componentes, regra angular-onpush.mdc |
 | 16 | Build: budgets e CommonJS | Concluído | 2025-02-19 | - | maximumWarning 700kb, allowedCommonJsDependencies qrcode |
 | 17 | Documentação localizada (en/pt-BR) | Concluído | 2025-02-23 | - | Estrutura `ultima-forma-business-plan/{en,pt-BR}/`; DocViewComponent carrega por `currentLang`; 18 arquivos traduzidos; `publish-to-youtrack-kb.sh` com LOCALE (UF-A-4 pt-BR, UF-A-5 en) |
+| 18 | Lib shared (frontend/backend) | Concluído | 2025-02-23 | - | `libs/shared` com `@ultima-forma/shared`; AuthUser, AuthResponse, DTOs (LoginDto, RegisterDto, MfaVerifyDto, RefreshDto), API_BASE; api e web consomem a lib |
 
 **Nota**: Marque uma etapa como concluída somente após validar o checklist de segurança correspondente.
 
@@ -675,3 +679,4 @@ flowchart TB
 - **2025-02-16**: NestJS Worker atualizado para usar [BullMQ](https://bullmq.io/) (@nestjs/bullmq, bullmq); retry, delayed jobs, filas.
 - **2025-02-19**: Angular atualizado para ^21.x; PrimeNG ^21.x. Seção 4.1.1 Angular Zoneless: provideZonelessChangeDetection, OnPush obrigatório, regra Cursor angular-onpush.mdc. Etapas 15–16: zoneless implementado, build config (budgets 700kb, allowedCommonJsDependencies qrcode).
 - **2025-02-23**: Documentação localizada (Option A): Seção 4.3 atualizada — estrutura `en/` e `pt-BR/` em `ultima-forma-business-plan/`; DocViewComponent carrega markdown por idioma; fallback para `en`. Seção 10 atualizada — restrições refletem nova estrutura e script YouTrack. Etapa 17: 18 arquivos traduzidos; `publish-to-youtrack-kb.sh` com LOCALE (pt-BR → UF-A-4 Plano de Negocios; en → UF-A-5 Business Plan).
+- **2025-02-23**: Lib shared implementada (`libs/shared`): tipos (AuthUser, AuthResponse), DTOs com class-validator (LoginDto, RegisterDto, MfaVerifyDto, RefreshDto), constante API_BASE. Import path `@ultima-forma/shared`. api e web atualizados para consumir a lib. Etapa 18 concluída.

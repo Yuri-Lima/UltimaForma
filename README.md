@@ -68,6 +68,13 @@ pnpm run db:migration:run
 - **[docs/COMO_RODAR.md](docs/COMO_RODAR.md)** — Guia completo para rodar o projeto em desenvolvimento e produção
 - **[docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md)** — Plano de implementação técnica (Nx, NestJS, Angular, PGVector, OpenAI, MFA, etc.) com controle de progresso
 
+Monorepo Nx:
+
+- `apps/api` — Backend NestJS (REST + GraphQL)
+- `apps/web` — Frontend Angular
+- `apps/worker` — Worker NestJS (BullMQ)
+- `libs/shared` — Tipos, DTOs e constantes compartilhados (`@ultima-forma/shared`)
+
 ```
 ultima-forma-business-plan/   # Plano de negócio completo
 ├── 01-executive-summary.md

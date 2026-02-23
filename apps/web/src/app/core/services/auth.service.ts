@@ -2,20 +2,13 @@ import { Injectable, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { tap, catchError, of } from 'rxjs';
+import {
+  AuthUser,
+  AuthResponse,
+  API_BASE,
+} from '@ultima-forma/shared';
 
-const API_BASE = '/api';
-
-export interface AuthUser {
-  id: string;
-  email: string;
-}
-
-export interface AuthResponse {
-  accessToken: string;
-  refreshToken?: string;
-  mfaRequired: boolean;
-  user: AuthUser;
-}
+export type { AuthUser, AuthResponse };
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
