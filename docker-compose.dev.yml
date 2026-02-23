@@ -1,0 +1,46 @@
+# Docker Compose for local development
+# Run: docker compose -f docker-compose.dev.yml up -d
+# Stop: docker compose -f docker-compose.dev.yml down
+#
+# Postgres exposed on 5433, Redis on 6381 (avoid conflict with local services).
+# Set DB_PORT=5433 and REDIS_PORT=6381 in .env when using this compose.
+#
+# API, Web, and Worker run locally for hot reload.
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: ultimaforma-postgres-dev
+    ports:
+      - "127.0.0.1:5433:5432"  # Host 5433 to avoid conflict with local Postgres
+    environment:
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-}
+      POSTGRES_DB: ${DB_NAME:-ultimaforma}
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-postgres} -d ${DB_NAME:-ultimaforma}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: ultimaforma-redis-dev
+    ports:
+      - "127.0.0.1:6381:6379"  # Host 6381 to avoid conflict with local Redis
+    command: redis-server --requirepass ${REDIS_PASSWORD:-admin}
+    volumes:
+      - redis_dev_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-admin}", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_dev_data: {}
+  redis_dev_data: {}
