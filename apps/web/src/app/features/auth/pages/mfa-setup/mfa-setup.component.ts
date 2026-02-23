@@ -6,28 +6,31 @@ import {
   signal,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { form, FormField, required, pattern } from '@angular/forms/signals';
 import { AuthService } from '../../../../core/services/auth.service';
 import { AppButtonComponent } from '../../../../shared/components/app-button/app-button.component';
-import { InputText } from 'primeng/inputtext';
+import { UfInputComponent } from '../../../../shared/components/uf-input/uf-input.component';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { PageCardComponent } from '../../../../shared/components/page-card/page-card.component';
+import { TranslatePipe } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-mfa-setup',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
+    FormField,
     AppButtonComponent,
-    InputText,
+    UfInputComponent,
     QRCodeComponent,
     PageCardComponent,
+    TranslatePipe,
   ],
   template: `
-    <app-page-card title="Setup MFA">
+    <app-page-card [title]="'auth.mfa.setup.title' | translate">
       <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-        Scan the QR code with Google Authenticator or Microsoft Authenticator.
+        {{ 'auth.mfa.setup.instructions' | translate }}
       </p>
       @if (otpauthUrl()) {
         <div class="mb-6 flex justify-center rounded bg-gray-100 dark:bg-gray-700 p-4">
@@ -38,41 +41,38 @@ import { PageCardComponent } from '../../../../shared/components/page-card/page-
           />
         </div>
         <p class="mb-4 text-xs text-gray-500 dark:text-gray-400">
-          Or enter manually: {{ secret() }}
+          {{ 'auth.mfa.setup.orEnterManually' | translate:{ secret: secret() } }}
         </p>
       }
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="mb-4">
-          <label class="form-label" for="mfa-setup-code">6-digit code</label>
-          <input
-            pInputText
-            id="mfa-setup-code"
-            formControlName="code"
-            type="text"
-            maxlength="6"
-            placeholder="000000"
-            class="w-full font-mono text-lg tracking-widest"
-          />
-          @if (form.get('code')?.invalid && form.get('code')?.touched) {
-            <p class="mt-1 text-sm text-red-500">Enter 6 digits</p>
-          }
-        </div>
+      <form novalidate (submit)="onSubmit($event)">
+        <uf-input
+          [formField]="mfaForm.code"
+          [label]="'auth.mfa.setup.codeLabel' | translate"
+          id="mfa-setup-code"
+          type="text"
+          [maxlength]="6"
+          [placeholder]="'auth.mfa.setup.codePlaceholder' | translate"
+          styleClass="font-mono text-lg tracking-widest"
+        />
         @if (error()) {
           <p class="mb-4 text-sm text-red-500">{{ error() }}</p>
         }
-        <app-button type="submit" label="Verify & Enable" [loading]="loading()" />
+        <uf-button type="submit" [label]="'auth.mfa.setup.verifyEnable' | translate" [loading]="loading()" />
       </form>
     </app-page-card>
   `,
 })
 export class MfaSetupComponent implements OnInit {
-  private fb = inject(FormBuilder);
   private auth = inject(AuthService);
   private router = inject(Router);
+  private translate = inject(TranslateService);
 
-  form = this.fb.nonNullable.group({
-    code: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]],
+  codeModel = signal({ code: '' });
+  mfaForm = form(this.codeModel, (p) => {
+    required(p.code, { message: 'auth.mfa.setup.enter6Digits' });
+    pattern(p.code, /^\d{6}$/, { message: 'auth.mfa.setup.enter6Digits' });
   });
+
   otpauthUrl = signal('');
   secret = signal('');
   loading = signal(false);
@@ -88,26 +88,30 @@ export class MfaSetupComponent implements OnInit {
         if (err.error?.message?.includes('already enabled')) {
           this.router.navigate(['/mfa/verify']);
         } else {
-          this.error.set('Failed to load MFA setup');
+          this.error.set(this.translate.instant('auth.mfa.setup.loadFailed'));
         }
       },
     });
   }
 
-  onSubmit() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
+  onSubmit(ev: Event) {
+    ev.preventDefault();
+    if (this.mfaForm().invalid()) {
+      this.mfaForm.code().markAsTouched();
       return;
     }
     this.loading.set(true);
     this.error.set('');
-    this.auth.mfaVerify(this.form.value.code!).subscribe({
+    this.auth.mfaVerify(this.codeModel().code).subscribe({
       next: () => {
         this.router.navigate(['/docs']);
       },
       error: (err) => {
         this.loading.set(false);
-        this.error.set(err.error?.message || 'Invalid code');
+        this.error.set(
+          err.error?.message ||
+            this.translate.instant('auth.mfa.setup.invalidCode')
+        );
       },
       complete: () => this.loading.set(false),
     });

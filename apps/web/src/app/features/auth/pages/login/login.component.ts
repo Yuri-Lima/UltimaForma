@@ -5,67 +5,65 @@ import {
   signal,
 } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  form,
+  FormField,
+  required,
+  email,
+} from '@angular/forms/signals';
 import { AuthService } from '../../../../core/services/auth.service';
 import { AppButtonComponent } from '../../../../shared/components/app-button/app-button.component';
-import { InputText } from 'primeng/inputtext';
+import { UfInputComponent } from '../../../../shared/components/uf-input/uf-input.component';
+import { UfLanguageSelectComponent } from '../../../../shared/components/uf-language-select/uf-language-select.component';
 import { AuthCardComponent } from '../../components/auth-card/auth-card.component';
+import { TranslatePipe } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-login',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
+    FormField,
     RouterLink,
     AppButtonComponent,
-    InputText,
+    UfInputComponent,
+    UfLanguageSelectComponent,
     AuthCardComponent,
+    TranslatePipe,
   ],
   template: `
-    <app-auth-card title="Continue to your workspace">
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <app-auth-card [title]="'auth.login.title' | translate">
+      <form novalidate (submit)="onSubmit($event)">
         <div class="mb-4">
-          <label class="form-label" for="login-email">Email</label>
-          <input
-            pInputText
-            id="login-email"
-            formControlName="email"
-            type="email"
-            placeholder="email@example.com"
-            class="w-full"
-          />
-          @if (form.get('email')?.invalid && form.get('email')?.touched) {
-            <p class="mt-1 text-sm text-red-500">Email is required</p>
-          }
         </div>
-        <div class="mb-4">
-          <label class="form-label" for="login-password">Password</label>
-          <input
-            pInputText
-            id="login-password"
-            formControlName="password"
-            type="password"
-            placeholder="Password"
-            class="w-full"
-          />
-          @if (form.get('password')?.invalid && form.get('password')?.touched) {
-            <p class="mt-1 text-sm text-red-500">Password is required</p>
-          }
-        </div>
+        <uf-input
+          [formField]="loginForm.email"
+          [label]="'auth.login.email' | translate"
+          id="login-email"
+          type="email"
+          [placeholder]="'auth.login.emailPlaceholder' | translate"
+        />
+        <uf-input
+          [formField]="loginForm.password"
+          [label]="'auth.login.password' | translate"
+          id="login-password"
+          type="password"
+          [placeholder]="'auth.login.passwordPlaceholder' | translate"
+        />
         @if (error()) {
           <p class="mb-4 text-sm text-red-500">{{ error() }}</p>
         }
-        <app-button
+        <uf-button
           type="submit"
-          label="Continue"
+          [label]="'auth.login.continue' | translate"
           [loading]="loading()"
           [fluid]="true"
           styleClass="min-h-[44px]"
         />
         <p class="mt-6 text-center">
           <a routerLink="/register" class="auth-switch-link inline-block py-2">
-            Don't have an account? Sign up
+            {{ 'auth.login.signUpLink' | translate }}
           </a>
         </p>
       </form>
@@ -73,25 +71,35 @@ import { AuthCardComponent } from '../../components/auth-card/auth-card.componen
   `,
 })
 export class LoginComponent {
-  private fb = inject(FormBuilder);
   private auth = inject(AuthService);
   private router = inject(Router);
+  private translate = inject(TranslateService);
 
-  form = this.fb.nonNullable.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
+  loginModel = signal({
+    email: '',
+    password: '',
   });
+
+  loginForm = form(this.loginModel, (p) => {
+    required(p.email, { message: 'auth.login.emailRequired' });
+    email(p.email, { message: 'auth.login.emailRequired' });
+    required(p.password, { message: 'auth.login.passwordRequired' });
+  });
+
   loading = signal(false);
   error = signal('');
 
-  onSubmit() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
+  onSubmit(ev: Event) {
+    ev.preventDefault();
+    if (this.loginForm().invalid()) {
+      this.loginForm.email().markAsTouched();
+      this.loginForm.password().markAsTouched();
       return;
     }
     this.loading.set(true);
     this.error.set('');
-    this.auth.login(this.form.value.email!, this.form.value.password!).subscribe({
+    const { email, password } = this.loginModel();
+    this.auth.login(email, password).subscribe({
       next: (res) => {
         if (res.mfaRequired) {
           this.router.navigate(['/mfa/verify']);
@@ -101,7 +109,10 @@ export class LoginComponent {
       },
       error: (err) => {
         this.loading.set(false);
-        this.error.set(err.error?.message || 'Login failed');
+        this.error.set(
+          err.error?.message ||
+            this.translate.instant('auth.login.failed')
+        );
       },
       complete: () => this.loading.set(false),
     });
