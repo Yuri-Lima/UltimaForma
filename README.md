@@ -44,8 +44,28 @@ Meta: predominância de receita recorrente (assinatura + SLA).
 
 ---
 
+## Desenvolvimento Local
+
+→ **Guia completo**: [docs/COMO_RODAR.md](docs/COMO_RODAR.md)
+
+```bash
+pnpm install
+# Terminal 1 - API (requer Postgres e Redis)
+pnpm run start:api
+# Terminal 2 - Frontend
+pnpm run start:web
+# Terminal 3 - Worker (opcional)
+pnpm run start:worker
+```
+
+**Migrações**:
+```bash
+pnpm run db:migration:run
+```
+
 ## Estrutura do Projeto
 
+- **[docs/COMO_RODAR.md](docs/COMO_RODAR.md)** — Guia completo para rodar o projeto em desenvolvimento e produção
 - **[docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md)** — Plano de implementação técnica (Nx, NestJS, Angular, PGVector, OpenAI, MFA, etc.) com controle de progresso
 
 ```

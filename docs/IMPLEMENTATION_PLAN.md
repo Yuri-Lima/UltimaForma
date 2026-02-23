@@ -390,10 +390,16 @@ Aplicação NestJS standalone que consome jobs do Redis via **[BullMQ](https://b
 
 | Pacote              | Versão                                     |
 | ------------------- | ------------------------------------------ |
-| Angular             | ^19.x                                      |
-| PrimeNG             | ^19.x ou ^20.x (compatível com Angular 19) |
+| Angular             | ^21.x                                      |
+| PrimeNG             | ^21.x                                      |
 | Tailwind CSS        | ^4.x (via `ng add tailwindcss`)             |
 | tailwindcss-primeui | conforme compatibilidade PrimeNG           |
+
+### 4.1.1 Angular Zoneless (Change Detection)
+
+- **Modo zoneless**: Angular 21 usa zoneless por padrão. O app usa `provideZonelessChangeDetection()` explicitamente.
+- **OnPush obrigatório**: Todos os componentes devem usar `ChangeDetectionStrategy.OnPush` (regra Cursor em `.cursor/rules/angular-onpush.mdc`).
+- **Signals para estado assíncrono**: Componentes que atualizam estado via HTTP ou observables devem usar Signals ou AsyncPipe, nunca atribuição direta em callbacks (zoneless não notifica Angular automaticamente).
 
 ### 4.2 PrimeNG + Tailwind + Dark Mode
 
@@ -456,8 +462,13 @@ Aplicação NestJS standalone que consome jobs do Redis via **[BullMQ](https://b
 apps/web/
 ├── Dockerfile
 ├── nginx.conf
+├── project.json           # budgets, allowedCommonJsDependencies
 └── ...
 ```
+
+**Configuração de build** (apps/web/project.json):
+- **Budgets**: `maximumWarning: 700kb`, `maximumError: 1mb` para bundle initial
+- **CommonJS**: `allowedCommonJsDependencies: ["qrcode"]` para `angularx-qrcode` (MFA setup QR)
 
 ### 4.6.1 Segurança obrigatória (Docker/nginx Web)
 
@@ -620,20 +631,22 @@ flowchart TB
 
 | # | Etapa | Status | Data | Verificação de Segurança | Observações |
 |---|-------|--------|------|--------------------------|-------------|
-| 1 | Workspace Nx + apps | Pendente | - | - | |
-| 2 | Backend TypeORM, PostgreSQL + Migrações | Pendente | - | Checklists 2.1.1, 2.7.1 | |
-| 3 | PGVector | Pendente | - | Checklist 2.4.1 | |
-| 4 | Auth + MFA | Pendente | - | Checklists 3.2.1, 3.3.1 | |
-| 5 | OpenAI | Pendente | - | Checklist 2.5.1 | |
-| 6 | GraphQL | Pendente | - | Checklist 2.3.1 | |
-| 7 | Microservices (hybrid + Redis) | Pendente | - | Checklist 2.6.1 | |
-| 8 | NestJS Worker (apps/worker) | Pendente | - | Checklist 2.8.1 | |
-| 9 | Frontend PrimeNG, Tailwind, dark | Pendente | - | Checklist 4.5.1 | |
-| 10 | i18n | Pendente | - | - | |
-| 11 | Visualizador Markdown | Pendente | - | Sanitização ngx-markdown | |
-| 12 | Integração frontend-API | Pendente | - | Checklists 5.1, 6.1 | |
-| 13 | Angular production (Dockerfile + nginx) | Pendente | - | Checklist 4.6.1 | |
-| 14 | Docker Compose produção (Traefik + VPS) | Pendente | - | Checklist 6.2.1 | |
+| 1 | Workspace Nx + apps | Concluído | 2025-02-19 | - | api, web, worker |
+| 2 | Backend TypeORM, PostgreSQL + Migrações | Concluído | 2025-02-19 | Checklists 2.1.1, 2.7.1 | data-source.ts, scripts |
+| 3 | PGVector | Concluído | 2025-02-19 | Checklist 2.4.1 | migration + VectorModule stub |
+| 4 | Auth + MFA | Concluído | 2025-02-19 | Checklists 3.2.1, 3.3.1 | JWT, bcrypt, speakeasy, refresh tokens, lockout, encrypted MFA |
+| 5 | OpenAI | Concluído | 2025-02-19 | Checklist 2.5.1 | OpenAIModule |
+| 6 | GraphQL | Concluído | 2025-02-19 | Checklist 2.3.1 | HealthResolver |
+| 7 | Microservices (hybrid + Redis) | Concluído | 2025-02-19 | Checklist 2.6.1 | Transport.REDIS, EventsController |
+| 8 | NestJS Worker (apps/worker) | Concluído | 2025-02-19 | Checklist 2.8.1 | BullMQ, TasksProcessor |
+| 9 | Frontend PrimeNG, Tailwind, dark | Concluído | 2025-02-19 | Checklist 4.5.1 | Aura preset, app-dark |
+| 10 | i18n | Concluído | 2025-02-19 | - | @angular/localize, i18n markers |
+| 11 | Visualizador Markdown | Concluído | 2025-02-19 | Sanitização ngx-markdown | ngx-markdown, /docs |
+| 12 | Integração frontend-API | Concluído | 2025-02-19 | Checklists 5.1, 6.1 | ApiService, proxy |
+| 13 | Angular production (Dockerfile + nginx) | Concluído | 2025-02-19 | Checklist 4.6.1 | apps/web/Dockerfile, nginx.conf |
+| 14 | Docker Compose produção (Traefik + VPS) | Concluído | 2025-02-19 | Checklist 6.2.1 | deploy/, traefik, deploy.sh |
+| 15 | Angular Zoneless + OnPush | Concluído | 2025-02-19 | - | provideZonelessChangeDetection, signals em DocViewComponent, OnPush em todos os componentes, regra angular-onpush.mdc |
+| 16 | Build: budgets e CommonJS | Concluído | 2025-02-19 | - | maximumWarning 700kb, allowedCommonJsDependencies qrcode |
 
 **Nota**: Marque uma etapa como concluída somente após validar o checklist de segurança correspondente.
 
@@ -648,3 +661,4 @@ flowchart TB
 - **2025-02-16**: Package manager alterado para pnpm em todo o plano.
 - **2025-02-16**: Adicionado NestJS Worker (apps/worker); Angular production Dockerfile + nginx.conf escalável; etapas 8 e 13.
 - **2025-02-16**: NestJS Worker atualizado para usar [BullMQ](https://bullmq.io/) (@nestjs/bullmq, bullmq); retry, delayed jobs, filas.
+- **2025-02-19**: Angular atualizado para ^21.x; PrimeNG ^21.x. Seção 4.1.1 Angular Zoneless: provideZonelessChangeDetection, OnPush obrigatório, regra Cursor angular-onpush.mdc. Etapas 15–16: zoneless implementado, build config (budgets 700kb, allowedCommonJsDependencies qrcode).
