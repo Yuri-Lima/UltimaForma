@@ -15,9 +15,9 @@ import { UfLanguageSelectComponent } from '../../shared/components/uf-language-s
   imports: [RouterModule, AppButtonComponent, TranslatePipe, UfLanguageSelectComponent],
   template: `
     <header class="flex flex-wrap items-center justify-between gap-4 border-b pb-4" style="border-color: var(--color-border)">
-      <h1 class="text-xl font-bold md:text-2xl" style="color: var(--color-text)">
-        {{ 'app.title' | translate }}
-      </h1>
+      <a routerLink="/" class="flex items-center" [attr.aria-label]="'app.title' | translate">
+        <img src="/assets/brand/ultima-forma_lockup_gold_transparent_512w.png" alt="" class="h-7 max-w-[140px] md:h-8 md:max-w-[160px] w-auto object-contain object-left" width="160" height="32" />
+      </a>
       <div class="flex flex-wrap items-center gap-2 md:gap-4">
         <uf-language-select />
         <button

@@ -18,8 +18,8 @@ import { UfLanguageSelectComponent } from '../../shared/components/uf-language-s
       style="background-color: var(--color-bg)"
     >
       <header class="absolute left-0 top-0 flex w-full items-center justify-between px-4 py-4 sm:px-6 sm:py-5 pt-[max(1rem,env(safe-area-inset-top))]">
-        <a routerLink="/" class="text-lg font-semibold" style="color: var(--color-text)">
-          {{ 'app.title' | translate }}
+        <a routerLink="/" class="flex items-center" [attr.aria-label]="'app.title' | translate">
+          <img src="/assets/brand/ultima-forma_lockup_gold_transparent_512w.png" alt="" class="h-8 max-w-[180px] sm:h-9 sm:max-w-[200px] w-auto object-contain object-left" width="200" height="36" />
         </a>
         <div class="flex items-center gap-2">
           <uf-language-select />
