@@ -1,0 +1,37 @@
+---
+description: Angular components must use OnPush change detection (zoneless-compatible)
+globs: apps/web/**/*.ts
+---
+
+# Angular OnPush Requirement
+
+All Angular components in the web app must use `ChangeDetectionStrategy.OnPush`.
+
+## Why
+
+- Required for zoneless change detection compatibility
+- Reduces unnecessary change detection cycles
+- Aligns with Angular best practices (signals, immutable inputs)
+
+## Rule
+
+Every `@Component` decorator must include:
+
+```ts
+import { ChangeDetectionStrategy } from '@angular/core';
+
+@Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  // ...
+})
+```
+
+## Examples
+
+```
+// BAD - defaults to Default strategy
+@Component({ selector: 'app-foo', template: '...' })
+
+// GOOD - explicit OnPush
+@Component({ selector: 'app-foo', changeDetection: ChangeDetectionStrategy.OnPush, template: '...' })
+```

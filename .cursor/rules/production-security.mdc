@@ -1,0 +1,42 @@
+---
+description: Production-grade security is mandatory; highest priority for all changes
+alwaysApply: true
+---
+
+# Production-Grade Security (Ultima Forma)
+
+Security is the **HIGHEST** requirement. No feature ships without security review. The implementation plan at [docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md) is the source of truth; follow the security checklists in each section.
+
+## Mandatory Checklist for Every Change
+
+- **No secrets in code**: API keys, passwords, tokens only in env vars or secret managers. Never commit `.env`.
+- **Validate all input**: Use `class-validator` on DTOs (backend); sanitize user content (frontend).
+- **Parameterized queries only**: Never concatenate user input into SQL. Use TypeORM query builder or prepared statements.
+- **No sensitive data in logs**: No passwords, tokens, PII. Log event types and IDs only.
+- **Security headers**: Helmet, strict CORS, CSP. Fail secure on errors (deny by default).
+
+## Examples
+
+```
+// BAD - SQL injection risk
+const result = await repo.query(`SELECT * FROM users WHERE id = '${userId}'`);
+
+// GOOD - parameterized
+const result = await repo.query('SELECT * FROM users WHERE id = $1', [userId]);
+```
+
+```
+// BAD - secret in code
+const apiKey = 'sk-abc123';
+
+// GOOD - from env
+const apiKey = process.env.OPENAI_API_KEY;
+```
+
+```
+// BAD - sensitive data in log
+logger.log('User login', { email, password });
+
+// GOOD - log event only
+logger.log('Login attempt', { userId: user.id });
+```
