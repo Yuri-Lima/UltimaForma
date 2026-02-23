@@ -6,7 +6,7 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 ENV_FILE="${1:-$SCRIPT_DIR/.env.prod}"
 
 if [[ ! -f "$ENV_FILE" ]]; then
-  echo "Error: .env.prod not found. Copy .env.example to deploy/.env.prod and fill values."
+  echo "Error: .env.prod not found. Copy deploy/.env.prod.example to deploy/.env.prod and fill values."
   echo "Usage: ./deploy.sh [path-to-.env.prod]"
   exit 1
 fi
@@ -20,13 +20,19 @@ docker compose -f docker-compose.prod.yml --env-file "$ENV_FILE" up -d postgres 
 echo "Waiting for Postgres..."
 sleep 5
 
-echo "Running migrations..."
-set -a
-source "$ENV_FILE"
-set +a
-cd "$PROJECT_ROOT"
-# DB_HOST=127.0.0.1 in .env.prod for migration (postgres port 5432 exposed to localhost)
-pnpm run db:migration:run
+echo "Running migrations (if necessary)..."
+# Run migrations via Docker so the host doesn't need Node/pnpm.
+# Uses .env.prod with DB_HOST=postgres (container network).
+# TypeORM migration:run only applies pending migrations (idempotent).
+docker run --rm \
+  --network ultimaforma_default \
+  -v "$PROJECT_ROOT:/app" \
+  -w /app \
+  --env-file "$ENV_FILE" \
+  -e DB_HOST=postgres \
+  -e REDIS_HOST=redis \
+  node:22-alpine \
+  sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install --frozen-lockfile && pnpm run db:migration:run"
 
 echo "Starting full stack..."
 cd "$SCRIPT_DIR"
