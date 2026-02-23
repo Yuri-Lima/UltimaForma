@@ -3,6 +3,7 @@ services:
     image: traefik:v3.2
     command:
       - --configFile=/etc/traefik/traefik.yml
+      - --certificatesresolvers.letsencrypt.acme.email=${EMAIL_LETSENCRYPT}
     ports:
       - "80:80"
       - "443:443"
@@ -10,6 +11,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik/acme.json:/letsencrypt/acme.json
       - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./traefik/dynamic:/etc/traefik/dynamic:ro
     environment:
       - EMAIL_LETSENCRYPT=${EMAIL_LETSENCRYPT}
     restart: unless-stopped

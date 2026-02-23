@@ -3,6 +3,7 @@
 .env.local
 .env.*.local
 *.pem
+id_rsa
 
 # Dependencies
 node_modules/
