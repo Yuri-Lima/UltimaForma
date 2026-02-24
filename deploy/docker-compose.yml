@@ -1,6 +1,7 @@
 services:
   traefik:
     image: traefik:v3.6
+    env_file: .env.prod
     entrypoint: ["sh", "/entrypoint.sh"]
     command:
       - --configFile=/etc/traefik/traefik.yml

@@ -123,8 +123,13 @@ export class AuthService {
     const encrypted = encrypt(secret.base32);
     await this.userRepo.update(userId, { mfaSecret: encrypted });
 
+    const otpauthUrl = secret.otpauth_url;
+    if (!otpauthUrl) {
+      throw new BadRequestException('Failed to generate MFA secret');
+    }
+
     return {
-      otpauthUrl: secret.otpauth_url!,
+      otpauthUrl,
       secret: secret.base32,
     };
   }
