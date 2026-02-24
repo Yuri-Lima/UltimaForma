@@ -5,7 +5,6 @@ services:
     entrypoint: ["sh", "/entrypoint.sh"]
     command:
       - --configFile=/etc/traefik/traefik.yml
-      - --certificatesresolvers.letsencrypt.acme.email=${EMAIL_LETSENCRYPT}
     ports:
       - "80:80"
       - "443:443"
@@ -15,8 +14,6 @@ services:
       - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
       - ./traefik/dynamic:/etc/traefik/dynamic:ro
       - ./traefik/entrypoint.sh:/entrypoint.sh:ro
-    environment:
-      - EMAIL_LETSENCRYPT=${EMAIL_LETSENCRYPT}
     restart: unless-stopped
 
   postgres:
