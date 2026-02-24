@@ -1,5 +1,6 @@
 # Environment and secrets
 .env
+deploy/traefik/letsencrypt/
 .env.local
 deploy/.build-tag
 .env.*.local
@@ -30,3 +31,4 @@ Thumbs.db
 npm-debug.log*
 
 vitest.config.*.timestamp*
+.pnpm-store

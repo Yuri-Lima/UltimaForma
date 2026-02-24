@@ -15,10 +15,10 @@ providers:
     directory: "/etc/traefik/dynamic"
     watch: true
 
+# ACME email is passed via TRAEFIK_CERTIFICATESRESOLVERS_LETSENCRYPT_ACME_EMAIL (entrypoint.sh)
 certificatesResolvers:
   letsencrypt:
     acme:
-      email: "${EMAIL_LETSENCRYPT}"
       storage: "/letsencrypt/acme.json"
       httpChallenge:
         entryPoint: web

@@ -8,6 +8,10 @@ if [ -z "${EMAIL_LETSENCRYPT}" ] || ! echo "${EMAIL_LETSENCRYPT}" | grep -q '@';
   exit 1
 fi
 
+# Traefik does NOT expand ${VAR} in YAML - pass ACME email via TRAEFIK_* env var
+# (Traefik sends literal "${EMAIL_LETSENCRYPT}" otherwise, causing "unable to parse email address")
+export TRAEFIK_CERTIFICATESRESOLVERS_LETSENCRYPT_ACME_EMAIL="${EMAIL_LETSENCRYPT}"
+
 # Ensure acme.json exists and has secure permissions (required by Traefik/Let's Encrypt)
 ACME_FILE="/letsencrypt/acme.json"
 if [ ! -f "$ACME_FILE" ]; then
