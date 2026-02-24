@@ -1,5 +1,7 @@
 # Environment and secrets
 .env
+.env.prod
+deploy/.env.prod
 deploy/traefik/letsencrypt/
 .env.local
 deploy/.build-tag
