@@ -1,11 +1,17 @@
 import { Injectable } from '@nestjs/common';
+import { InjectDataSource } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 
 /**
- * Stub service for vector similarity search using PGVector.
- * Ready for embeddings and similarity search integration.
+ * Vector similarity search using PGVector (separate vector DB).
+ * Only embedding values are stored in the vector DB.
  */
 @Injectable()
 export class VectorSearchService {
+  constructor(
+    @InjectDataSource('vector') private readonly vectorDataSource: DataSource
+  ) {}
+
   /**
    * Stub: Embed content and store in embeddings table.
    * TODO: Integrate OpenAI embeddings.

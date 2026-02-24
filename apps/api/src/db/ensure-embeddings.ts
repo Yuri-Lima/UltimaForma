@@ -1,12 +1,13 @@
 /**
- * Run after: brew install pgvector && brew services restart postgresql@16
- * Creates vector extension and embeddings table when pgvector is available.
+ * Creates vector extension and embeddings table on the vector DB.
+ * Run after vector-db (pgvector) is up.
+ * Uses VECTOR_DB_* env vars; with Docker: VECTOR_DB_HOST=vector-db.
  */
-import dataSource from './data-source';
+import vectorDataSource from './vector-data-source';
 
 async function main() {
-  await dataSource.initialize();
-  const qr = dataSource.createQueryRunner();
+  await vectorDataSource.initialize();
+  const qr = vectorDataSource.createQueryRunner();
   await qr.connect();
 
   try {
@@ -31,12 +32,13 @@ async function main() {
     console.log('embeddings table created successfully');
   } catch (err) {
     console.error(
-      'Failed. Ensure pgvector is installed and Postgres restarted:',
+      'Failed. Ensure vector-db (pgvector) is running and VECTOR_DB_* env vars are correct:',
       err instanceof Error ? err.message : err
     );
+    process.exit(1);
   } finally {
     await qr.release();
-    await dataSource.destroy();
+    await vectorDataSource.destroy();
   }
 }
 

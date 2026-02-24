@@ -7,7 +7,7 @@ Guia para configurar e executar o projeto Ultima Forma em desenvolvimento local 
 ## Pré-requisitos
 
 - **Node.js** 20+ e **pnpm**
-- **PostgreSQL** 16+ (com extensão [pgvector](https://github.com/pgvector/pgvector))
+- **PostgreSQL** 18 (principal) + **pgvector** (apenas para embeddings, em instância separada)
 - **Redis** 7+
 
 ---
@@ -40,6 +40,8 @@ Variáveis essenciais para desenvolvimento:
 | `DB_USERNAME`  | Usuário do banco       | `postgres`     |
 | `DB_PASSWORD`  | Senha do banco         | *(vazio)*      |
 | `DB_NAME`      | Nome do banco          | `ultimaforma`  |
+| `VECTOR_DB_HOST` | Host do vector DB (embeddings) | `localhost` |
+| `VECTOR_DB_PORT` | Porta do vector DB     | `5432` ou `5434` (Docker) |
 | `REDIS_HOST`   | Host do Redis          | `localhost`    |
 | `REDIS_PORT`   | Porta do Redis         | `6379`         |
 | `JWT_SECRET`   | Chave para tokens JWT  | *(definir)*    |
@@ -47,28 +49,29 @@ Variáveis essenciais para desenvolvimento:
 
 > **Segurança**: Nunca commite o arquivo `.env`. Use `.env.example` como referência.
 
-### Postgres e Redis
+### Postgres, Vector DB e Redis
 
-O projeto depende de PostgreSQL (com pgvector) e Redis. Você pode:
+O projeto usa dois bancos PostgreSQL:
+- **Primary (postgres:18)**: usuários, refresh_tokens e dados normais
+- **Vector DB (pgvector)**: apenas embeddings
 
 **Opção A – Instalação nativa** (macOS com Homebrew):
 
 ```bash
-brew install postgresql@16 redis
-brew services start postgresql@16
+brew install postgresql@18 redis
+brew services start postgresql@18
 brew services start redis
 ```
 
-Para pgvector no Postgres:
+Para usar embeddings localmente, você precisa de uma instância separada com pgvector:
 
 ```bash
-# Instalar pgvector
 brew install pgvector
-# Reiniciar o Postgres para carregar a extensão
-brew services restart postgresql@16
+brew services restart postgresql@18
+# Ou use Docker para o vector-db (Opção B)
 ```
 
-**Opção B – Docker Compose** (Postgres + Redis):
+**Opção B – Docker Compose** (Postgres + Vector DB + Redis, recomendado):
 
 ```bash
 # Subir serviços
@@ -81,7 +84,7 @@ docker compose -f docker-compose.dev.yml up -d
 pnpm run docker:dev:down
 ```
 
-O compose usa variáveis do `.env` (DB_USERNAME, DB_PASSWORD, DB_NAME, REDIS_PASSWORD). **Com o compose, use `DB_PORT=5433` e `REDIS_PORT=6381`** no `.env` (portas diferentes para evitar conflito com serviços locais). Serviços: `localhost:5433` (Postgres) e `localhost:6381` (Redis).
+O compose sobe: Postgres 18 (primary), vector-db (pgvector), Redis. **No `.env` use `DB_PORT=5433`, `VECTOR_DB_HOST=localhost`, `VECTOR_DB_PORT=5434` e `REDIS_PORT=6381`** para evitar conflito com serviços locais. Serviços: `localhost:5433` (Postgres), `localhost:5434` (Vector DB), `localhost:6381` (Redis).
 
 ### Rodar Migrações
 
@@ -89,12 +92,7 @@ O compose usa variáveis do `.env` (DB_USERNAME, DB_PASSWORD, DB_NAME, REDIS_PAS
 pnpm run db:migration:run
 ```
 
-**Se instalou pgvector depois de rodar as migrações:** reinicie o Postgres e execute:
-
-```bash
-brew services restart postgresql@16
-pnpm run db:ensure-embeddings
-```
+**Com Docker:** após `docker:dev:up`, execute `pnpm run db:ensure-embeddings` (conecta ao vector-db). Com Postgres nativo + pgvector, use `VECTOR_DB_*` apontando para a instância com pgvector.
 
 ### Iniciar os Serviços
 
@@ -126,7 +124,7 @@ O frontend usa proxy para `/api` → `http://localhost:3100`.
 | Comando                       | Descrição                        |
 |------------------------------|----------------------------------|
 | `deploy/build-and-push.sh [versão]` | Build e push de imagens prod para Docker Hub |
-| `pnpm run docker:dev:up`     | Sobe Postgres e Redis (Docker)   |
+| `pnpm run docker:dev:up`     | Sobe Postgres, vector-db e Redis (Docker) |
 | `pnpm run docker:dev:down`   | Para Postgres e Redis            |
 | `pnpm run start:api`         | Inicia a API NestJS              |
 | `pnpm run start:web`         | Inicia o frontend Angular        |
@@ -137,6 +135,7 @@ O frontend usa proxy para `/api` → `http://localhost:3100`.
 | `pnpm run db:migration:run`  | Executa migrações                |
 | `pnpm run db:migration:show` | Lista migrações aplicadas        |
 | `pnpm run db:migration:revert` | Reverte última migração        |
+| `pnpm run db:ensure-embeddings` | Cria tabela embeddings no vector DB |
 
 ---
 
@@ -179,9 +178,9 @@ cd deploy
 
 O script:
 
-1. Sobe Postgres e Redis
-2. Aguarda o Postgres ficar pronto
-3. Executa as migrações
+1. Sobe Postgres, vector-db e Redis
+2. Aguarda os bancos ficarem prontos
+3. Executa migrações (primary) e `db:ensure-embeddings` (vector DB)
 4. Sobe API, Web e Worker com Traefik (HTTPS via Let's Encrypt)
 
 **Alternativa – build local (sem pull):** para testar builds localmente sem enviar ao Docker Hub:
@@ -193,7 +192,8 @@ docker compose -f docker-compose.yml -f docker-compose.prod.build.yml --env-file
 ### Arquitetura de Produção
 
 - **Traefik** – reverse proxy com TLS
-- **Postgres** (pgvector) – banco de dados
+- **Postgres** (18) – banco principal (usuários, tokens)
+- **Vector DB** (pgvector) – apenas embeddings
 - **Redis** – filas BullMQ
 - **API** – NestJS (GraphQL + REST)
 - **Web** – Angular (build estático via nginx)

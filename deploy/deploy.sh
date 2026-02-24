@@ -14,25 +14,25 @@ fi
 export COMPOSE_PROJECT_NAME=ultimaforma
 cd "$SCRIPT_DIR"
 
-echo "Starting Postgres and Redis..."
-docker compose -f docker-compose.yml --env-file "$ENV_FILE" up -d postgres redis
+echo "Starting Postgres, vector-db, and Redis..."
+docker compose -f docker-compose.yml --env-file "$ENV_FILE" up -d postgres vector-db redis
 
-echo "Waiting for Postgres..."
+echo "Waiting for Postgres and vector-db..."
 sleep 5
 
-echo "Running migrations (if necessary)..."
+echo "Running migrations and embeddings setup..."
 # Run migrations via Docker so the host doesn't need Node/pnpm.
-# Uses .env.prod with DB_HOST=postgres (container network).
-# TypeORM migration:run only applies pending migrations (idempotent).
+# DB_HOST=postgres for primary; VECTOR_DB_HOST=vector-db for embeddings.
 docker run --rm \
   --network ultimaforma_default \
   -v "$PROJECT_ROOT:/app" \
   -w /app \
   --env-file "$ENV_FILE" \
   -e DB_HOST=postgres \
+  -e VECTOR_DB_HOST=vector-db \
   -e REDIS_HOST=redis \
   node:22-alpine \
-  sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install --frozen-lockfile && pnpm run db:migration:run"
+  sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install --frozen-lockfile && pnpm run db:migration:run && pnpm run db:ensure-embeddings"
 
 # Let's Encrypt requires acme.json to be 600 (Traefik refuses 644)
 [[ -f "$SCRIPT_DIR/traefik/letsencrypt/acme.json" ]] && chmod 600 "$SCRIPT_DIR/traefik/letsencrypt/acme.json"

@@ -17,7 +17,7 @@ services:
     restart: unless-stopped
 
   postgres:
-    image: pgvector/pgvector:pg16
+    image: postgres:18
     ports:
       - "127.0.0.1:5432:5432"  # Exposed for migration from host; restrict to localhost
     environment:
@@ -28,6 +28,23 @@ services:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  vector-db:
+    image: pgvector/pgvector:pg18
+    ports:
+      - "127.0.0.1:5433:5432"  # Exposed for ensure-embeddings from host
+    environment:
+      POSTGRES_USER: ${VECTOR_DB_USERNAME:-${DB_USERNAME}}
+      POSTGRES_PASSWORD: ${VECTOR_DB_PASSWORD:-${DB_PASSWORD}}
+      POSTGRES_DB: ${VECTOR_DB_NAME:-${DB_NAME}_vector}
+    volumes:
+      - vector_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${VECTOR_DB_USERNAME:-${DB_USERNAME}}"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -51,6 +68,11 @@ services:
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_NAME=${DB_NAME}
+      - VECTOR_DB_HOST=vector-db
+      - VECTOR_DB_PORT=5432
+      - VECTOR_DB_NAME=${VECTOR_DB_NAME:-${DB_NAME}_vector}
+      - VECTOR_DB_USERNAME=${VECTOR_DB_USERNAME:-${DB_USERNAME}}
+      - VECTOR_DB_PASSWORD=${VECTOR_DB_PASSWORD:-${DB_PASSWORD}}
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REDIS_PASSWORD=${REDIS_PASSWORD}
@@ -60,6 +82,8 @@ services:
       - CORS_ORIGIN=https://${DOMAIN},https://${APP_SUBDOMAIN}.${DOMAIN}
     depends_on:
       postgres:
+        condition: service_healthy
+      vector-db:
         condition: service_healthy
       redis:
         condition: service_healthy
@@ -94,3 +118,4 @@ services:
 
 volumes:
   postgres_data: {}
+  vector_db_data: {}

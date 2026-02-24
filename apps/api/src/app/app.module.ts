@@ -31,6 +31,16 @@ import { RedisModule } from './redis/redis.module';
       synchronize: false,
       migrationsTableName: 'migrations',
     }),
+    TypeOrmModule.forRoot({
+      name: 'vector',
+      type: 'postgres',
+      host: process.env.VECTOR_DB_HOST || process.env.DB_HOST || 'localhost',
+      port: +(process.env.VECTOR_DB_PORT || process.env.DB_PORT || 5432),
+      username: process.env.VECTOR_DB_USERNAME || process.env.DB_USERNAME || 'postgres',
+      password: String(process.env.VECTOR_DB_PASSWORD ?? process.env.DB_PASSWORD ?? ''),
+      database: process.env.VECTOR_DB_NAME || `${process.env.DB_NAME || 'ultimaforma'}_vector`,
+      synchronize: false,
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,

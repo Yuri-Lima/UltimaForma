@@ -38,8 +38,8 @@ flowchart TB
     end
 
     subgraph data [Dados]
-        PG[(PostgreSQL)]
-        PGVec[(PGVector extension)]
+        PG[(PostgreSQL 18)]
+        VectorDB[(Vector DB pgvector)]
         Redis[(Redis)]
     end
 
@@ -58,7 +58,7 @@ flowchart TB
     Worker --> Redis
     Worker --> DB
     DB --> PG
-    Vec --> PGVec
+    Vec --> VectorDB
 ```
 
 ---
@@ -145,14 +145,13 @@ Ultima-Forma/               # pnpm como package manager
 - Evitar exposição excessiva do schema em produção
 - Mesmas regras de validação e parametrização que REST
 
-### 2.4 PGVector
+### 2.4 PGVector (Vector DB separado)
 
-- Imagem Docker: `pgvector/pgvector:pg16` ou PostgreSQL 16+ com extensão pgvector
-- TypeORM ainda não tem suporte nativo completo; usar:
-  - Migration SQL para `CREATE EXTENSION IF NOT EXISTS vector`
-  - Tabela com coluna `vector` via migration raw SQL
-  - Queries customizadas com `entityManager.query()` para similarity search
-- Criar módulo `VectorModule` com serviço `VectorSearchService` (métodos stub) pronto para embeddings e buscas; consumido por **Controllers REST** e **Resolvers GraphQL** conforme necessidade
+- **Primary DB**: PostgreSQL 18 (imagem `postgres:18`) para dados normais (users, refresh_tokens)
+- **Vector DB**: `pgvector/pgvector:pg18` – apenas embeddings; instância separada
+- Conexão TypeORM nomeada `vector`; `VectorSearchService` injeta `@InjectDataSource('vector')`
+- Tabela embeddings criada via `db:ensure-embeddings` (script que conecta ao vector DB)
+- Queries customizadas com `entityManager.query()` sobre a conexão vector para similarity search
 
 ### 2.4.1 Segurança obrigatória (PGVector)
 
@@ -202,10 +201,12 @@ Sistema de migrações TypeORM configurado e operacional. **synchronize** sempre
 apps/api/
 ├── src/
 │   ├── db/
-│   │   └── data-source.ts      # Config para CLI (carrega .env)
+│   │   ├── data-source.ts      # Primary DB (CLI migrations)
+│   │   ├── vector-data-source.ts # Vector DB (ensure-embeddings)
+│   │   └── ensure-embeddings.ts # Cria embeddings no vector DB
 │   └── migrations/
 │   │   ├── 1730000000000-InitialSchema.ts
-│   │   ├── 1730000000001-PgvectorExtension.ts
+│   │   ├── 1730000000002-RefreshTokenTable.ts
 │   │   └── ...
 │   └── ...
 ```
@@ -499,7 +500,7 @@ apps/web/
 ## 6. Docker e Ambiente
 
 - `docker-compose.yml` com:
-  - PostgreSQL 16 + pgvector
+  - PostgreSQL 18 (primary) + vector-db (pgvector, embeddings only)
   - Redis 7 (para microservices e worker)
   - (Opcional) API, Web e Worker em containers para dev
 - `.env` para desenvolvimento local (localhost); `.env.example` como template de produção (copiar para `.env.prod` no VPS)
