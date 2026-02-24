@@ -518,14 +518,14 @@ Compose production-grade para deploy em VPS remoto com **Traefik** como reverse 
 **Script `deploy.sh`** (Opção C — recomendada):
 1. Carrega `.env.prod`
 2. Executa `db:migration:run` (via `docker run` temporário ou `pnpm run` no host com DB acessível)
-3. Se migrations OK → `docker compose -f docker-compose.prod.yml up -d`
+3. Se migrations OK → `docker compose -f docker-compose.yml up -d`
 4. Se migrations falharem → exit 1; não sobe a API
 
 **Build e push de imagens (Docker Hub)**:
 - Imagens api, web, worker são construídas localmente e enviadas ao Docker Hub (`yurimatoslima/ultimaforma-*`)
 - Script: `deploy/build-and-push.sh [versão]` — determina tag por: CLI → git tag → package.json
 - Versionamento: definir `IMAGE_TAG=1.0.0` em `.env.prod` para deploys reproduzíveis
-- Alternativa build local (sem push): `docker compose -f docker-compose.prod.yml -f docker-compose.prod.build.yml up -d`
+- Alternativa build local (sem push): `docker compose -f docker-compose.yml -f docker-compose.prod.build.yml up -d`
 
 **Estrutura sugerida**:
 
@@ -533,7 +533,7 @@ Compose production-grade para deploy em VPS remoto com **Traefik** como reverse 
 deploy/
 ├── deploy.sh                  # Script de deploy (migrations + compose up)
 ├── build-and-push.sh         # Build e push das imagens para Docker Hub
-├── docker-compose.prod.yml    # Stack principal (usa imagens do registry)
+├── docker-compose.yml         # Stack principal (usa imagens do registry)
 ├── docker-compose.prod.build.yml  # Override para build local (opcional)
 ├── traefik/
 │   ├── traefik.yml            # Config estática (providers, entrypoints, certificatesResolvers)

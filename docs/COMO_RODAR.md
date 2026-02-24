@@ -187,7 +187,7 @@ O script:
 **Alternativa – build local (sem pull):** para testar builds localmente sem enviar ao Docker Hub:
 
 ```bash
-docker compose -f docker-compose.prod.yml -f docker-compose.prod.build.yml --env-file .env.prod up -d
+docker compose -f docker-compose.yml -f docker-compose.prod.build.yml --env-file .env.prod up -d
 ```
 
 ### Arquitetura de Produção

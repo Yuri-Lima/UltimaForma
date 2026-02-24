@@ -15,7 +15,7 @@ export COMPOSE_PROJECT_NAME=ultimaforma
 cd "$SCRIPT_DIR"
 
 echo "Starting Postgres and Redis..."
-docker compose -f docker-compose.prod.yml --env-file "$ENV_FILE" up -d postgres redis
+docker compose -f docker-compose.yml --env-file "$ENV_FILE" up -d postgres redis
 
 echo "Waiting for Postgres..."
 sleep 5
@@ -39,6 +39,6 @@ docker run --rm \
 
 echo "Starting full stack..."
 cd "$SCRIPT_DIR"
-docker compose -f docker-compose.prod.yml --env-file "$ENV_FILE" up -d
+docker compose -f docker-compose.yml --env-file "$ENV_FILE" up -d
 
 echo "Deploy complete."
