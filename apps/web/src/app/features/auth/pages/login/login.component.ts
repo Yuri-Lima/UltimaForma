@@ -14,7 +14,6 @@ import {
 import { AuthService } from '../../../../core/services/auth.service';
 import { AppButtonComponent } from '../../../../shared/components/app-button/app-button.component';
 import { UfInputComponent } from '../../../../shared/components/uf-input/uf-input.component';
-import { UfLanguageSelectComponent } from '../../../../shared/components/uf-language-select/uf-language-select.component';
 import { AuthCardComponent } from '../../components/auth-card/auth-card.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -28,7 +27,6 @@ import { TranslateService } from '@ngx-translate/core';
     RouterLink,
     AppButtonComponent,
     UfInputComponent,
-    UfLanguageSelectComponent,
     AuthCardComponent,
     TranslatePipe,
   ],
