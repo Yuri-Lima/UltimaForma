@@ -2,8 +2,8 @@
 # Run: docker compose -f docker-compose.dev.yml up -d
 # Stop: docker compose -f docker-compose.dev.yml down
 #
-# Postgres exposed on 5433, vector-db on 5434, Redis on 6381 (avoid conflict with local services).
-# Set DB_PORT=5433, VECTOR_DB_PORT=5434, REDIS_PORT=6381 in .env when using this compose.
+# Postgres 5433, vector-db 5434, Redis 6381 (avoid conflict with local services).
+# Copy .env.dev.example to .env for correct VECTOR_DB_PORT=5434 etc.
 #
 # API, Web, and Worker run locally for hot reload.
 
@@ -15,10 +15,10 @@ services:
       - "127.0.0.1:5433:5432"  # Host 5433 to avoid conflict with local Postgres
     environment:
       POSTGRES_USER: ${DB_USERNAME:-postgres}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
       POSTGRES_DB: ${DB_NAME:-ultimaforma}
     volumes:
-      - postgres_dev_data:/var/lib/postgresql/data
+      - postgres_dev_data:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-postgres} -d ${DB_NAME:-ultimaforma}"]
       interval: 5s
@@ -33,10 +33,10 @@ services:
       - "127.0.0.1:5434:5432"  # Host 5434 for vector DB
     environment:
       POSTGRES_USER: ${VECTOR_DB_USERNAME:-postgres}
-      POSTGRES_PASSWORD: ${VECTOR_DB_PASSWORD:-}
+      POSTGRES_PASSWORD: ${VECTOR_DB_PASSWORD:-postgres}
       POSTGRES_DB: ${VECTOR_DB_NAME:-ultimaforma_vector}
     volumes:
-      - vector_db_dev_data:/var/lib/postgresql/data
+      - vector_db_dev_data:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${VECTOR_DB_USERNAME:-postgres} -d ${VECTOR_DB_NAME:-ultimaforma_vector}"]
       interval: 5s

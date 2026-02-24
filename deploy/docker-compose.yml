@@ -25,7 +25,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME}"]
       interval: 5s
@@ -42,7 +42,7 @@ services:
       POSTGRES_PASSWORD: ${VECTOR_DB_PASSWORD:-${DB_PASSWORD}}
       POSTGRES_DB: ${VECTOR_DB_NAME:-${DB_NAME}_vector}
     volumes:
-      - vector_db_data:/var/lib/postgresql/data
+      - vector_db_data:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${VECTOR_DB_USERNAME:-${DB_USERNAME}}"]
       interval: 5s
