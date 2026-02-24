@@ -10,7 +10,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Inject } from '@nestjs/common';
 import Redis from 'ioredis';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import * as speakeasy from 'speakeasy';
 import * as crypto from 'crypto';
 import { User } from '../users/user.entity';
