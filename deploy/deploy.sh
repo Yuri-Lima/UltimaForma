@@ -17,8 +17,15 @@ cd "$SCRIPT_DIR"
 echo "Starting Postgres, vector-db, and Redis..."
 docker compose -f docker-compose.yml --env-file "$ENV_FILE" up -d postgres vector-db redis
 
-echo "Waiting for Postgres and vector-db..."
-sleep 5
+echo "Waiting for Postgres and vector-db to be healthy..."
+attempts=0
+until docker compose -f docker-compose.yml --env-file "$ENV_FILE" exec -T postgres pg_isready -U postgres 2>/dev/null && \
+      docker compose -f docker-compose.yml --env-file "$ENV_FILE" exec -T vector-db pg_isready -U postgres 2>/dev/null; do
+  sleep 2
+  attempts=$((attempts + 1))
+  [[ $attempts -ge 30 ]] && { echo "Error: Postgres/vector-db did not become ready in time."; exit 1; }
+done
+echo "Postgres and vector-db are ready."
 
 echo "Running migrations and embeddings setup..."
 # Run migrations via Docker so the host doesn't need Node/pnpm.

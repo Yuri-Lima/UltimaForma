@@ -36,7 +36,7 @@ services:
   vector-db:
     image: pgvector/pgvector:pg18
     ports:
-      - "127.0.0.1:5433:5432"  # Exposed for ensure-embeddings from host
+      - "127.0.0.1:5434:5432"  # Exposed for ensure-embeddings from host
     environment:
       POSTGRES_USER: ${VECTOR_DB_USERNAME:-${DB_USERNAME}}
       POSTGRES_PASSWORD: ${VECTOR_DB_PASSWORD:-${DB_PASSWORD}}
