@@ -27,7 +27,7 @@ import { InputText } from 'primeng/inputtext';
   template: `
     <!-- Hero -->
     <section
-      class="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-28"
+      class="relative overflow-hidden px-4 pt-8 pb-20 sm:px-6 sm:pt-12 sm:pb-28"
       style="background: linear-gradient(180deg, rgba(99, 102, 241, 0.06) 0%, transparent 60%); background-color: var(--color-bg)"
     >
       <div class="mx-auto max-w-4xl text-center">
