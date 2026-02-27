@@ -1,0 +1,246 @@
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
+import { UfSectionComponent } from '../../../shared/components/uf-section/uf-section.component';
+import { UfFounderCardComponent } from '../../../shared/components/uf-founder-card/uf-founder-card.component';
+import { AppButtonComponent } from '../../../shared/components/app-button/app-button.component';
+import { Textarea } from 'primeng/textarea';
+import { InputText } from 'primeng/inputtext';
+
+@Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-landing',
+  standalone: true,
+  imports: [
+    TranslatePipe,
+    RouterLink,
+    UfSectionComponent,
+    UfFounderCardComponent,
+    AppButtonComponent,
+    FormsModule,
+    Textarea,
+    InputText,
+  ],
+  template: `
+    <!-- Hero -->
+    <section
+      class="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-28"
+      style="background: linear-gradient(180deg, rgba(99, 102, 241, 0.06) 0%, transparent 60%); background-color: var(--color-bg)"
+    >
+      <div class="mx-auto max-w-4xl text-center">
+        <h1
+          class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl"
+          style="color: var(--color-text)"
+        >
+          {{ 'landing.hero.headline' | translate }}
+        </h1>
+        <p
+          class="mx-auto mt-6 max-w-2xl text-lg"
+          style="color: var(--color-text-muted)"
+        >
+          {{ 'landing.hero.subheadline' | translate }}
+        </p>
+        <div class="mt-10">
+          <uf-button
+            [label]="'landing.hero.cta' | translate"
+            severity="primary"
+            styleClass="min-h-[48px] px-8"
+            (clicked)="scrollToContact($event)"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Produto -->
+    <uf-section id="produto" [title]="'landing.product.title' | translate">
+      <div class="space-y-6">
+        <p class="text-base leading-relaxed" style="color: var(--color-text-muted)">
+          {{ 'landing.product.description' | translate }}
+        </p>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            class="rounded-lg border p-4"
+            style="background-color: var(--color-surface); border-color: var(--color-border)"
+          >
+            <span class="pi pi-shield text-2xl" style="color: var(--color-primary)" aria-hidden="true"></span>
+            <h3 class="mt-3 font-semibold" style="color: var(--color-text)">
+              {{ 'landing.product.feature1.title' | translate }}
+            </h3>
+            <p class="mt-1 text-sm" style="color: var(--color-text-muted)">
+              {{ 'landing.product.feature1.desc' | translate }}
+            </p>
+          </div>
+          <div
+            class="rounded-lg border p-4"
+            style="background-color: var(--color-surface); border-color: var(--color-border)"
+          >
+            <span class="pi pi-wallet text-2xl" style="color: var(--color-primary)" aria-hidden="true"></span>
+            <h3 class="mt-3 font-semibold" style="color: var(--color-text)">
+              {{ 'landing.product.feature2.title' | translate }}
+            </h3>
+            <p class="mt-1 text-sm" style="color: var(--color-text-muted)">
+              {{ 'landing.product.feature2.desc' | translate }}
+            </p>
+          </div>
+          <div
+            class="rounded-lg border p-4 sm:col-span-2 lg:col-span-1"
+            style="background-color: var(--color-surface); border-color: var(--color-border)"
+          >
+            <span class="pi pi-link text-2xl" style="color: var(--color-primary)" aria-hidden="true"></span>
+            <h3 class="mt-3 font-semibold" style="color: var(--color-text)">
+              {{ 'landing.product.feature3.title' | translate }}
+            </h3>
+            <p class="mt-1 text-sm" style="color: var(--color-text-muted)">
+              {{ 'landing.product.feature3.desc' | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </uf-section>
+
+    <!-- Fundadores -->
+    <uf-section id="fundadores" [title]="'landing.founders.title' | translate">
+      <div class="grid gap-8 sm:grid-cols-2">
+        <uf-founder-card
+          [name]="'landing.founders.pedro.name' | translate"
+          [role]="'landing.founders.pedro.role' | translate"
+          [description]="'landing.founders.pedro.description' | translate"
+          icon="pi pi-database"
+        />
+        <uf-founder-card
+          [name]="'landing.founders.yuri.name' | translate"
+          [role]="'landing.founders.yuri.role' | translate"
+          [description]="'landing.founders.yuri.description' | translate"
+          icon="pi pi-sparkles"
+        />
+      </div>
+    </uf-section>
+
+    <!-- Contato -->
+    <uf-section id="contato" [title]="'landing.contact.title' | translate">
+      <div class="grid gap-12 lg:grid-cols-2">
+        <div>
+          <p class="text-base" style="color: var(--color-text-muted)">
+            {{ 'landing.contact.intro' | translate }}
+          </p>
+          <a
+            href="mailto:contato@ultimaforma.id"
+            class="mt-4 inline-flex items-center gap-2 text-lg font-medium hover:opacity-80 transition-opacity"
+            style="color: var(--color-primary)"
+          >
+            <span class="pi pi-envelope" aria-hidden="true"></span>
+            contato&#64;ultimaforma.id
+          </a>
+        </div>
+        <div
+          class="rounded-xl border p-6"
+          style="background-color: var(--color-surface); border-color: var(--color-border)"
+        >
+          @if (contactSubmitted()) {
+            <p class="text-center font-medium" style="color: var(--color-primary)">
+              {{ 'landing.contact.success' | translate }}
+            </p>
+          } @else {
+            <form (ngSubmit)="onContactSubmit()" class="space-y-4">
+              <div>
+                <label class="form-label" for="contact-name">
+                  {{ 'landing.contact.name' | translate }}
+                </label>
+                <input
+                  pInputText
+                  id="contact-name"
+                  type="text"
+                  [(ngModel)]="contactName"
+                  name="name"
+                  class="w-full"
+                  [placeholder]="'landing.contact.namePlaceholder' | translate"
+                />
+              </div>
+              <div>
+                <label class="form-label" for="contact-email">
+                  {{ 'landing.contact.email' | translate }}
+                </label>
+                <input
+                  pInputText
+                  id="contact-email"
+                  type="email"
+                  [(ngModel)]="contactEmail"
+                  name="email"
+                  class="w-full"
+                  [placeholder]="'landing.contact.emailPlaceholder' | translate"
+                />
+              </div>
+              <div>
+                <label class="form-label" for="contact-message">
+                  {{ 'landing.contact.message' | translate }}
+                </label>
+                <textarea
+                  pTextarea
+                  id="contact-message"
+                  [(ngModel)]="contactMessage"
+                  name="message"
+                  rows="4"
+                  class="w-full"
+                  [placeholder]="'landing.contact.messagePlaceholder' | translate"
+                ></textarea>
+              </div>
+              <uf-button
+                type="submit"
+                [label]="'common.send' | translate"
+                severity="primary"
+                [fluid]="true"
+              />
+            </form>
+          }
+        </div>
+      </div>
+    </uf-section>
+
+    <!-- Footer -->
+    <footer
+      class="border-t px-4 py-8 sm:px-6"
+      style="border-color: var(--color-border); background-color: var(--color-surface)"
+    >
+      <div class="mx-auto flex max-w-4xl flex-col items-center justify-between gap-4 sm:flex-row">
+        <p class="text-sm" style="color: var(--color-text-muted)">
+          {{ 'landing.footer.copyright' | translate }}
+        </p>
+        <div class="flex gap-6">
+          <a
+            routerLink="/login"
+            class="text-sm hover:opacity-80 transition-opacity"
+            style="color: var(--color-primary)"
+          >
+            {{ 'auth.nav.login' | translate }}
+          </a>
+          <a
+            href="#contato"
+            class="text-sm hover:opacity-80 transition-opacity"
+            style="color: var(--color-primary)"
+          >
+            {{ 'landing.nav.contact' | translate }}
+          </a>
+        </div>
+      </div>
+    </footer>
+  `,
+})
+export class LandingComponent {
+  contactName = '';
+  contactEmail = '';
+  contactMessage = '';
+  contactSubmitted = signal(false);
+
+  scrollToContact(ev: Event) {
+    ev.preventDefault();
+    document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  onContactSubmit() {
+    if (!this.contactName.trim() || !this.contactEmail.trim()) {
+      return;
+    }
+    this.contactSubmitted.set(true);
+  }
+}

@@ -1,0 +1,18 @@
+---
+description: Novos componentes devem reutilizar componentes compartilhados existentes
+globs: apps/web/**/*.ts
+alwaysApply: false
+---
+
+# Reusable Components
+
+Antes de criar um novo componente, verifique se os componentes em `shared/components/` podem ser usados:
+
+- `uf-button` (AppButtonComponent) — botões e links
+- `uf-input` (UfInputComponent) — campos de texto, email, senha
+- `uf-select` (UfSelectComponent) — dropdowns
+- `uf-language-select` (UfLanguageSelectComponent) — seletor de idioma
+- `app-page-card` (PageCardComponent) — cards com título
+- `app-auth-card` (AuthCardComponent) — cards com título e subtítulo
+
+Se precisar de algo novo, crie em `shared/components/` com API genérica e reutilizável. Nunca duplicar padrões de card, botão ou input.

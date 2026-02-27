@@ -79,6 +79,61 @@
       "register": "Cadastrar"
     }
   },
+  "landing": {
+    "hero": {
+      "headline": "Infraestrutura neutra de identidade digital com consentimento do titular",
+      "subheadline": "Conectamos emissores, verificadores e usuários sem centralizar dados. Empresas reduzem custos de verificação; usuários mantêm soberania sobre suas credenciais.",
+      "cta": "Fale conosco"
+    },
+    "nav": {
+      "product": "Produto",
+      "founders": "Fundadores",
+      "contact": "Contato"
+    },
+    "product": {
+      "title": "O que fazemos",
+      "description": "A Ultima Forma oferece uma camada de orquestração que conecta emissores de credenciais, verificadores e carteiras de identidade. Usuários armazenam credenciais em carteiras soberanas e decidem o que compartilhar. Empresas realizam verificações via API, sempre com consentimento explícito e granular.",
+      "feature1": {
+        "title": "Orquestração neutra",
+        "desc": "Conectamos o ecossistema sem centralizar dados. A escolha permanece com emissores, verificadores e titulares."
+      },
+      "feature2": {
+        "title": "Carteira soberana",
+        "desc": "Credenciais sob controle do usuário. Armazenamento descentralizado e compartilhamento mínimo necessário."
+      },
+      "feature3": {
+        "title": "Interoperabilidade",
+        "desc": "Padrões abertos garantem que credenciais e fluxos funcionem além de um único fornecedor."
+      }
+    },
+    "founders": {
+      "title": "Fundadores",
+      "pedro": {
+        "name": "Pedro Drummond",
+        "role": "Enterprise Data Architect",
+        "description": "Especialista em identificação digital e identity resolution com Big Data, aplicada em ambientes governamentais e de alta criticidade (Polícia Federal, ABIN, Banco Central do Brasil, Procuradoria Geral da República). Know-how em governança, qualidade de dados, deduplicação, matching e auditoria, com sensibilidade a restrições de segurança e privacidade."
+      },
+      "yuri": {
+        "name": "Yuri Lima",
+        "role": "IA Expert",
+        "description": "Especialista referência de mercado na construção de sistemas AI-first com foco em confiabilidade, custo e segurança. IA como pilar desde a concepção: automação, assistência inteligente, evals, observabilidade e governança de prompts/modelos. Capacidade de incorporar automação às jornadas sem comprometer requisitos de compliance em ambientes regulados."
+      }
+    },
+    "contact": {
+      "title": "Contato",
+      "intro": "Entre em contato conosco. Preencha o formulário abaixo e retornaremos em breve.",
+      "email": "E-mail",
+      "name": "Nome",
+      "namePlaceholder": "Seu nome",
+      "emailPlaceholder": "seu@email.com",
+      "message": "Mensagem",
+      "messagePlaceholder": "Como podemos ajudar?",
+      "success": "Obrigado! Retornaremos em breve."
+    },
+    "footer": {
+      "copyright": "© Ultima Forma. Todos os direitos reservados."
+    }
+  },
   "docs": {
     "title": "Documentação",
     "closeSidebar": "Fechar menu",
