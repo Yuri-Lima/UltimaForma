@@ -5,6 +5,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { UfSectionComponent } from '../../../shared/components/uf-section/uf-section.component';
 import { UfFounderCardComponent } from '../../../shared/components/uf-founder-card/uf-founder-card.component';
 import { AppButtonComponent } from '../../../shared/components/app-button/app-button.component';
+import { UfFlowDiagramComponent } from '../../../shared/components/uf-flow-diagram/uf-flow-diagram.component';
 import { Textarea } from 'primeng/textarea';
 import { InputText } from 'primeng/inputtext';
 
@@ -18,6 +19,7 @@ import { InputText } from 'primeng/inputtext';
     UfSectionComponent,
     UfFounderCardComponent,
     AppButtonComponent,
+    UfFlowDiagramComponent,
     FormsModule,
     Textarea,
     InputText,
@@ -47,6 +49,20 @@ import { InputText } from 'primeng/inputtext';
             severity="primary"
             styleClass="min-h-[48px] px-8"
             (clicked)="scrollToContact($event)"
+          />
+        </div>
+        <div class="mt-16 sm:mt-20">
+          <uf-flow-diagram
+            [title]="'landing.diagram.title' | translate"
+            [verifierLabel]="'landing.diagram.verifier' | translate"
+            [verifierDesc]="'landing.diagram.verifierDesc' | translate"
+            [verifierHover]="'landing.diagram.verifierHover' | translate"
+            [walletLabel]="'landing.diagram.wallet' | translate"
+            [walletDesc]="'landing.diagram.walletDesc' | translate"
+            [walletHover]="'landing.diagram.walletHover' | translate"
+            [providerLabel]="'landing.diagram.provider' | translate"
+            [providerDesc]="'landing.diagram.providerDesc' | translate"
+            [providerHover]="'landing.diagram.providerHover' | translate"
           />
         </div>
       </div>

@@ -130,6 +130,18 @@
       "messagePlaceholder": "Como podemos ajudar?",
       "success": "Obrigado! Retornaremos em breve."
     },
+    "diagram": {
+      "title": "Como funciona",
+      "verifier": "Verificador",
+      "verifierDesc": "Verifica identidade e credenciais",
+      "wallet": "Carteira Digital",
+      "walletDesc": "Armazena credenciais e gerencia consentimento",
+      "provider": "Provedor de Serviço",
+      "providerDesc": "Recebe informações verificadas",
+      "verifierHover": "Empresas e instituições que precisam verificar atributos de identidade dos usuários",
+      "walletHover": "Carteira sob controle do usuário onde credenciais são armazenadas com segurança e compartilhadas com consentimento",
+      "providerHover": "Serviços que recebem informações verificadas para onboarding, compliance ou acesso"
+    },
     "footer": {
       "copyright": "© Ultima Forma. Todos os direitos reservados."
     }

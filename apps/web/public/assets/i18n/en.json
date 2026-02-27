@@ -130,6 +130,18 @@
       "messagePlaceholder": "How can we help?",
       "success": "Thank you! We will get back to you soon."
     },
+    "diagram": {
+      "title": "How it works",
+      "verifier": "Verifier",
+      "verifierDesc": "Verifies identity & credentials",
+      "wallet": "Digital Wallet",
+      "walletDesc": "Stores credentials & manages consent",
+      "provider": "Service Provider",
+      "providerDesc": "Receives verified information",
+      "verifierHover": "Companies and institutions that need to verify user identity attributes",
+      "walletHover": "User-controlled wallet where credentials are securely stored and shared with consent",
+      "providerHover": "Services that receive verified information for onboarding, compliance, or access"
+    },
     "footer": {
       "copyright": "© Ultima Forma. All rights reserved."
     }
