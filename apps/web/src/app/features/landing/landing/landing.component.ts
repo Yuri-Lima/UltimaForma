@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { trigger, transition, style, animate } from '@angular/animations';
 import { TranslatePipe } from '@ngx-translate/core';
 import { UfSectionComponent } from '../../../shared/components/uf-section/uf-section.component';
 import { UfFounderCardComponent } from '../../../shared/components/uf-founder-card/uf-founder-card.component';
 import { AppButtonComponent } from '../../../shared/components/app-button/app-button.component';
 import { UfFlowDiagramComponent } from '../../../shared/components/uf-flow-diagram/uf-flow-diagram.component';
+import { UfWalletStoryComponent } from '../../../shared/components/uf-wallet-story/uf-wallet-story.component';
 import { Textarea } from 'primeng/textarea';
 import { InputText } from 'primeng/inputtext';
 
@@ -13,6 +15,20 @@ import { InputText } from 'primeng/inputtext';
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-landing',
   standalone: true,
+  animations: [
+    trigger('expandCollapse', [
+      transition(':enter', [
+        style({ opacity: 0, maxHeight: '0px', overflow: 'hidden' }),
+        animate('500ms cubic-bezier(0.16, 1, 0.3, 1)',
+          style({ opacity: 1, maxHeight: '4000px', overflow: 'hidden' })),
+      ]),
+      transition(':leave', [
+        style({ opacity: 1, maxHeight: '4000px', overflow: 'hidden' }),
+        animate('400ms cubic-bezier(0.16, 1, 0.3, 1)',
+          style({ opacity: 0, maxHeight: '0px', overflow: 'hidden' })),
+      ]),
+    ]),
+  ],
   imports: [
     TranslatePipe,
     RouterLink,
@@ -20,6 +36,7 @@ import { InputText } from 'primeng/inputtext';
     UfFounderCardComponent,
     AppButtonComponent,
     UfFlowDiagramComponent,
+    UfWalletStoryComponent,
     FormsModule,
     Textarea,
     InputText,
@@ -61,6 +78,9 @@ import { InputText } from 'primeng/inputtext';
         <div class="mt-16 sm:mt-20">
             <uf-flow-diagram
             [title]="'landing.diagram.title' | translate"
+            [clickHint]="'landing.diagram.clickHint' | translate"
+            [activeTile]="activeUseCase()"
+            (tileClicked)="toggleUseCase($event)"
             [verifierLabel]="'landing.diagram.verifier' | translate"
             [verifierDesc]="'landing.diagram.verifierDesc' | translate"
             [verifierHover]="'landing.diagram.verifierHover' | translate"
@@ -74,6 +94,13 @@ import { InputText } from 'primeng/inputtext';
         </div>
       </div>
     </section>
+
+    <!-- Use-case accordion panels -->
+    @if (activeUseCase() === 'wallet') {
+      <div id="use-case-panel" class="landing-wallet-story-bg" style="scroll-margin-top: 2rem" @expandCollapse>
+        <uf-wallet-story />
+      </div>
+    }
 
     <!-- Produto -->
     <div class="landing-product-bg">
@@ -260,6 +287,17 @@ export class LandingComponent {
   contactEmail = '';
   contactMessage = '';
   contactSubmitted = signal(false);
+  activeUseCase = signal<'verifier' | 'wallet' | 'provider' | null>(null);
+
+  toggleUseCase(tile: 'verifier' | 'wallet' | 'provider') {
+    const isClosing = this.activeUseCase() === tile;
+    this.activeUseCase.set(isClosing ? null : tile);
+    if (!isClosing) {
+      setTimeout(() => {
+        document.getElementById('use-case-panel')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 550);
+    }
+  }
 
   scrollToContact(ev: Event) {
     ev.preventDefault();

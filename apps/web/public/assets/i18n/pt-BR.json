@@ -143,7 +143,33 @@
       "providerDesc": "Recebe informações verificadas",
       "verifierHover": "Empresas e instituições que precisam verificar atributos de identidade dos usuários",
       "walletHover": "Carteira sob controle do usuário onde credenciais são armazenadas com segurança e compartilhadas com consentimento",
-      "providerHover": "Serviços que recebem informações verificadas para onboarding, compliance ou acesso"
+      "providerHover": "Serviços que recebem informações verificadas para onboarding, compliance ou acesso",
+      "clickHint": "Clique para explorar"
+    },
+    "walletStory": {
+      "title": "Daniel n\u00e3o enviou um \u00fanico PDF para financiar sua casa nova.",
+      "subtitle": "Com um clique de consentimento, o banco recebeu documentos aut\u00eanticos, verificados e atualizados.",
+      "scene1": "Comprar uma casa significava escanear, enviar, renomear e reenviar documentos.",
+      "scene2": "Agora, sua identidade verificada vive com seguran\u00e7a na carteira digital.",
+      "scene3": "Ele v\u00ea exatamente o que ser\u00e1 compartilhado. Ele toca em Autorizar.",
+      "scene4": "O banco recebe credenciais estruturadas e assinadas criptograficamente \u2014 n\u00e3o PDFs.",
+      "errorBadge": "Documento ileg\u00edvel",
+      "walletHeader": "Minhas Credenciais",
+      "doc1": "Carteira de Motorista",
+      "doc2": "RG",
+      "doc3": "Comprovante de Renda",
+      "doc4": "Endere\u00e7o",
+      "verified": "Verificado",
+      "consentMessage": "O banco solicita credenciais de identidade e renda verificadas.",
+      "authorize": "Autorizar",
+      "badge1": "Autenticado",
+      "badge2": "Assinado",
+      "badge3": "Verificado",
+      "final": "Sem uploads. Sem fraudes. Sem atrasos.",
+      "cred1": "Credenciais Verific\u00e1veis (padr\u00e3o W3C)",
+      "cred2": "Assinaturas criptogr\u00e1ficas",
+      "cred3": "Consentimento expl\u00edcito do usu\u00e1rio",
+      "cred4": "Sem armazenamento centralizado de dados pessoais"
     },
     "footer": {
       "copyright": "© Ultima Forma. Todos os direitos reservados."

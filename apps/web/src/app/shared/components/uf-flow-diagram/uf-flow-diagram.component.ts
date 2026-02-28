@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   input,
+  output,
   signal,
 } from '@angular/core';
 
@@ -236,6 +237,50 @@ import {
     .flow-tile--center .flow-tile__glow--blue {
       box-shadow: 0 0 24px 8px #3b82f6, inset 0 0 24px 3px #3b82f633;
     }
+
+    /* active tile (selected) */
+    .flow-tile--active {
+      transform: translateY(-16px);
+    }
+    .flow-tile--active .flow-tile__face {
+      border-color: #8b5cf6;
+      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.25);
+    }
+    .flow-tile--active .flow-tile__glow--red {
+      box-shadow: 0 0 35px 12px #ef4444, inset 0 0 30px 4px #ef444444;
+    }
+    .flow-tile--active .flow-tile__glow--blue {
+      box-shadow: 0 0 35px 12px #3b82f6, inset 0 0 30px 4px #3b82f644;
+    }
+
+    /* active indicator arrow */
+    .flow-tile__indicator {
+      display: flex;
+      justify-content: center;
+      margin-top: 0.75rem;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .flow-tile--active .flow-tile__indicator {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* click hint */
+    .flow-tile__hint {
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      font-family: var(--font-sans);
+      text-align: center;
+      margin-top: 0.5rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .flow-tile:hover .flow-tile__hint {
+      opacity: 0.7;
+    }
   `,
   template: `
     <div class="mx-auto w-full max-w-5xl px-4">
@@ -250,11 +295,10 @@ import {
 
       <div class="flow-scene">
         <!-- VERIFIER -->
-        <div class="flow-tile">
+        <div class="flow-tile" [class.flow-tile--active]="activeTile() === 'verifier'" (click)="tileClicked.emit('verifier')">
           <div class="flow-tile__glow flow-tile__glow--red"></div>
           <div class="flow-tile__glow flow-tile__glow--blue"></div>
           <div class="flow-tile__face">
-            <!-- Shield with circuit lines -->
             <svg class="flow-tile__icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M40 6L12 20v20c0 16.6 11.9 32.1 28 36 16.1-3.9 28-19.4 28-36V20L40 6z" stroke="currentColor" stroke-width="3" fill="none"/>
               <path d="M40 14L18 25v15c0 12.8 9.2 24.8 22 28 12.8-3.2 22-15.2 22-28V25L40 14z" stroke="currentColor" stroke-width="1.5" opacity="0.4" fill="none"/>
@@ -275,6 +319,12 @@ import {
             <span class="flow-tile__desc">{{ verifierDesc() }}</span>
             <span class="flow-tile__hover-desc">{{ verifierHover() }}</span>
           </div>
+          <div class="flow-tile__indicator">
+            <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M2 2l6 6 6-6" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          @if (clickHint()) {
+            <span class="flow-tile__hint">{{ clickHint() }}</span>
+          }
         </div>
 
         <!-- stream left → center -->
@@ -287,11 +337,10 @@ import {
         </div>
 
         <!-- DIGITAL WALLET (center, elevated) -->
-        <div class="flow-tile flow-tile--center">
+        <div class="flow-tile flow-tile--center" [class.flow-tile--active]="activeTile() === 'wallet'" (click)="tileClicked.emit('wallet')">
           <div class="flow-tile__glow flow-tile__glow--red"></div>
           <div class="flow-tile__glow flow-tile__glow--blue"></div>
           <div class="flow-tile__face">
-            <!-- Phone with wallet -->
             <svg class="flow-tile__icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="18" y="6" width="44" height="68" rx="8" stroke="currentColor" stroke-width="3" fill="none"/>
               <rect x="22" y="14" width="36" height="46" rx="2" stroke="currentColor" stroke-width="1.5" opacity="0.35" fill="none"/>
@@ -305,6 +354,12 @@ import {
             <span class="flow-tile__desc">{{ walletDesc() }}</span>
             <span class="flow-tile__hover-desc">{{ walletHover() }}</span>
           </div>
+          <div class="flow-tile__indicator">
+            <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M2 2l6 6 6-6" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          @if (clickHint()) {
+            <span class="flow-tile__hint">{{ clickHint() }}</span>
+          }
         </div>
 
         <!-- stream center → right -->
@@ -317,11 +372,10 @@ import {
         </div>
 
         <!-- SERVICE PROVIDER -->
-        <div class="flow-tile">
+        <div class="flow-tile" [class.flow-tile--active]="activeTile() === 'provider'" (click)="tileClicked.emit('provider')">
           <div class="flow-tile__glow flow-tile__glow--red"></div>
           <div class="flow-tile__glow flow-tile__glow--blue"></div>
           <div class="flow-tile__face">
-            <!-- Hands holding gear with checkmark -->
             <svg class="flow-tile__icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="40" cy="34" r="12" stroke="currentColor" stroke-width="2.5" fill="none"/>
               <path d="M40 22v-4M40 46v4M28 34h-4M52 34h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -337,6 +391,12 @@ import {
             <span class="flow-tile__desc">{{ providerDesc() }}</span>
             <span class="flow-tile__hover-desc">{{ providerHover() }}</span>
           </div>
+          <div class="flow-tile__indicator">
+            <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M2 2l6 6 6-6" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          @if (clickHint()) {
+            <span class="flow-tile__hint">{{ clickHint() }}</span>
+          }
         </div>
       </div>
     </div>
@@ -344,6 +404,8 @@ import {
 })
 export class UfFlowDiagramComponent {
   title = input<string>('');
+  clickHint = input<string>('');
+  activeTile = input<'verifier' | 'wallet' | 'provider' | null>(null);
   verifierLabel = input<string>('Verifier');
   verifierDesc = input<string>('');
   verifierHover = input<string>('');
@@ -353,6 +415,8 @@ export class UfFlowDiagramComponent {
   providerLabel = input<string>('Service Provider');
   providerDesc = input<string>('');
   providerHover = input<string>('');
+
+  tileClicked = output<'verifier' | 'wallet' | 'provider'>();
 
   hoveredNode = signal<'verifier' | 'wallet' | 'provider' | null>(null);
 }

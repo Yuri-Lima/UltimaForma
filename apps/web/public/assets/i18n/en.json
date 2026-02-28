@@ -143,7 +143,33 @@
       "providerDesc": "Receives verified information",
       "verifierHover": "Companies and institutions that need to verify user identity attributes",
       "walletHover": "User-controlled wallet where credentials are securely stored and shared with consent",
-      "providerHover": "Services that receive verified information for onboarding, compliance, or access"
+      "providerHover": "Services that receive verified information for onboarding, compliance, or access",
+      "clickHint": "Click to explore"
+    },
+    "walletStory": {
+      "title": "Daniel didn\u2019t upload a single PDF to finance his new home.",
+      "subtitle": "With one consent click, the bank received authentic, verified, and up-to-date documents.",
+      "scene1": "Buying a home used to mean scanning, uploading, renaming, and resending documents.",
+      "scene2": "Now, his verified identity lives securely in his wallet.",
+      "scene3": "He sees exactly what will be shared. He taps Authorize.",
+      "scene4": "The bank receives structured, cryptographically signed credentials \u2014 not PDFs.",
+      "errorBadge": "Document unreadable",
+      "walletHeader": "My Credentials",
+      "doc1": "Driver\u2019s License",
+      "doc2": "ID",
+      "doc3": "Proof of Income",
+      "doc4": "Address",
+      "verified": "Verified",
+      "consentMessage": "Bank requests verified identity and income credentials.",
+      "authorize": "Authorize",
+      "badge1": "Authenticated",
+      "badge2": "Signed",
+      "badge3": "Verified",
+      "final": "No uploads. No fraud. No delays.",
+      "cred1": "Verifiable Credentials (W3C standard)",
+      "cred2": "Cryptographic signatures",
+      "cred3": "Explicit user consent",
+      "cred4": "No centralized storage of personal data"
     },
     "footer": {
       "copyright": "© Ultima Forma. All rights reserved."

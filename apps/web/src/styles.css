@@ -204,6 +204,30 @@ label.form-label {
     ), #0a0a0f;
 }
 
+.landing-wallet-story-bg {
+  background-color: var(--color-bg);
+}
+[data-theme=light] .landing-wallet-story-bg {
+  background:
+    linear-gradient(180deg,
+      transparent 0%,
+      rgba(99, 102, 241, 0.06) 20%,
+      rgba(99, 102, 241, 0.10) 50%,
+      rgba(99, 102, 241, 0.06) 80%,
+      transparent 100%
+    ), #fafafa;
+}
+[data-theme=dark] .landing-wallet-story-bg {
+  background:
+    linear-gradient(180deg,
+      transparent 0%,
+      rgba(99, 102, 241, 0.06) 20%,
+      rgba(99, 102, 241, 0.10) 50%,
+      rgba(99, 102, 241, 0.06) 80%,
+      transparent 100%
+    ), #0a0a0f;
+}
+
 .landing-product-bg {
   background-color: var(--color-bg);
 }
