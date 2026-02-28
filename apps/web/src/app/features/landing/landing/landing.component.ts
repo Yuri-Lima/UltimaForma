@@ -28,7 +28,7 @@ import { InputText } from 'primeng/inputtext';
     <!-- Hero -->
     <section
       class="relative overflow-hidden px-4 pt-8 pb-20 sm:px-6 sm:pt-12 sm:pb-28"
-      style="background: linear-gradient(180deg, rgba(99, 102, 241, 0.06) 0%, transparent 60%); background-color: var(--color-bg)"
+      style="background: linear-gradient(180deg, rgba(129, 178, 255, 0.22) 0%, rgba(99, 148, 241, 0.12) 40%, rgba(99, 102, 241, 0.04) 70%, transparent 100%); background-color: var(--color-bg)"
     >
       <span
         class="absolute right-6 top-8 hidden items-center gap-6 rounded-full px-10 py-4 text-2xl font-semibold sm:right-8 sm:top-12 sm:inline-flex"
@@ -123,39 +123,44 @@ import { InputText } from 'primeng/inputtext';
       </div>
     </uf-section>
 
-    <!-- Fundadores -->
-    <uf-section id="fundadores" [title]="'landing.founders.title' | translate">
-      <div class="grid gap-8 sm:grid-cols-2">
-        <uf-founder-card
-          [name]="'landing.founders.pedro.name' | translate"
-          [role]="'landing.founders.pedro.role' | translate"
-          [description]="'landing.founders.pedro.description' | translate"
-          imageUrl="/assets/founders/pedro.png"
-        />
-        <uf-founder-card
-          [name]="'landing.founders.yuri.name' | translate"
-          [role]="'landing.founders.yuri.role' | translate"
-          [description]="'landing.founders.yuri.description' | translate"
-          imageUrl="/assets/founders/yuri.png"
-        />
-      </div>
-    </uf-section>
+    <!-- Fundadores + Contato + Footer com degradê pôr do sol -->
+    <div
+      class="relative"
+      style="background: linear-gradient(180deg, transparent 0%, rgba(255, 183, 77, 0.18) 15%, rgba(255, 111, 0, 0.22) 35%, rgba(244, 67, 54, 0.18) 55%, rgba(233, 30, 99, 0.14) 72%, rgba(156, 39, 176, 0.16) 88%, rgba(103, 58, 183, 0.18) 100%), var(--color-bg)"
+    >
+      <!-- Fundadores -->
+      <uf-section id="fundadores" [title]="'landing.founders.title' | translate" [backgroundTransparent]="true">
+        <div class="grid gap-8 sm:grid-cols-2">
+          <uf-founder-card
+            [name]="'landing.founders.pedro.name' | translate"
+            [role]="'landing.founders.pedro.role' | translate"
+            [description]="'landing.founders.pedro.description' | translate"
+            imageUrl="/assets/founders/pedro.png"
+          />
+          <uf-founder-card
+            [name]="'landing.founders.yuri.name' | translate"
+            [role]="'landing.founders.yuri.role' | translate"
+            [description]="'landing.founders.yuri.description' | translate"
+            imageUrl="/assets/founders/yuri.png"
+          />
+        </div>
+      </uf-section>
 
-    <!-- Contato -->
-    <uf-section id="contato" [title]="'landing.contact.title' | translate">
-      <div class="grid gap-12 lg:grid-cols-2">
-        <div>
-          <p class="text-base" style="color: var(--color-text-muted)">
-            {{ 'landing.contact.intro' | translate }}
-          </p>
-          <a
-            href="mailto:contato@ultimaforma.id"
-            class="mt-4 inline-flex items-center gap-2 text-lg font-medium hover:opacity-80 transition-opacity"
-            style="color: var(--color-primary)"
-          >
-            <span class="pi pi-envelope" aria-hidden="true"></span>
-            contato&#64;ultimaforma.id
-          </a>
+      <!-- Contato -->
+      <uf-section id="contato" [title]="'landing.contact.title' | translate" [backgroundTransparent]="true">
+        <div class="grid gap-12 lg:grid-cols-2">
+          <div>
+            <p class="text-base" style="color: var(--color-text-muted)">
+              {{ 'landing.contact.intro' | translate }}
+            </p>
+            <a
+              href="mailto:contato@ultimaforma.id"
+              class="mt-4 inline-flex items-center gap-2 text-lg font-medium hover:opacity-80 transition-opacity"
+              style="color: var(--color-primary)"
+            >
+              <span class="pi pi-envelope" aria-hidden="true"></span>
+              contato&#64;ultimaforma.id
+            </a>
         </div>
         <div
           class="rounded-xl border p-6"
@@ -217,37 +222,38 @@ import { InputText } from 'primeng/inputtext';
               />
             </form>
           }
+          </div>
         </div>
-      </div>
-    </uf-section>
+      </uf-section>
 
-    <!-- Footer -->
-    <footer
-      class="border-t px-4 py-8 sm:px-6"
-      style="border-color: var(--color-border); background-color: var(--color-surface)"
-    >
-      <div class="mx-auto flex max-w-4xl flex-col items-center justify-between gap-4 sm:flex-row">
-        <p class="text-sm" style="color: var(--color-text-muted)">
-          {{ 'landing.footer.copyright' | translate }}
-        </p>
-        <div class="flex gap-6">
-          <a
-            routerLink="/login"
-            class="text-sm hover:opacity-80 transition-opacity"
-            style="color: var(--color-primary)"
-          >
-            {{ 'auth.nav.login' | translate }}
-          </a>
-          <a
-            href="#contato"
-            class="text-sm hover:opacity-80 transition-opacity"
-            style="color: var(--color-primary)"
-          >
-            {{ 'landing.nav.contact' | translate }}
-          </a>
+      <!-- Footer -->
+      <footer
+        class="border-t px-4 py-8 sm:px-6"
+        style="border-color: var(--color-border); background-color: transparent"
+      >
+        <div class="mx-auto flex max-w-4xl flex-col items-center justify-between gap-4 sm:flex-row">
+          <p class="text-sm" style="color: var(--color-text-muted)">
+            {{ 'landing.footer.copyright' | translate }}
+          </p>
+          <div class="flex gap-6">
+            <a
+                routerLink="/login"
+              class="text-sm hover:opacity-80 transition-opacity"
+              style="color: var(--color-primary)"
+            >
+              {{ 'auth.nav.login' | translate }}
+            </a>
+            <a
+              href="#contato"
+              class="text-sm hover:opacity-80 transition-opacity"
+              style="color: var(--color-primary)"
+            >
+              {{ 'landing.nav.contact' | translate }}
+            </a>
+          </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </div>
   `,
 })
 export class LandingComponent {

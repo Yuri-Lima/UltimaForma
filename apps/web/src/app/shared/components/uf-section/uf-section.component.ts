@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
     <section
       [id]="id()"
       class="py-16 sm:py-20 px-4 sm:px-6"
-      style="background-color: var(--color-bg)"
+      [style.background-color]="backgroundTransparent() ? 'transparent' : 'var(--color-bg)'"
     >
       <div class="mx-auto max-w-4xl">
         @if (title()) {
@@ -27,4 +27,5 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 export class UfSectionComponent {
   title = input<string>();
   id = input<string>('');
+  backgroundTransparent = input<boolean>(false);
 }
