@@ -21,7 +21,7 @@ import { AppButtonComponent } from '../../../shared/components/app-button/app-bu
   },
   template: `
     <div
-      class="min-h-screen w-full"
+      class="dot-grid-texture min-h-screen w-full"
       style="background-color: var(--color-bg)"
     >
       <header

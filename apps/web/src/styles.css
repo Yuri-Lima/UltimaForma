@@ -156,3 +156,20 @@ label.form-label {
 .auth-switch-link:hover {
   text-decoration: underline;
 }
+
+/* Dot grid texture overlay for landing page */
+.dot-grid-texture {
+  position: relative;
+}
+.dot-grid-texture::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(99, 102, 241, 0.18) 1.2px, transparent 1.2px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: 40;
+}
+[data-theme=dark] .dot-grid-texture::after {
+  background-image: radial-gradient(circle, rgba(165, 180, 252, 0.12) 1.2px, transparent 1.2px);
+}
