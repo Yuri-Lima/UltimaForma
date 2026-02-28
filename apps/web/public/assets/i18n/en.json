@@ -80,6 +80,9 @@
     }
   },
   "landing": {
+    "badge": {
+      "privacyFirst": "Privacy First"
+    },
     "hero": {
       "headline": "Neutral infrastructure for digital identity with holder consent",
       "subheadline": "We connect issuers, verifiers, and users without centralizing data. Companies reduce verification costs; users maintain sovereignty over their credentials.",

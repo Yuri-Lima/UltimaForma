@@ -30,29 +30,37 @@ import { InputText } from 'primeng/inputtext';
       class="relative overflow-hidden px-4 pt-8 pb-20 sm:px-6 sm:pt-12 sm:pb-28"
       style="background: linear-gradient(180deg, rgba(99, 102, 241, 0.06) 0%, transparent 60%); background-color: var(--color-bg)"
     >
+      <span
+        class="absolute right-6 top-8 hidden items-center gap-6 rounded-full px-10 py-4 text-2xl font-semibold sm:right-8 sm:top-12 sm:inline-flex"
+        style="background-color: rgba(99, 102, 241, 0.12); color: var(--color-primary); border: 1px solid rgba(99, 102, 241, 0.25); box-shadow: 0 0 24px 8px #ef4444, inset 0 0 24px 3px rgba(239, 68, 68, 0.2)"
+        role="status"
+      >
+        <span class="pi pi-shield text-4xl" aria-hidden="true"></span>
+        {{ 'landing.badge.privacyFirst' | translate }}
+      </span>
       <div class="mx-auto max-w-4xl text-center">
         <h1
-          class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl"
-          style="color: var(--color-text)"
-        >
-          {{ 'landing.hero.headline' | translate }}
+            class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl"
+            style="color: var(--color-text)"
+          >
+            {{ 'landing.hero.headline' | translate }}
         </h1>
         <p
-          class="mx-auto mt-6 max-w-2xl text-lg"
-          style="color: var(--color-text-muted)"
-        >
-          {{ 'landing.hero.subheadline' | translate }}
+            class="mx-auto mt-6 max-w-2xl text-lg"
+            style="color: var(--color-text-muted)"
+          >
+            {{ 'landing.hero.subheadline' | translate }}
         </p>
         <div class="mt-10">
-          <uf-button
-            [label]="'landing.hero.cta' | translate"
-            severity="primary"
-            styleClass="min-h-[48px] px-8"
-            (clicked)="scrollToContact($event)"
-          />
+            <uf-button
+              [label]="'landing.hero.cta' | translate"
+              severity="primary"
+              styleClass="min-h-[48px] px-8"
+              (clicked)="scrollToContact($event)"
+            />
         </div>
         <div class="mt-16 sm:mt-20">
-          <uf-flow-diagram
+            <uf-flow-diagram
             [title]="'landing.diagram.title' | translate"
             [verifierLabel]="'landing.diagram.verifier' | translate"
             [verifierDesc]="'landing.diagram.verifierDesc' | translate"
@@ -63,7 +71,7 @@ import { InputText } from 'primeng/inputtext';
             [providerLabel]="'landing.diagram.provider' | translate"
             [providerDesc]="'landing.diagram.providerDesc' | translate"
             [providerHover]="'landing.diagram.providerHover' | translate"
-          />
+            />
         </div>
       </div>
     </section>

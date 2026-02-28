@@ -80,6 +80,9 @@
     }
   },
   "landing": {
+    "badge": {
+      "privacyFirst": "Privacy First"
+    },
     "hero": {
       "headline": "Infraestrutura neutra de identidade digital com consentimento do titular",
       "subheadline": "Conectamos emissores, verificadores e usuários sem centralizar dados. Empresas reduzem custos de verificação; usuários mantêm soberania sobre suas credenciais.",
