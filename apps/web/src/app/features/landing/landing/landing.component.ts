@@ -27,8 +27,7 @@ import { InputText } from 'primeng/inputtext';
   template: `
     <!-- Hero -->
     <section
-      class="relative overflow-hidden px-4 pt-8 pb-20 sm:px-6 sm:pt-12 sm:pb-28"
-      style="background: linear-gradient(180deg, rgba(129, 178, 255, 0.22) 0%, rgba(99, 148, 241, 0.12) 40%, rgba(99, 102, 241, 0.04) 70%, transparent 100%); background-color: var(--color-bg)"
+      class="landing-hero-bg relative overflow-hidden px-4 pt-8 pb-20 sm:px-6 sm:pt-12 sm:pb-28"
     >
       <span
         class="absolute right-6 top-8 hidden items-center gap-6 rounded-full px-10 py-4 text-2xl font-semibold sm:right-8 sm:top-12 sm:inline-flex"
@@ -77,7 +76,8 @@ import { InputText } from 'primeng/inputtext';
     </section>
 
     <!-- Produto -->
-    <uf-section id="produto" [title]="'landing.product.title' | translate">
+    <div class="landing-product-bg">
+    <uf-section id="produto" [title]="'landing.product.title' | translate" [backgroundTransparent]="true">
       <div class="space-y-6">
         <p class="text-base leading-relaxed" style="color: var(--color-text-muted)">
           {{ 'landing.product.description' | translate }}
@@ -122,14 +122,11 @@ import { InputText } from 'primeng/inputtext';
         </div>
       </div>
     </uf-section>
+    </div>
 
-    <!-- Fundadores + Contato + Footer com degradê pôr do sol -->
-    <div
-      class="relative"
-      style="background: linear-gradient(180deg, transparent 0%, rgba(255, 183, 77, 0.18) 15%, rgba(255, 111, 0, 0.22) 35%, rgba(244, 67, 54, 0.18) 55%, rgba(233, 30, 99, 0.14) 72%, rgba(156, 39, 176, 0.16) 88%, rgba(103, 58, 183, 0.18) 100%), var(--color-bg)"
-    >
-      <!-- Fundadores -->
-      <uf-section id="fundadores" [title]="'landing.founders.title' | translate" [backgroundTransparent]="true">
+    <!-- Fundadores -->
+    <div class="landing-founders-bg">
+    <uf-section id="fundadores" [title]="'landing.founders.title' | translate" [backgroundTransparent]="true">
         <div class="grid gap-8 sm:grid-cols-2">
           <uf-founder-card
             [name]="'landing.founders.pedro.name' | translate"
@@ -144,10 +141,12 @@ import { InputText } from 'primeng/inputtext';
             imageUrl="/assets/founders/yuri.png"
           />
         </div>
-      </uf-section>
+    </uf-section>
+    </div>
 
-      <!-- Contato -->
-      <uf-section id="contato" [title]="'landing.contact.title' | translate" [backgroundTransparent]="true">
+    <!-- Contato -->
+    <div class="landing-contact-bg">
+    <uf-section id="contato" [title]="'landing.contact.title' | translate" [backgroundTransparent]="true">
         <div class="grid gap-12 lg:grid-cols-2">
           <div>
             <p class="text-base" style="color: var(--color-text-muted)">
@@ -224,36 +223,36 @@ import { InputText } from 'primeng/inputtext';
           }
           </div>
         </div>
-      </uf-section>
-
-      <!-- Footer -->
-      <footer
-        class="border-t px-4 py-8 sm:px-6"
-        style="border-color: var(--color-border); background-color: transparent"
-      >
-        <div class="mx-auto flex max-w-4xl flex-col items-center justify-between gap-4 sm:flex-row">
-          <p class="text-sm" style="color: var(--color-text-muted)">
-            {{ 'landing.footer.copyright' | translate }}
-          </p>
-          <div class="flex gap-6">
-            <a
-                routerLink="/login"
-              class="text-sm hover:opacity-80 transition-opacity"
-              style="color: var(--color-primary)"
-            >
-              {{ 'auth.nav.login' | translate }}
-            </a>
-            <a
-              href="#contato"
-              class="text-sm hover:opacity-80 transition-opacity"
-              style="color: var(--color-primary)"
-            >
-              {{ 'landing.nav.contact' | translate }}
-            </a>
-          </div>
-        </div>
-      </footer>
+    </uf-section>
     </div>
+
+    <!-- Footer -->
+    <footer
+      class="landing-footer-bg border-t px-4 py-8 sm:px-6"
+      style="border-color: var(--color-border)"
+    >
+      <div class="mx-auto flex max-w-4xl flex-col items-center justify-between gap-4 sm:flex-row">
+        <p class="text-sm" style="color: var(--color-text-muted)">
+          {{ 'landing.footer.copyright' | translate }}
+        </p>
+        <div class="flex gap-6">
+          <a
+            routerLink="/login"
+            class="text-sm hover:opacity-80 transition-opacity"
+            style="color: var(--color-primary)"
+          >
+            {{ 'auth.nav.login' | translate }}
+          </a>
+          <a
+            href="#contato"
+            class="text-sm hover:opacity-80 transition-opacity"
+            style="color: var(--color-primary)"
+          >
+            {{ 'landing.nav.contact' | translate }}
+          </a>
+        </div>
+      </div>
+    </footer>
   `,
 })
 export class LandingComponent {

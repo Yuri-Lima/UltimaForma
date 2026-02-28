@@ -157,7 +157,7 @@ label.form-label {
   text-decoration: underline;
 }
 
-/* Dot grid texture overlay for landing page */
+/* ── Landing page: dot grid texture ── */
 .dot-grid-texture {
   position: relative;
 }
@@ -165,11 +165,79 @@ label.form-label {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(99, 102, 241, 0.18) 1.2px, transparent 1.2px);
+  background-image: radial-gradient(circle, rgba(99, 102, 241, 0.12) 1.2px, transparent 1.2px);
   background-size: 28px 28px;
   pointer-events: none;
   z-index: 40;
 }
+[data-theme=light] .dot-grid-texture::after {
+  background-image: radial-gradient(circle, rgba(55, 48, 163, 0.38) 1.5px, transparent 1.5px);
+  -webkit-mask-image: linear-gradient(90deg, black 0%, rgba(0,0,0,0.08) 22%, rgba(0,0,0,0.08) 78%, black 100%);
+  mask-image: linear-gradient(90deg, black 0%, rgba(0,0,0,0.08) 22%, rgba(0,0,0,0.08) 78%, black 100%);
+}
 [data-theme=dark] .dot-grid-texture::after {
-  background-image: radial-gradient(circle, rgba(165, 180, 252, 0.12) 1.2px, transparent 1.2px);
+  background-image: radial-gradient(circle, rgba(165, 180, 252, 0.07) 1.2px, transparent 1.2px);
+}
+
+/* ── Landing page: section gradients (light mode only) ── */
+.landing-hero-bg {
+  background-color: var(--color-bg);
+}
+[data-theme=light] .landing-hero-bg {
+  background:
+    linear-gradient(180deg,
+      rgba(37, 99, 235, 0.50) 0%,
+      rgba(59, 130, 246, 0.38) 30%,
+      rgba(99, 102, 241, 0.20) 65%,
+      transparent 100%
+    ), #fafafa;
+}
+
+.landing-product-bg {
+  background-color: var(--color-bg);
+}
+[data-theme=light] .landing-product-bg {
+  background:
+    linear-gradient(180deg,
+      rgba(199, 210, 254, 0.45) 0%,
+      rgba(224, 231, 255, 0.50) 40%,
+      rgba(255, 243, 224, 0.35) 100%
+    ), #fafafa;
+}
+
+.landing-founders-bg {
+  background-color: var(--color-bg);
+}
+[data-theme=light] .landing-founders-bg {
+  background:
+    linear-gradient(180deg,
+      rgba(255, 224, 130, 0.45) 0%,
+      rgba(255, 167, 38, 0.50) 40%,
+      rgba(255, 138, 101, 0.50) 100%
+    ), #fafafa;
+}
+
+.landing-contact-bg {
+  background-color: var(--color-bg);
+}
+[data-theme=light] .landing-contact-bg {
+  background:
+    linear-gradient(180deg,
+      rgba(255, 111, 0, 0.45) 0%,
+      rgba(244, 67, 54, 0.40) 30%,
+      rgba(233, 30, 99, 0.38) 65%,
+      rgba(156, 39, 176, 0.40) 100%
+    ), #fafafa;
+}
+
+.landing-footer-bg {
+  background-color: var(--color-surface);
+}
+[data-theme=light] .landing-footer-bg {
+  background:
+    linear-gradient(180deg,
+      rgba(142, 36, 170, 0.40) 0%,
+      rgba(103, 58, 183, 0.48) 50%,
+      rgba(69, 39, 160, 0.55) 100%
+    ), #fafafa;
 }
