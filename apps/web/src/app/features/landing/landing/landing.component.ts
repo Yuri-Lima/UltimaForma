@@ -130,13 +130,13 @@ import { InputText } from 'primeng/inputtext';
           [name]="'landing.founders.pedro.name' | translate"
           [role]="'landing.founders.pedro.role' | translate"
           [description]="'landing.founders.pedro.description' | translate"
-          icon="pi pi-database"
+          imageUrl="/assets/founders/pedro.png"
         />
         <uf-founder-card
           [name]="'landing.founders.yuri.name' | translate"
           [role]="'landing.founders.yuri.role' | translate"
           [description]="'landing.founders.yuri.description' | translate"
-          icon="pi pi-sparkles"
+          imageUrl="/assets/founders/yuri.png"
         />
       </div>
     </uf-section>

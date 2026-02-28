@@ -9,24 +9,38 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
       class="rounded-xl border p-6 shadow-sm sm:p-8"
       style="background-color: var(--color-surface); border-color: var(--color-border)"
     >
-      <div class="flex flex-col sm:flex-row sm:items-start gap-6">
+      <div
+        class="flex flex-col gap-6"
+        [class.items-center]="imageUrl()"
+        [class.sm:flex-row]="!imageUrl()"
+        [class.sm:items-start]="!imageUrl()"
+      >
         @if (icon() || imageUrl()) {
           <div
-            class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full text-3xl"
-            style="background-color: var(--color-hover); color: var(--color-primary)"
+            class="flex shrink-0 items-center justify-center rounded-full text-3xl"
+            [class.h-72]="imageUrl()"
+            [class.w-72]="imageUrl()"
+            [class.h-16]="!imageUrl()"
+            [class.w-16]="!imageUrl()"
+            [style.background-color]="imageUrl() ? 'transparent' : 'var(--color-hover)'"
+            [style.color]="imageUrl() ? '' : 'var(--color-primary)'"
           >
             @if (imageUrl()) {
               <img
                 [src]="imageUrl()"
                 [alt]="name()"
-                class="h-16 w-16 rounded-full object-cover"
+                class="h-72 w-72 rounded-full object-cover object-top border-4 border-white"
               />
             } @else if (icon()) {
               <span [class]="icon()" aria-hidden="true"></span>
             }
           </div>
         }
-        <div class="min-w-0 flex-1">
+        <div
+          class="min-w-0 flex-1"
+          [class.text-center]="imageUrl()"
+          [class.sm:text-left]="imageUrl()"
+        >
           <h3 class="text-lg font-semibold" style="color: var(--color-text)">
             {{ name() }}
           </h3>

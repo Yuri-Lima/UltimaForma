@@ -11,6 +11,10 @@ id_rsa
 
 # Dependencies
 node_modules/
+.venv-rembg/
+
+# Scripts cache (rembg models)
+.cache/
 
 # Build outputs
 dist/
