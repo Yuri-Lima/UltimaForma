@@ -9,6 +9,7 @@ import { AppButtonComponent } from '../../../shared/components/app-button/app-bu
 import { UfFlowDiagramComponent } from '../../../shared/components/uf-flow-diagram/uf-flow-diagram.component';
 import { UfWalletStoryComponent } from '../../../shared/components/uf-wallet-story/uf-wallet-story.component';
 import { UfProviderStoryComponent } from '../../../shared/components/uf-provider-story/uf-provider-story.component';
+import { UfVerifierStoryComponent } from '../../../shared/components/uf-verifier-story/uf-verifier-story.component';
 import { Textarea } from 'primeng/textarea';
 import { InputText } from 'primeng/inputtext';
 
@@ -39,6 +40,7 @@ import { InputText } from 'primeng/inputtext';
     UfFlowDiagramComponent,
     UfWalletStoryComponent,
     UfProviderStoryComponent,
+    UfVerifierStoryComponent,
     FormsModule,
     Textarea,
     InputText,
@@ -98,6 +100,11 @@ import { InputText } from 'primeng/inputtext';
     </section>
 
     <!-- Use-case accordion panels -->
+    @if (activeUseCase() === 'verifier') {
+      <div id="use-case-panel" class="landing-verifier-story-bg" style="scroll-margin-top: 2rem" @expandCollapse>
+        <uf-verifier-story />
+      </div>
+    }
     @if (activeUseCase() === 'wallet') {
       <div id="use-case-panel" class="landing-wallet-story-bg" style="scroll-margin-top: 2rem" @expandCollapse>
         <uf-wallet-story />
