@@ -228,6 +228,30 @@ label.form-label {
     ), #0a0a0f;
 }
 
+.landing-provider-story-bg {
+  background-color: var(--color-bg);
+}
+[data-theme=light] .landing-provider-story-bg {
+  background:
+    linear-gradient(180deg,
+      transparent 0%,
+      rgba(59, 130, 246, 0.05) 20%,
+      rgba(59, 130, 246, 0.09) 50%,
+      rgba(59, 130, 246, 0.05) 80%,
+      transparent 100%
+    ), #fafafa;
+}
+[data-theme=dark] .landing-provider-story-bg {
+  background:
+    linear-gradient(180deg,
+      transparent 0%,
+      rgba(59, 130, 246, 0.05) 20%,
+      rgba(59, 130, 246, 0.09) 50%,
+      rgba(59, 130, 246, 0.05) 80%,
+      transparent 100%
+    ), #0a0a0f;
+}
+
 .landing-product-bg {
   background-color: var(--color-bg);
 }

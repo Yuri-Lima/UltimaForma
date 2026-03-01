@@ -8,6 +8,7 @@ import { UfFounderCardComponent } from '../../../shared/components/uf-founder-ca
 import { AppButtonComponent } from '../../../shared/components/app-button/app-button.component';
 import { UfFlowDiagramComponent } from '../../../shared/components/uf-flow-diagram/uf-flow-diagram.component';
 import { UfWalletStoryComponent } from '../../../shared/components/uf-wallet-story/uf-wallet-story.component';
+import { UfProviderStoryComponent } from '../../../shared/components/uf-provider-story/uf-provider-story.component';
 import { Textarea } from 'primeng/textarea';
 import { InputText } from 'primeng/inputtext';
 
@@ -37,6 +38,7 @@ import { InputText } from 'primeng/inputtext';
     AppButtonComponent,
     UfFlowDiagramComponent,
     UfWalletStoryComponent,
+    UfProviderStoryComponent,
     FormsModule,
     Textarea,
     InputText,
@@ -99,6 +101,11 @@ import { InputText } from 'primeng/inputtext';
     @if (activeUseCase() === 'wallet') {
       <div id="use-case-panel" class="landing-wallet-story-bg" style="scroll-margin-top: 2rem" @expandCollapse>
         <uf-wallet-story />
+      </div>
+    }
+    @if (activeUseCase() === 'provider') {
+      <div id="use-case-panel" class="landing-provider-story-bg" style="scroll-margin-top: 2rem" @expandCollapse>
+        <uf-provider-story />
       </div>
     }
 
