@@ -7,6 +7,13 @@ import { LayoutLandingComponent } from './features/landing/layout-landing/layout
 export const appRoutes: Route[] = [
   ...authRoutes,
   {
+    path: 'pitch-deck',
+    loadChildren: () =>
+      import('./features/pitch-deck/pitch-deck.routes').then(
+        (m) => m.pitchDeckRoutes
+      ),
+  },
+  {
     path: '',
     component: LayoutLandingComponent,
     children: [
