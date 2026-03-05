@@ -352,3 +352,13 @@ label.form-label {
       rgba(49, 27, 146, 0.50) 100%
     ), #0a0a0f;
 }
+
+/* Pitch: link destination shine + flow animation on 6-step stepper */
+#how-it-works{scroll-margin-top:2rem;position:relative;transition:box-shadow 400ms ease}
+#how-it-works:target{box-shadow:inset 0 0 0 1px rgba(99,102,241,0.35),inset 0 0 60px 0 rgba(99,102,241,0.08);animation:howItWorksShine 2.5s ease-out forwards}
+@keyframes howItWorksShine{0%{box-shadow:inset 0 0 0 2px rgba(99,102,241,0.5),inset 0 0 80px 0 rgba(99,102,241,0.12)}70%{box-shadow:inset 0 0 0 1px rgba(99,102,241,0.4),inset 0 0 50px 0 rgba(99,102,241,0.09)}100%{box-shadow:inset 0 0 0 1px rgba(99,102,241,0.3),inset 0 0 40px 0 rgba(99,102,241,0.06)}}
+#how-it-works .stepper-wrapper{position:relative}
+#how-it-works .stepper-line{position:absolute;left:1.25rem;top:1.25rem;bottom:1.25rem;width:4px;margin-left:-2px;background:linear-gradient(180deg,var(--color-primary),var(--color-border));border-radius:2px;z-index:0}
+#how-it-works .stepper{display:flex;flex-direction:column;gap:0;position:relative;z-index:1}
+#how-it-works .flow-dot{position:absolute;left:1.25rem;top:1.25rem;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--color-primary);box-shadow:0 0 0 2px var(--color-bg);pointer-events:none;z-index:2;animation:pitchFlowTravel 3s ease-in-out forwards}
+@keyframes pitchFlowTravel{0%{top:1.25rem;bottom:auto;opacity:1}100%{top:auto;bottom:1.25rem;opacity:0.3}}

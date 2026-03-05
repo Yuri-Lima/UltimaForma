@@ -1,17 +1,21 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   signal,
   computed,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import { UfStepsFlowDiagramComponent } from '../../../shared/components/uf-steps-flow-diagram/uf-steps-flow-diagram.component';
+import { UfPitchSectionExplainComponent } from '../../../shared/components/uf-pitch-section-explain/uf-pitch-section-explain.component';
+import { AiGenerationConfigService } from '../../../core/services/ai-generation-config.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'uf-pitch',
   standalone: true,
-  imports: [TranslatePipe, RouterLink],
+  imports: [TranslatePipe, RouterLink, UfStepsFlowDiagramComponent, UfPitchSectionExplainComponent],
   styleUrl: './pitch.component.css',
   template: `
     <!-- ═══════════════════════════════════════════ -->
@@ -62,6 +66,7 @@ import { TranslatePipe } from '@ngx-translate/core';
             <div class="stat-label">{{ 'pitch.hero.stat4' | translate }}</div>
           </div>
         </div>
+        <uf-pitch-section-explain sectionId="hero" />
       </div>
     </section>
 
@@ -139,6 +144,7 @@ import { TranslatePipe } from '@ngx-translate/core';
             </ul>
           </div>
         </div>
+        <uf-pitch-section-explain sectionId="problem" />
       </div>
     </section>
 
@@ -201,6 +207,7 @@ import { TranslatePipe } from '@ngx-translate/core';
             </div>
           }
         </div>
+        <uf-pitch-section-explain sectionId="solution" />
       </div>
     </section>
 
@@ -217,20 +224,25 @@ import { TranslatePipe } from '@ngx-translate/core';
           {{ 'pitch.steps.sub' | translate }}
         </p>
 
-        <div class="mt-10 grid gap-12 lg:grid-cols-2">
-          <!-- Stepper -->
-          <div class="stepper">
-            @for (step of steps; track step; let i = $index; let last = $last) {
-              <div class="step-item">
-                @if (!last) {
-                  <div class="step-line"></div>
-                }
-                <div class="step-number">{{ i + 1 }}</div>
-                <div class="step-content">
-                  <h4>{{ ('pitch.steps.step' + (i + 1) + 'Title') | translate }}</h4>
-                  <p>{{ ('pitch.steps.step' + (i + 1) + 'Desc') | translate }}</p>
+        <div class="mt-10 grid gap-12 lg:grid-cols-2 items-start">
+          <!-- Stepper with flow animation overlay -->
+          <div class="stepper-wrapper">
+            <div class="stepper-line" aria-hidden="true"></div>
+            <div class="stepper">
+              @for (step of steps; track step; let i = $index; let last = $last) {
+                <div class="step-item">
+                  <div class="step-number">{{ i + 1 }}</div>
+                  <div class="step-content">
+                    <h4>{{ ('pitch.steps.step' + (i + 1) + 'Title') | translate }}</h4>
+                    <p>{{ ('pitch.steps.step' + (i + 1) + 'Desc') | translate }}</p>
+                  </div>
                 </div>
-              </div>
+              }
+            </div>
+            @for (trigger of [flowTrigger()]; track trigger) {
+              @if (trigger > 0) {
+                <div class="flow-dot" aria-hidden="true"></div>
+              }
             }
           </div>
 
@@ -271,6 +283,12 @@ import { TranslatePipe } from '@ngx-translate/core';
             </div>
           </div>
         </div>
+        @if (aiGenerationConfig.aiGenerationEnabled()) {
+        <div class="mt-12">
+          <uf-steps-flow-diagram [title]="'pitch.steps.diagram.title' | translate" [flowTrigger]="flowTrigger()" />
+        </div>
+        }
+        <uf-pitch-section-explain sectionId="steps" />
       </div>
     </section>
 
@@ -325,6 +343,7 @@ import { TranslatePipe } from '@ngx-translate/core';
             }
           </div>
         </div>
+        <uf-pitch-section-explain sectionId="personas" />
       </div>
     </section>
 
@@ -391,6 +410,7 @@ import { TranslatePipe } from '@ngx-translate/core';
             </div>
           }
         </div>
+        <uf-pitch-section-explain sectionId="arch" />
       </div>
     </section>
 
@@ -450,6 +470,7 @@ import { TranslatePipe } from '@ngx-translate/core';
         <div class="callout mt-8">
           {{ 'pitch.market.moatSummary' | translate }}
         </div>
+        <uf-pitch-section-explain sectionId="market" />
       </div>
     </section>
 
@@ -512,8 +533,9 @@ import { TranslatePipe } from '@ngx-translate/core';
             </h3>
             <div class="roi-calculator">
               <div class="roi-input-group">
-                <label>{{ 'pitch.roi.volumeLabel' | translate }}: {{ roiVolume().toLocaleString() }}</label>
+                <label for="roi-volume">{{ 'pitch.roi.volumeLabel' | translate }}: {{ roiVolume().toLocaleString() }}</label>
                 <input
+                  id="roi-volume"
                   type="range"
                   min="1000"
                   max="200000"
@@ -523,8 +545,9 @@ import { TranslatePipe } from '@ngx-translate/core';
                 />
               </div>
               <div class="roi-input-group">
-                <label>{{ 'pitch.roi.costLabel' | translate }}: R$ {{ roiCurrentCost() }}</label>
+                <label for="roi-cost">{{ 'pitch.roi.costLabel' | translate }}: R$ {{ roiCurrentCost() }}</label>
                 <input
+                  id="roi-cost"
                   type="range"
                   min="20"
                   max="150"
@@ -572,6 +595,7 @@ import { TranslatePipe } from '@ngx-translate/core';
             </div>
           </div>
         </div>
+        <uf-pitch-section-explain sectionId="biz" />
       </div>
     </section>
 
@@ -606,6 +630,7 @@ import { TranslatePipe } from '@ngx-translate/core';
             </div>
           }
         </div>
+        <uf-pitch-section-explain sectionId="roadmap" />
       </div>
     </section>
 
@@ -661,6 +686,7 @@ import { TranslatePipe } from '@ngx-translate/core';
             </div>
           }
         </div>
+        <uf-pitch-section-explain sectionId="risks" />
       </div>
     </section>
 
@@ -731,6 +757,7 @@ import { TranslatePipe } from '@ngx-translate/core';
             {{ 'pitch.ask.cta' | translate }}
           </a>
         </div>
+        <uf-pitch-section-explain sectionId="ask" />
       </div>
     </section>
 
@@ -770,6 +797,7 @@ import { TranslatePipe } from '@ngx-translate/core';
             <p class="mt-2 text-sm" style="color: var(--color-text-muted)">{{ 'pitch.team.yuriDesc' | translate }}</p>
           </div>
         </div>
+        <uf-pitch-section-explain sectionId="team" />
       </div>
     </section>
 
@@ -787,6 +815,8 @@ import { TranslatePipe } from '@ngx-translate/core';
   `,
 })
 export class PitchComponent {
+  protected readonly aiGenerationConfig = inject(AiGenerationConfigService);
+
   notItems = ['Bank', 'Credit', 'Repo', 'Authority'];
   steps = [1, 2, 3, 4, 5, 6];
   personas = ['user', 'bank', 'insurance', 'gov'] as const;
@@ -805,6 +835,8 @@ export class PitchComponent {
   ];
 
   sharedCount = computed(() => this.consentAttrs.filter((a) => a.on()).length);
+
+  flowTrigger = signal(0);
 
   risks = [
     { key: 'regulatory', icon: 'pi-balance-scale', level: 'risk-high', open: signal(false) },

@@ -16,7 +16,7 @@ export class App {
     this.translate.addLangs(['en', 'pt-BR']);
     this.translate.setFallbackLang('en');
     const browserLang = this.translate.getBrowserLang();
-    const lang = browserLang?.startsWith('pt') ? 'pt-BR' : 'en';
+    const lang = browserLang?.startsWith('en') ? 'en' : 'pt-BR';
     this.translate.use(lang);
   }
 }

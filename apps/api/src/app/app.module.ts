@@ -16,6 +16,13 @@ import { OpenAIModule } from './openai/openai.module';
 import { EventsModule } from './events/events.module';
 import { AuthModule } from './auth/auth.module';
 import { RedisModule } from './redis/redis.module';
+import { FileTypeModule } from './file-type/file-type.module';
+import { ProviderResolverModule } from './provider-resolver/provider-resolver.module';
+import { TtsModule } from './tts/tts.module';
+import { TranscriptionModule } from './transcription/transcription.module';
+import { LlmModule } from './llm/llm.module';
+import { PitchModule } from './pitch/pitch.module';
+import { ConfigModule as AppConfigModule } from './config/config.module';
 
 @Module({
   imports: [
@@ -68,6 +75,13 @@ import { RedisModule } from './redis/redis.module';
     VectorModule,
     OpenAIModule,
     EventsModule,
+    FileTypeModule,
+    ProviderResolverModule,
+    TtsModule,
+    TranscriptionModule,
+    LlmModule,
+    PitchModule,
+    AppConfigModule,
   ],
   controllers: [AppController],
   providers: [

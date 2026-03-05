@@ -1,5 +1,7 @@
 import {
   ApplicationConfig,
+  inject,
+  provideAppInitializer,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
@@ -10,15 +12,16 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 import { provideMarkdown } from 'ngx-markdown';
-import {
-  provideTranslateService,
-  TranslateService,
-} from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { appRoutes } from './app.routes';
+import { AiGenerationConfigService } from './core/services/ai-generation-config.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAppInitializer(() =>
+      inject(AiGenerationConfigService).loadConfig()
+    ),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideHttpClient(withInterceptors([authInterceptor])),
@@ -30,7 +33,7 @@ export const appConfig: ApplicationConfig = {
         suffix: '.json',
       }),
       fallbackLang: 'en',
-      lang: 'en',
+      lang: 'pt-BR',
     }),
     providePrimeNG({
       theme: {
