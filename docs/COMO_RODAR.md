@@ -46,6 +46,10 @@ Variáveis essenciais para desenvolvimento:
 | `REDIS_PORT`   | Porta do Redis         | `6379`         |
 | `JWT_SECRET`   | Chave para tokens JWT  | *(definir)*    |
 | `OPENAI_API_KEY` | Chave da OpenAI      | *(opcional)*   |
+| `SUPERADMIN_EMAIL` | Email do usuário padrão (opcional) | `superadmin@ultimaforma.local` |
+| `SUPERADMIN_PASSWORD` | Senha do usuário padrão (opcional) | *(definir)* |
+
+**Usuário padrão (opcional):** Se `SUPERADMIN_EMAIL` e `SUPERADMIN_PASSWORD` estiverem definidos, a API cria um usuário superadmin na inicialização (sem MFA). Use para desenvolvimento ou bootstrap inicial. Em produção, defina senha forte e altere no primeiro acesso.
 
 > **Segurança**: Nunca commite o arquivo `.env`. Use `.env.example` como referência.
 

@@ -23,6 +23,7 @@ import { TranscriptionModule } from './transcription/transcription.module';
 import { LlmModule } from './llm/llm.module';
 import { PitchModule } from './pitch/pitch.module';
 import { ConfigModule as AppConfigModule } from './config/config.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -82,6 +83,7 @@ import { ConfigModule as AppConfigModule } from './config/config.module';
     LlmModule,
     PitchModule,
     AppConfigModule,
+    SeedModule,
   ],
   controllers: [AppController],
   providers: [
