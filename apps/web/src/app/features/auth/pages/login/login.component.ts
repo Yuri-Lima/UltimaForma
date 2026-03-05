@@ -102,7 +102,7 @@ export class LoginComponent {
         if (res.mfaRequired) {
           this.router.navigate(['/mfa/verify']);
         } else {
-          this.router.navigate(['/docs']);
+          this.router.navigate(['/pitch-deck']);
         }
       },
       error: (err) => {

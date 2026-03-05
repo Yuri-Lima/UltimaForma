@@ -6,6 +6,8 @@ import {
   Request,
   HttpCode,
   HttpStatus,
+  Logger,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import {
@@ -24,11 +26,19 @@ interface RequestWithUser {
 
 @Controller('auth')
 export class AuthController {
+  private readonly logger = new Logger(AuthController.name);
+
   constructor(private authService: AuthService) {}
 
   @Post('register')
   async register(@Body() dto: RegisterDto) {
-    return this.authService.register(dto.email, dto.password);
+    try {
+      return await this.authService.register(dto.email, dto.password);
+    } catch (err) {
+      this.logger.error('Registration failed', err instanceof Error ? err.stack : err);
+      const msg = err instanceof Error ? err.message : 'Registration failed';
+      throw new InternalServerErrorException(msg);
+    }
   }
 
   @Post('login')

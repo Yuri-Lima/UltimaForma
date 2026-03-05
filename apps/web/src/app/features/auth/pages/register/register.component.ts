@@ -110,10 +110,16 @@ export class RegisterComponent {
       },
       error: (err) => {
         this.loading.set(false);
-        this.error.set(
-          err.error?.message ||
-            this.translate.instant('auth.register.failed')
-        );
+        const msg = err.error?.message;
+        const text =
+          Array.isArray(msg)
+            ? msg.join('. ')
+            : typeof msg === 'string'
+              ? msg
+              : err.status === 0
+                ? this.translate.instant('errors.apiUnavailable')
+                : this.translate.instant('auth.register.failed');
+        this.error.set(text);
       },
       complete: () => this.loading.set(false),
     });

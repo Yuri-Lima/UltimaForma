@@ -46,7 +46,7 @@ export const publicGuard: CanActivateFn = (route, state) => {
     if (auth.getMfaRequired()) {
       router.navigate(['/mfa/verify']);
     } else {
-      router.navigate(['/docs']);
+      router.navigate(['/pitch-deck']);
     }
     return false;
   }

@@ -71,7 +71,7 @@ export class MfaVerifyComponent {
     this.error.set('');
     this.auth.mfaValidate(this.codeModel().code).subscribe({
       next: () => {
-        this.router.navigate(['/docs']);
+        this.router.navigate(['/pitch-deck']);
       },
       error: (err) => {
         this.loading.set(false);

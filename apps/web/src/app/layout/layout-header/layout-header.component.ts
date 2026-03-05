@@ -35,7 +35,7 @@ import { UfLanguageSelectComponent } from '../../shared/components/uf-language-s
         </button>
         @if (auth.isLoggedIn()) {
           <span class="text-sm" style="color: var(--color-text-muted)">{{ auth.currentUser()?.email }}</span>
-          <uf-button [label]="'auth.nav.docs' | translate" [routerLink]="['/docs']" />
+          <uf-button [label]="'auth.nav.docs' | translate" [routerLink]="['/pitch-deck']" />
           <uf-button [label]="'auth.nav.apiHealth' | translate" severity="secondary" (clicked)="checkHealth()" />
           <uf-button [label]="'auth.nav.logout' | translate" severity="danger" (clicked)="logout()" />
         } @else {

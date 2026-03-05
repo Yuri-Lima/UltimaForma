@@ -104,7 +104,7 @@ export class MfaSetupComponent implements OnInit {
     this.error.set('');
     this.auth.mfaVerify(this.codeModel().code).subscribe({
       next: () => {
-        this.router.navigate(['/docs']);
+        this.router.navigate(['/pitch-deck']);
       },
       error: (err) => {
         this.loading.set(false);
