@@ -60,6 +60,39 @@ Contratos anuais com garantias de disponibilidade, suporte dedicado e integraç�
 
 ---
 
+## Camada de Incentivo ao Ecossistema
+
+Para acelerar a rede trilateral durante o crescimento inicial, a plataforma implementa um mecanismo de incentivo decrescente que compartilha receita com emissores e devolve cashback aos usuários da carteira.
+
+**Revenue Share com Emissores.** A plataforma compartilha uma parte da receita de verificação com os emissores de credenciais. A participação diminui conforme a rede amadurece:
+
+| Fase | Período | Participação do Emissor por Verificação | Fundamento |
+|------|---------|----------------------------------------|------------|
+| **Fase 1** | 0–18 meses | **R$ 1,00** (primeiros 3–5 emissores) | Semear o lado da oferta; tornar a integração uma oportunidade de receita |
+| **Fase 2** | 18–36 meses | **R$ 0,50** | Rede tem tração; reduzir participação conforme valor migra para acesso à demanda |
+| **Fase 3** | 36+ meses | Reduz até zero | O efeito de rede é o mecanismo de retenção |
+
+Para grandes emissores (bancos Tier 1, governo), a motivação principal é estratégica: prontidão regulatória, redução de redundância de KYC, posicionamento competitivo. O revenue share é um sinal de alinhamento. Para emissores pequenos/médios, o revenue share da Fase 1 é economicamente significativo (R$ 120k/ano com 10k verificações/mês).
+
+**Cashback para Usuários.** Usuários da carteira recebem **R$ 1,00** para cada um dos primeiros 10 usos de cada credencial que possuem — um total de **R$ 10 por credencial**. O limiar de 10 usos cobre aproximadamente 2 anos de engajamento típico (3–5 credenciais, 2–4 usos/ano cada), alinhado com pesquisas sobre formação de hábito por ação repetida.
+
+**Investimento Estratégico em Integração.** Durante a fase de penetração de mercado, a Ultima Forma considerará financiar custos de integração para emissores estratégicos e clientes-âncora, tratando isso como investimento em aquisição de rede.
+
+**Mecânica (Fase 1, verificação básica a preço padrão):**
+
+| Ator | Por verificação (primeiros 10 usos) | Após 10 usos | Fase 3 (steady-state) |
+|------|--------------------------------------|---------------|-----------------------|
+| **Empresa paga** | R$ 3,90 | R$ 3,90 | R$ 3,90 |
+| **Emissor recebe** | R$ 1,00 | R$ 1,00 | — |
+| **Usuário recebe** | R$ 1,00 de cashback | — | — |
+| **Plataforma retém** | R$ 1,90 | R$ 2,90 | R$ 3,90 |
+
+**Guardrails Anti-Abuso.** Limites de frequência de verificação por credencial por verificador. Emissores com altas taxas de rejeição recebem participação reduzida. Detecção de anomalias para padrões incomuns de verificação.
+
+O impacto na margem bruta durante o crescimento inicial está refletido na seção "Economia Unitária".
+
+---
+
 ## Estratégia de Precificação
 
 ### Fase Early Adopter (0–12 meses)
@@ -95,11 +128,11 @@ Objetivo: reduzir fricção de adoção (integração + prova de valor), acelera
 **Guardrails (anti-abuso e controle de custo)**
 - Limites por conta/domínio e por tipo de verificação (básica vs. qualificada).
 - Rate limit, detecção de padrão anômalo e bloqueio de múltiplas contas.
-- Trial padrão em **sandbox**; acesso a produção condicionado a critérios mínimos (validação de domínio, caso de uso declarado, aceite de termos e conformidade).
+- Trial padrão em **sandbox**. Acesso a produção condicionado a critérios mínimos (validação de domínio, caso de uso declarado, aceite de termos e conformidade).
 
 **Medição de sucesso**
 - Métricas: ativação (integração concluída), % contas com 1ª verificação, custo por conta ativada, conversão para pago, tempo até conversão, retenção 30/60/90/120 dias.
-- Meta: usar trial como alavanca de aquisição sem “commoditizar” o produto; o valor é capturado na conversão e no aumento de LTV* via assinatura/SLA.
+- Meta: usar trial como alavanca de aquisição sem “commoditizar” o produto. O valor é capturado na conversão e no aumento de LTV* via assinatura/SLA.
 
 ### Fase de Escalagem (12–36 meses)
 
@@ -120,9 +153,9 @@ A meta é predominância de receita recorrente para previsibilidade e valorizaç
 
 ## Escalabilidade
 
-- **Custo marginal decrescente**: infraestrutura compartilhada; custo por verificação tende a cair com volume.
+- **Custo marginal decrescente**: infraestrutura compartilhada. O custo por verificação tende a cair com volume.
 - **Sem proporcionalidade linear de custo**: operação não escala 1:1 com verificações (automação e padronização de integrações).
-- **Efeito de rede**: mais emissores e verificadores aumentam valor para todos; potencial de lock-in positivo via interoperabilidade.
+- **Efeito de rede**: mais emissores e verificadores aumentam valor para todos, com potencial de lock-in positivo via interoperabilidade.
 
 ---
 

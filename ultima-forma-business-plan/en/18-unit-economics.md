@@ -56,6 +56,33 @@ For easier comparison, we use typical **volume mix** in verification: **90% basi
 
 Subscription and SLA plans tend to have higher margin by including support value and predictability.
 
+### Fully Loaded COGS View
+
+The margins above reflect "infrastructure gross margin" -- variable COGS only (compute, storage, observability). A "fully loaded" view includes costs that are real but not captured in per-verification COGS:
+
+| Additional cost | Estimate | Amortization |
+|----------------|----------|--------------|
+| Issuer integration maintenance | BRL 80–200k per issuer | Across expected annual verification volume from that issuer |
+| Sales engineering per enterprise deal | BRL 30–60k per client | Across 12-month contract value |
+| Compliance/audit cost per client | BRL 15–30k/year per enterprise client | Across annual contract |
+
+**Fully loaded gross margin (early stage):** 55–70%, improving to 75–85% at scale as fixed costs are amortized across growing volume and issuer integrations serve increasing verification throughput.
+
+### Impact of Ecosystem Incentive Layer
+
+During early network growth, the platform deploys a declining incentive layer (see "Business Model" section): issuer revenue share (BRL 1.00 per verification in Phase 1, declining to zero by Phase 3) and user cashback (BRL 1.00 for the first 10 uses per credential). When these incentives apply, they reduce the platform's net revenue per verification and thus the effective gross margin.
+
+| Scenario | Incentives per check | Platform net (standard basic, BRL 3.90) | Effective gross margin |
+|----------|----------------------|------------------------------------------|------------------------|
+| **Phase 3 / steady-state** (no incentives) | -- | BRL 3.35 | 86% |
+| **Phase 2** (issuer R$ 0.50, no cashback) | BRL 0.50 | BRL 2.85 | 73% |
+| **Phase 1** (issuer R$ 1.00, after 10 uses) | BRL 1.00 | BRL 2.35 | 60% |
+| **Phase 1** (issuer R$ 1.00, first 10 uses) | BRL 2.00 (issuer + user) | BRL 1.35 | 35% |
+
+The incentive layer is a temporary growth mechanic that declines across three phases. User cashback expires after 10 uses per credential. Issuer revenue share declines from BRL 1.00 (Phase 1, first 3--5 issuers) to BRL 0.50 (Phase 2) to zero (Phase 3). LTV and CAC figures in this document assume steady-state margins. During early growth, actual margins on event-based revenue may be lower when incentive costs apply.
+
+COGS figures throughout this document are modeled estimates based on comparable API infrastructure platforms. They will be validated and recalibrated with production pilot data.
+
 ---
 
 ## LTV (Lifetime Value)
@@ -93,9 +120,11 @@ CAC is presented as **total cost to close and activate** (marketing + sales + pr
 
 ## LTV:CAC and Payback
 
-**Goal (healthy for B2B SaaS)**
-- **LTV:CAC**: **≥ 3:1** (target: 4–6:1 in enterprise/recurring segments)
+**Target (healthy for B2B SaaS in regulated verticals)**
+- **LTV:CAC**: **≥ 3:1** (industry benchmark for mature B2B SaaS: 3–5x)
 - **Payback**: **≤ 12 months** (target: 6–9 months when recurring base matures)
+
+All inputs below are modeled assumptions to be validated with first-cohort data. Churn rates, actual CAC, and ARPU expansion will be measured from the first paying clients and recalibrated quarterly.
 
 **Estimated payback (by monthly gross margin)**
 
@@ -105,7 +134,49 @@ CAC is presented as **total cost to close and activate** (marketing + sales + pr
 | **Growth** | BRL 23,780 | BRL 60,000–110,000 | **3–5 months** |
 | **Enterprise/SLA** | BRL 31,875 | BRL 180,000–320,000 | **6–10 months** |
 
+**NRR target:** 110–120% by end of seed period, driven by client volume expansion (more verifications as their customer base grows) and adoption of new credential types over time.
+
 Values will be calibrated with actual sales and retention data.
+
+---
+
+## Path to Contribution Margin Breakeven
+
+Monthly fixed costs (infrastructure + operations): BRL 43–90k/month. Verification volume needed to cover fixed costs at each incentive phase (90% basic / 10% qualified mix):
+
+| Phase | Platform net per verification | Monthly volume to cover BRL 65k fixed costs |
+|-------|----------------------------:|--------------------------------------------:|
+| Phase 1 (first 10 uses) | BRL 1.35 | ~48,000 verifications |
+| Phase 1 (after 10 uses) | BRL 2.35 | ~28,000 verifications |
+| Phase 2 | BRL 2.85 | ~23,000 verifications |
+| Phase 3 (steady-state) | BRL 3.35 | ~19,000 verifications |
+
+During Phase 1, the company is funded by equity, not verification revenue. Subscription and SLA revenue provides a recurring base that reduces dependence on per-verification margin.
+
+---
+
+## Issuer Integration Economics
+
+| Cost component | Estimate | Note |
+|----------------|----------|------|
+| Engineering effort | BRL 50–120k | 2–4 person-months for integration development and testing |
+| BD / legal / compliance | BRL 20–50k | Relationship development, contracts, security review |
+| Ongoing maintenance | BRL 15–30k/year | Schema updates, API versioning, support |
+| **Total per issuer** | **BRL 80–200k** | Amortized across expected annual verification volume |
+
+At 10k verifications/month from one issuer, the integration cost is amortized in 3–8 months at standard pricing.
+
+---
+
+## Operational Metrics (Targets to Be Validated)
+
+| Category | Metric | Target |
+|----------|--------|--------|
+| Trial activation (integration completed) | 40–60% | Developer tool / API product benchmarks |
+| Trial-to-paid conversion | 15–25% | B2B SaaS API product benchmarks |
+| Pilot-to-subscription conversion | 50–70% | Enterprise infrastructure benchmarks |
+| Credential coverage (verification success rate) | 10–30% at launch, 60%+ at 5 issuers | Grows with issuer integrations |
+| NRR | 110–120% by end of seed | Volume expansion + new credential types |
 
 ---
 

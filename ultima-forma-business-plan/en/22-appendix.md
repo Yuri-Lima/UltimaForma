@@ -151,6 +151,7 @@ Reference: "Fundraising Strategy" section.
 | Adoption | Medium | High | Pilot with anchor partner, clear ROI, flexibility for hybrid flows |
 | Big Tech | Medium | Medium–High | Focus on regulated, neutrality/interoperability, network building |
 | Technological | Low–Medium | Medium–High | Open standards, security audits, architecture with smaller surface |
+| Issuer Compromise | Low–Medium | Medium–High | Trust orchestration layer, propagation controls, trust framework, quarantine and kill switch |
 | Execution | Medium | High | Incremental roadmap, adequate runway, metrics, delivery governance |
 
 Reference: "Risk Analysis" section.

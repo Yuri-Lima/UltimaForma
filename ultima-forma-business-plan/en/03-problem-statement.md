@@ -20,7 +20,7 @@ After submitting documents and data, the user loses visibility and control. They
 
 ### Privacy Risks
 
-Centralized databases attract attacks; breaches affect millions of holders. The more centralized data, the larger the target. The current economy incentivizes accumulation, not minimization.
+Centralized databases attract attacks. Breaches affect millions of holders. The more centralized data, the larger the target. The current economy incentivizes accumulation, not minimization.
 
 ---
 
@@ -28,7 +28,7 @@ Centralized databases attract attacks; breaches affect millions of holders. The 
 
 ### KYC Cost
 
-For retail clients (individuals), the traditional KYC* process costs between BRL 40 and BRL 100 per verification when considering operational time, tools, and rework. Companies with high onboarding volume bear significant costs and reduced margins.
+For retail clients (individuals), the traditional KYC* process costs between BRL 40 and BRL 100 per verification when considering operational time, tools, and rework. Each additional onboarding step increases drop-off: the CAC* invested to bring the user that far is lost when they abandon the verification process. Companies with high onboarding volume bear significant costs and reduced margins.
 
 Corporate Clients (businesses): For companies, the process is much more expensive due to analysis of corporate structures and ultimate beneficial owners. Research indicates that a KYC review for a commercial client can cost, on average, more than USD 2,500 (approx. BRL 12,500).
 
@@ -58,6 +58,12 @@ Forged documents
 * Tampered ID/Passport
 * Selfie spoofing
 
+---
+
+*Note: The detailed explanation of how the architecture mitigates each of these vectors is in the **How the Architecture Reduces Identity Fraud** section of the Solution Architecture document.*
+
+---
+
 ### Data Inconsistency
 
 Duplicated data in legacy systems generates conflicts, manual updates, and errors. The same holder may appear with different CPF or address in distinct silos.
@@ -66,7 +72,7 @@ Master Data Management (MDM*) projects represent recurring and significant inves
 
 These projects aim to consolidate and reconcile critical customer and supplier information that was collected in a fragmented manner over time by multiple systems, channels, and business units.
 
-However, MDM primarily acts on post-hoc data consolidation, treating symptoms such as duplication, inconsistency, and outdatedness, without solving the structural problem: digital identity is born decentralized, redundant, and dependent on multiple independent collections.
+However, MDM primarily acts on post-hoc data consolidation, treating symptoms such as duplication, inconsistency, and outdatedness, without solving the fundamental problem: digital identity is born decentralized, redundant, and dependent on multiple independent collections.
 
 As a consequence:
 
@@ -85,7 +91,7 @@ Even after substantial MDM investments, organizations continue to face:
 
 The proposed architecture operates at a level prior to traditional MDM, drastically reducing the need for subsequent reconciliation and sanitization.
 
-By allowing identity data to be verifiable, portable, and updated at the source with user consent, the solution structurally reduces:
+By allowing identity data to be verifiable, portable, and updated at the source with user consent, the solution fundamentally reduces:
 
 * Dependence on internal consolidation processes
 * Recurring data quality effort
@@ -98,7 +104,7 @@ Instead of continuously investing to fix internal inconsistencies, companies con
 
 Teams dedicated to manual validation, reconciliation, and compliance. Long onboarding cycles hurt conversion and customer experience.
 
-Current digital identity does not work as infrastructure --- it works as a set of disconnected silos.
+Current digital identity does not work as infrastructure. It works as a set of disconnected silos.
 
 Each company needs to rebuild from scratch the same process of:
 
@@ -128,7 +134,7 @@ This redundancy generates:
 -   Unnecessary processing time
 -   Cumulative operational complexity
 
-Identity is not reusable. It is recreated repeatedly.
+Identity is not reusable but recreated repeatedly.
 
 ### Heavy and Non-Scalable Operational Structure
 
@@ -146,7 +152,7 @@ These processes:
 -   Depend on multiple KYC providers
 -   Increase fixed operation cost
 
-Without an interoperable identity layer, operational efficiency hits a structural ceiling.
+Without an interoperable identity layer, operational efficiency hits an inherent ceiling.
 
 ### Frictional Onboarding and Revenue Loss
 
@@ -166,7 +172,7 @@ Direct consequences:
 -   Potential LTV* reduction
 -   Negative first experience with the brand
 
-Companies invest heavily in acquisition --- and lose users in identity validation.
+Companies invest heavily in acquisition and lose users in identity validation.
 
 ------------------------------------------------------------------------
 
@@ -196,7 +202,7 @@ Identity is static when it should be dynamic.
 
 ### Global Economic Impact
 
-The global identity verification market moves billions of dollars per year --- and grows driven by:
+The global identity verification market moves billions of dollars per year and grows driven by:
 
 -   Stricter regulation
 -   Increase in digital fraud
@@ -223,7 +229,7 @@ Current digital identity:
 -   Is not synchronized
 -   Is not interoperable
 
-This creates structural inefficiency that:
+This creates systemic inefficiency that:
 
 -   Raises acquisition cost
 -   Increases operational cost

@@ -8,7 +8,7 @@ Consolidation of Business Plan documents, organized by theme.
 
 ### Overview
 
-Ultima Forma is a neutral identity and credentials orchestration infrastructure that connects issuers, verifiers, and end users without centralizing data. The company provides a consent and interoperability layer that reduces KYC costs, eliminates redundancy, and returns data control to holders. Companies use the API to perform credential verifications; users keep their credentials in sovereign wallets and decide what to share.
+Ultima Forma is a neutral identity and credentials orchestration infrastructure that connects issuers, verifiers, and end users without centralizing data. The company provides a consent and interoperability layer that reduces KYC costs, eliminates redundancy, and returns data control to holders. Companies use the API to perform credential verifications. Users keep their credentials in sovereign wallets and decide what to share.
 
 ### Market Opportunity
 
@@ -16,11 +16,11 @@ The identity verification and KYC market is fragmented, with high operational co
 
 ### Why Now
 
-European eIDAS 2.0 regulation sets standards for digital identity wallets; GDPR and LGPD reinforce consent and data minimization requirements. The adoption of verifiable credentials and sovereign identity shifts from concept to market requirement. The timing is favorable for neutral infrastructure before proprietary solutions dominate the ecosystem.
+European eIDAS 2.0 regulation sets standards for digital identity wallets. GDPR and LGPD reinforce consent and data minimization requirements. The adoption of verifiable credentials and sovereign identity shifts from concept to market requirement. The timing is favorable for neutral infrastructure before proprietary solutions dominate the ecosystem.
 
 ### Product Vision
 
-The solution includes: (1) Identity Wallet for end users, with sovereign storage and granular sharing control; (2) Orchestration Platform connecting issuers, verifiers, and wallets; (3) Enterprise API for integration with legacy systems and KYC/AML flows.
+The solution includes: (1) Identity Wallet for end users, with sovereign storage and granular sharing control. (2) Orchestration Platform connecting issuers, verifiers, and wallets. (3) Enterprise API for integration with legacy systems and KYC/AML flows.
 
 ### Business Model
 
@@ -42,7 +42,7 @@ Current stage: pre-operational / pre-seed. Seeking funding for technical validat
 
 ### Vision (10+ Year Horizon)
 
-Ultima Forma envisions a scenario where digital identity is portable infrastructure controlled by the user: credentials issued once, reusable across multiple contexts, always with explicit consent. Companies and governments interoperate through open standards; identity fragmentation ceases to be a structural barrier. The centralized model of "ask for everything and store everything" is replaced by on-demand verification, minimizing data and maximizing privacy.
+Ultima Forma envisions a scenario where digital identity is portable infrastructure controlled by the user: credentials issued once, reusable across multiple contexts, always with explicit consent. Companies and governments interoperate through open standards. Identity fragmentation ceases to be a fundamental barrier. The centralized model of "ask for everything and store everything" is replaced by on-demand verification, minimizing data and maximizing privacy.
 
 ### Mission (3-Year Horizon)
 
@@ -71,7 +71,7 @@ Establish Ultima Forma as the reference in credential orchestration in the targe
 - **Fragmentation**: Users accumulate identities across dozens of systems. There is no portability.
 - **Redundancy**: The same individual repeats verification processes countless times.
 - **Loss of Control**: After submitting documents, the user loses visibility and control.
-- **Privacy Risks**: Centralized databases attract attacks; breaches affect millions.
+- **Privacy Risks**: Centralized databases attract attacks, and breaches affect millions.
 
 ### Enterprise-Level Problems
 
@@ -95,7 +95,7 @@ Establish Ultima Forma as the reference in credential orchestration in the targe
 
 ### Why This Market Exists
 
-Identity verification is a structural need in regulated sectors and digital transactions. Third parties need to trust identity attributes for credit decisions, onboarding, and compliance.
+Identity verification is a fundamental need in regulated sectors and digital transactions. Third parties need to trust identity attributes for credit decisions, onboarding, and compliance.
 
 ### Why It Is Growing
 
@@ -118,10 +118,10 @@ Identity verification is a structural need in regulated sectors and digital tran
 
 ### Main Components
 
-1. **Identity Wallet**: User-controlled application; decentralized storage; granular consent.
+1. **Identity Wallet**: User-controlled application, decentralized storage, granular consent.
 2. **Orchestration Platform**: Backend connecting issuers, verifiers, and wallets without centralizing data.
-3. **Credential Issuers**: Governments, banks, universities; platform orchestrates the connection.
-4. **Enterprise API**: Interface for verifier integration; KYC/AML flows.
+3. **Credential Issuers**: Governments, banks, universities. Platform orchestrates the connection.
+4. **Enterprise API**: Interface for verifier integration and KYC/AML flows.
 
 ### Consent Model
 
@@ -143,7 +143,7 @@ Identity verification is a structural need in regulated sectors and digital tran
 
 ### We Are
 
-- **Neutral Infrastructure**: Agnostic architecture; choice remains with the ecosystem.
+- **Neutral Infrastructure**: Agnostic architecture. Choice remains with the ecosystem.
 - **Consent Layer**: Sharing only with explicit and granular consent.
 - **Interoperability Engine**: We connect systems operating in silos.
 
@@ -171,7 +171,7 @@ Identity verification is a structural need in regulated sectors and digital tran
 
 ### Recurring Revenue Target
 
-[PLACEHOLDER: e.g.: 60–70%] recurring (subscription + SLA); [PLACEHOLDER: e.g.: 30–40%] event-based.
+[PLACEHOLDER: e.g.: 60–70%] recurring (subscription + SLA), [PLACEHOLDER: e.g.: 30–40%] event-based.
 
 ---
 
@@ -187,9 +187,9 @@ Brazil and selected LATAM (Mexico, Colombia). Expansion to EU in later phase.
 
 ### First 3 ICPs
 
-1. **Mid-Size FinTech**: 50–500 employees; 5–50k verifications/year.
-2. **Digital Bank / Neobank**: 100% digital operation; integration with multiple providers.
-3. **Payment Company / PSP**: Merchant onboarding; AML/KYC requirements.
+1. **Mid-Size FinTech**: 50–500 employees, 5–50k verifications/year.
+2. **Digital Bank / Neobank**: 100% digital operation, integration with multiple providers.
+3. **Payment Company / PSP**: Merchant onboarding, AML/KYC requirements.
 
 ### Strategic Partnerships
 
@@ -224,7 +224,7 @@ Brazil and selected LATAM (Mexico, Colombia). Expansion to EU in later phase.
 
 ### Core Architecture
 
-- **Orchestrator**: Manages flows; does not store credentials.
+- **Orchestrator**: Manages flows but does not store credentials.
 - **DID Resolution**: Resolves identifiers to endpoints.
 - **API Gateway**: Authentication, rate limiting, logging.
 
@@ -232,7 +232,7 @@ Brazil and selected LATAM (Mexico, Colombia). Expansion to EU in later phase.
 
 - Issuers maintain their issuance infrastructure.
 - Wallets under user control.
-- Orchestrator coordinates; not a data repository.
+- Orchestrator coordinates flows but is not a data repository.
 
 ### Cryptographic Model
 
@@ -246,12 +246,12 @@ Brazil and selected LATAM (Mexico, Colombia). Expansion to EU in later phase.
 
 ### GDPR and LGPD
 
-- Data minimization; consent; holder rights; international transfer.
+- Data minimization, consent, holder rights, international transfer.
 - Ultima Forma acts as **processor** (verifiers) and **facilitator** (holders).
 
 ### AML/KYC
 
-- We do not perform KYC; we provide attested data. Compliance decision is the verifier's.
+- We do not perform KYC. We provide attested data. Compliance decision is the verifier's.
 - Consent logs enable traceable audit.
 
 ### Storage Model
@@ -268,12 +268,12 @@ Brazil and selected LATAM (Mexico, Colombia). Expansion to EU in later phase.
 
 ### Direct Competitors
 
-Credential orchestration and identity wallet companies. **Differentiation**: Neutral infrastructure; do not centralize data; Brazil/LATAM focus with LGPD.
+Credential orchestration and identity wallet companies. **Differentiation**: Neutral infrastructure that does not centralize data. Brazil/LATAM focus with LGPD.
 
 ### Indirect Competitors
 
 - **Traditional KYC Providers**: Collect and store documents. Ultima Forma orchestrates existing credentials.
-- **Authentication Providers**: SSO, MFA. Different use cases; integration possibility.
+- **Authentication Providers**: SSO, MFA. Different use cases, integration possibility.
 
 ### Strategic Gap
 
@@ -293,7 +293,7 @@ Neutral, decentralized, interoperable, focused on regulated. Few direct competit
 
 ### What Is Not a Moat
 
-- Isolated technology; first-mover without execution; regulation as isolated barrier.
+- Isolated technology, first-mover without execution, regulation as isolated barrier.
 
 ---
 
@@ -330,8 +330,8 @@ Neutral, decentralized, interoperable, focused on regulated. Few direct competit
 
 ### Objectives per Round
 
-- **Pre-seed**: [PLACEHOLDER: BRL 2–3 million]; technical validation, first pilot. Runway 12–18 months.
-- **Seed**: [PLACEHOLDER: BRL 8–15 million]; client scale, product expansion. Runway 18–24 months.
+- **Pre-seed**: [PLACEHOLDER: BRL 2–3 million]. Technical validation, first pilot. Runway 12–18 months.
+- **Seed**: [PLACEHOLDER: BRL 8–15 million]. Client scale, product expansion. Runway 18–24 months.
 
 ### Hiring Plan (Pre-seed)
 
@@ -382,4 +382,4 @@ Early-stage funds (FinTech, identity), angels with regulated experience, family 
 
 ---
 
-*Living document; review periodically with product and market evolution.*
+*Living document. Review periodically with product and market evolution.*

@@ -56,6 +56,33 @@ Para facilitar comparação, usamos **mix de volume** típico em verificação: 
 
 Planos de assinatura e SLA tendem a ter margem maior por incluir valor de suporte e previsibilidade.
 
+### Visão de COGS Totalmente Carregado
+
+As margens acima refletem "margem bruta de infraestrutura" — apenas COGS variável (compute, storage, observabilidade). Uma visão "totalmente carregada" inclui custos que são reais mas não capturados no COGS por verificação:
+
+| Custo adicional | Estimativa | Amortização |
+|-----------------|------------|-------------|
+| Manutenção de integração com emissores | R$ 80–200k por emissor | Ao longo do volume anual esperado de verificação desse emissor |
+| Sales engineering por deal enterprise | R$ 30–60k por cliente | Ao longo do valor do contrato de 12 meses |
+| Custo de compliance/auditoria por cliente | R$ 15–30k/ano por cliente enterprise | Ao longo do contrato anual |
+
+**Margem bruta totalmente carregada (estágio inicial):** 55–70%, melhorando para 75–85% em escala conforme custos fixos são amortizados em volume crescente e integrações com emissores atendem throughput de verificação crescente.
+
+### Impacto da Camada de Incentivo ao Ecossistema
+
+Durante o crescimento inicial da rede, a plataforma implementa uma camada de incentivo decrescente (ver seção "Modelo de Negócio"): revenue share com emissores (R$ 1,00 por verificação na Fase 1, decrescendo até zero na Fase 3) e cashback para usuários (R$ 1,00 para os primeiros 10 usos por credencial). Quando esses incentivos se aplicam, reduzem a receita líquida da plataforma por verificação e, portanto, a margem bruta efetiva.
+
+| Cenário | Incentivos por check | Receita líquida plataforma (básica padrão, R$ 3,90) | Margem bruta efetiva |
+|---------|----------------------|------------------------------------------------------|----------------------|
+| **Fase 3 / steady-state** (sem incentivos) | -- | R$ 3,35 | 86% |
+| **Fase 2** (emissor R$ 0,50, sem cashback) | R$ 0,50 | R$ 2,85 | 73% |
+| **Fase 1** (emissor R$ 1,00, após 10 usos) | R$ 1,00 | R$ 2,35 | 60% |
+| **Fase 1** (emissor R$ 1,00, primeiros 10 usos) | R$ 2,00 (emissor + usuário) | R$ 1,35 | 35% |
+
+A camada de incentivo é uma mecânica temporária de crescimento que declina em três fases. O cashback do usuário expira após 10 usos por credencial. O revenue share com emissores diminui de R$ 1,00 (Fase 1, primeiros 3–5 emissores) para R$ 0,50 (Fase 2) até zero (Fase 3). As cifras de LTV e CAC neste documento assumem margens em steady-state. Durante o crescimento inicial, as margens reais sobre receita por evento podem ser menores quando os custos de incentivo se aplicam.
+
+As cifras de COGS ao longo deste documento são estimativas modeladas com base em plataformas de infraestrutura de API comparáveis. Serão validadas e recalibradas com dados de pilotos em produção.
+
 ---
 
 ## LTV (Lifetime Value)
@@ -65,7 +92,7 @@ Abaixo, LTV* é apresentado como **LTV de margem bruta** (receita recorrente × 
 **Premissas comuns**
 - **Margem bruta**: 80% (Starter), 82% (Growth), 85% (Enterprise/SLA)
 - **Vida útil média (conservador)**: 24–36 meses (Starter), 30–42 meses (Growth), 36–60 meses (Enterprise)
-- **Retenção**: logo retention tende a aumentar conforme integrações aprofundam; expansão (NRR*) é esperada via crescimento de volume e novos casos de uso.
+- **Retenção**: logo retention tende a aumentar conforme integrações aprofundam. Expansão (NRR*) é esperada via crescimento de volume e novos casos de uso.
 
 | Segmento (âncora de pricing) | Receita recorrente típica | Margem bruta | Vida útil | **LTV (margem bruta)** |
 |---|---:|---:|---:|---:|
@@ -93,9 +120,11 @@ CAC é apresentado como **custo total para fechar e ativar** (marketing + vendas
 
 ## LTV:CAC e Payback
 
-**Meta (saudável para SaaS B2B)**
-- **LTV:CAC**: **≥ 3:1** (alvo: 4–6:1 em segmentos enterprise/recorrentes)
-- **Payback**: **≤ 12 meses** (alvo: 6–9 meses quando a base recorrente amadurecer)
+**Meta (saudável para SaaS B2B em verticais reguladas)**
+- **LTV:CAC**: **≥ 3:1** (benchmark de mercado para SaaS B2B maduro: 3–5x)
+- **Payback**: **≤ 12 meses** (meta: 6–9 meses quando a base recorrente amadurecer)
+
+Todas as premissas abaixo são modeladas e devem ser validadas com dados da primeira coorte. Taxas de churn, CAC real e expansão de ARPU serão medidos a partir dos primeiros clientes pagantes e recalibrados trimestralmente.
 
 **Payback estimado (por margem bruta mensal)**
 
@@ -105,7 +134,49 @@ CAC é apresentado como **custo total para fechar e ativar** (marketing + vendas
 | **Growth** | R$ 23.780 | R$ 60.000–110.000 | **3–5 meses** |
 | **Enterprise/SLA** | R$ 31.875 | R$ 180.000–320.000 | **6–10 meses** |
 
+**Meta de NRR:** 110–120% ao final do período seed, impulsionada por expansão de volume dos clientes (mais verificações conforme a base de clientes cresce) e adoção de novos tipos de credencial ao longo do tempo.
+
 Valores serão calibrados com dados reais de vendas e retenção.
+
+---
+
+## Caminho para Breakeven de Margem de Contribuição
+
+Custos fixos mensais (infraestrutura + operações): R$ 43–90k/mês. Volume de verificação necessário para cobrir custos fixos em cada fase de incentivo (mix 90% básica / 10% qualificada):
+
+| Fase | Receita líquida plataforma por verificação | Volume mensal para cobrir R$ 65k de custos fixos |
+|------|----------------------------------------:|--------------------------------------------------:|
+| Fase 1 (primeiros 10 usos) | R$ 1,35 | ~48.000 verificações |
+| Fase 1 (após 10 usos) | R$ 2,35 | ~28.000 verificações |
+| Fase 2 | R$ 2,85 | ~23.000 verificações |
+| Fase 3 (steady-state) | R$ 3,35 | ~19.000 verificações |
+
+Durante a Fase 1, a empresa é financiada por equity, não por receita de verificação. Receita de assinatura e SLA fornece base recorrente que reduz dependência da margem por verificação.
+
+---
+
+## Economia de Integração de Emissores
+
+| Componente de custo | Estimativa | Observação |
+|--------------------|------------|------------|
+| Esforço de engenharia | R$ 50–120k | 2–4 pessoa-meses para desenvolvimento e testes de integração |
+| BD / jurídico / compliance | R$ 20–50k | Desenvolvimento de relacionamento, contratos, revisão de segurança |
+| Manutenção contínua | R$ 15–30k/ano | Atualizações de schema, versionamento de API, suporte |
+| **Total por emissor** | **R$ 80–200k** | Amortizado ao longo do volume anual esperado de verificação |
+
+Com 10k verificações/mês de um emissor, o custo de integração é amortizado em 3–8 meses com pricing padrão.
+
+---
+
+## Métricas Operacionais (Metas a Validar)
+
+| Categoria | Métrica | Meta |
+|-----------|---------|------|
+| Ativação de trial (integração concluída) | 40–60% | Benchmarks de produto API / ferramenta de desenvolvedor |
+| Conversão trial-to-paid | 15–25% | Benchmarks de SaaS B2B produto API |
+| Conversão piloto-to-assinatura | 50–70% | Benchmarks de infraestrutura enterprise |
+| Cobertura de credenciais (taxa de sucesso de verificação) | 10–30% no lançamento, 60%+ com 5 emissores | Cresce com integrações de emissores |
+| NRR | 110–120% ao final do seed | Expansão de volume + novos tipos de credencial |
 
 ---
 

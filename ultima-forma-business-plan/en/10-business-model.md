@@ -60,6 +60,39 @@ Annual contracts with availability guarantees, dedicated support, and assisted i
 
 ---
 
+## Ecosystem Incentive Layer
+
+To accelerate the three-sided network during early growth, the platform deploys a declining incentive mechanism that shares revenue with issuers and returns cashback to wallet users.
+
+**Issuer Revenue Share.** The platform shares a portion of verification revenue with credential issuers. The share declines as the network matures:
+
+| Phase | Period | Issuer Share per Verification | Rationale |
+|-------|--------|-------------------------------|-----------|
+| **Phase 1** | 0–18 months | **BRL 1.00** (first 3–5 issuers) | Seed supply side; make integration a revenue opportunity |
+| **Phase 2** | 18–36 months | **BRL 0.50** | Network has traction; reduce share as value shifts to demand access |
+| **Phase 3** | 36+ months | Phases to zero | Network effect is the retention mechanism |
+
+For large issuers (Tier 1 banks, government), the primary motivation is strategic: regulatory compliance, reduced KYC redundancy, competitive positioning. Revenue share is a signal of alignment. For small/mid issuers, Phase 1 revenue share is economically meaningful (BRL 120k/year at 10k verifications/month).
+
+**User Cashback.** Wallet users receive **BRL 1.00** for each of the first 10 uses of each credential they hold — a total of **BRL 10 per credential**. The 10-use threshold covers approximately 2 years of typical engagement (3–5 credentials, 2–4 uses/year each), aligning with habit formation through repeated action.
+
+**Strategic Integration Investment.** During market penetration, Ultima Forma will consider funding integration costs for strategic issuers and anchor clients, treating this as network acquisition investment.
+
+**Mechanics (Phase 1, basic verification at standard price):**
+
+| Actor | Per verification (first 10 uses) | After 10 uses | Phase 3 (steady-state) |
+|-------|----------------------------------|---------------|------------------------|
+| **Company pays** | BRL 3.90 | BRL 3.90 | BRL 3.90 |
+| **Issuer receives** | BRL 1.00 | BRL 1.00 | — |
+| **User receives** | BRL 1.00 cashback | — | — |
+| **Platform retains** | BRL 1.90 | BRL 2.90 | BRL 3.90 |
+
+**Anti-Abuse Guardrails.** Verification frequency caps per credential per verifier. Issuers with high rejection rates receive reduced share. Anomaly detection for unusual verification patterns.
+
+The impact on gross margin during early growth is reflected in the "Unit Economics" section.
+
+---
+
 ## Pricing Strategy
 
 ### Early Adopter Phase (0–12 months)
@@ -95,11 +128,11 @@ Goal: reduce adoption friction (integration + proof of value), accelerate sales 
 **Guardrails (anti-abuse and cost control)**
 - Limits per account/domain and per verification type (basic vs. qualified).
 - Rate limit, anomalous pattern detection, and multi-account blocking.
-- Default trial in **sandbox**; production access conditional on minimum criteria (domain validation, declared use case, terms acceptance, compliance).
+- Default trial in **sandbox**. Production access conditional on minimum criteria (domain validation, declared use case, terms acceptance, compliance).
 
 **Success measurement**
 - Metrics: activation (integration completed), % accounts with 1st verification, cost per activated account, conversion to paid, time to conversion, 30/60/90/120 day retention.
-- Goal: use trial as acquisition lever without "commoditizing" the product; value is captured in conversion and LTV* increase via subscription/SLA.
+- Goal: use trial as acquisition lever without "commoditizing" the product. Value is captured in conversion and LTV* increase via subscription/SLA.
 
 ### Scaling Phase (12–36 months)
 
@@ -120,9 +153,9 @@ The goal is recurring revenue predominance for predictability and valuation.
 
 ## Scalability
 
-- **Decreasing marginal cost**: shared infrastructure; cost per verification tends to fall with volume.
+- **Decreasing marginal cost**: shared infrastructure. Cost per verification tends to fall with volume.
 - **No linear cost proportionality**: operation does not scale 1:1 with verifications (automation and integration standardization).
-- **Network effect**: more issuers and verifiers increase value for all; positive lock-in potential via interoperability.
+- **Network effect**: more issuers and verifiers increase value for all. Positive lock-in potential via interoperability.
 
 ---
 

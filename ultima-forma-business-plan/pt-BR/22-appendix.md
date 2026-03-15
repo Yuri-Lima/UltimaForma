@@ -151,6 +151,7 @@ Referência: sessão “Estratégia de Captação”.
 | Adoção | Média | Alto | Piloto com parceiro âncora, ROI claro, flexibilidade para fluxos híbridos |
 | Big Tech | Média | Médio–Alto | Foco em regulado, neutralidade/interoperabilidade, construção de rede |
 | Tecnológico | Baixa–Média | Médio–Alto | Padrões abertos, auditorias de segurança, arquitetura com menor superfície |
+| Comprometimento de Emissor | Baixa–Média | Médio–Alto | Camada de orquestração de confiança, controles de propagação, trust framework, quarentena e kill switch |
 | Execução | Média | Alto | Roadmap incremental, runway adequado, métricas e governança de entrega |
 
 Referência: sessão “Análise de Risco”.

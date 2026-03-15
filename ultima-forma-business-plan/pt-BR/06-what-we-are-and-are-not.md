@@ -18,6 +18,14 @@ O compartilhamento de dados só acontece com consentimento explícito, granular 
 
 Conectamos sistemas que hoje operam em silos. Padrões abertos permitem que credenciais emitidas em um contexto sejam verificadas em outro, sem dependência de um único fornecedor.
 
+### Camada de Orquestração de Confiança e Governança de Risco
+
+Não operamos como roteador passivo de dados. A plataforma atua como camada de orquestração de confiança, política de risco, auditoria, contenção e governança. Aplicamos controles antes e durante a propagação de atributos, mantendo trilha auditável de consentimento, origem, status e propagação. Reduzimos fraude documental, falsificação, adulteração em trânsito e compartilhamento sem consentimento. E adicionamos controles de risco para limitar o dano quando a própria origem confiável é comprometida.
+
+### Infraestrutura de Protocolo Aberto
+
+O protocolo de verificação é open-source e auditável. Qualquer pessoa pode inspecionar, auditar e construir sobre a camada de confiança. Os fundamentos criptográficos são publicamente verificáveis, e a especificação do protocolo é publicada e versionada. Essa transparência é como infraestrutura de identidade conquista confiança — por meio de auditabilidade, não opacidade.
+
 ---
 
 ## Não Somos
@@ -28,7 +36,7 @@ Não captamos recursos, concedemos crédito nem oferecemos produtos financeiros.
 
 ### Provedor de Crédito
 
-Não avaliamos risco de crédito nem tomamos decisões de concessão. Fornecemos dados attestados; a decisão de crédito é do verificador.
+Não avaliamos risco de crédito nem tomamos decisões de concessão. Fornecemos dados atestados. A decisão de crédito é do verificador.
 
 ### Depósito Centralizado de Dados
 
@@ -37,6 +45,10 @@ Não armazenamos credenciais nem dados de identidade do usuário em repositório
 ### Autoridade de Identidade
 
 Não emitimos identidades nem credenciais de identidade oficial. Conectamos emissores (governos, instituições) com titulares e verificadores. Não somos fonte primária de verdade sobre identidade.
+
+### Sistema Fechado / Opaco
+
+Diferente de provedores tradicionais de KYC, os fundamentos criptográficos são publicamente verificáveis. O protocolo de verificação é open-source. Auditorias de segurança externas podem inspecionar cada componente da camada de confiança. Não pedimos que usuários confiem em uma caixa preta com seus dados de identidade.
 
 ---
 
@@ -48,6 +60,7 @@ Não emitimos identidades nem credenciais de identidade oficial. Conectamos emis
 | **Não provedor de crédito** | Evita regulação de crédito e scoring; foco em verificação, não decisão |
 | **Não depósito de dados** | Minimiza obrigações de LGPD*/GDPR* como controlador; reduz risco de vazamento e custos de conformidade |
 | **Não autoridade de identidade** | Evita conflito com governos e reguladores; posiciona como facilitador, não competidor |
+| **Não sistema fechado** | Constrói confiança por meio de auditabilidade; reduz fricção regulatória; permite validação de segurança por terceiros |
 
 ---
 

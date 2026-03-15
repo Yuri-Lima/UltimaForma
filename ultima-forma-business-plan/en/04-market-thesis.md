@@ -1,12 +1,18 @@
 # Market Thesis
 
+## Infrastructure Thesis
+
+Identity is following the same path as payments (Stripe), financial data (Plaid), and communications (Twilio) -- from fragmented point solutions to unified infrastructure APIs. In each case, the winning company built the neutral layer that connected a fragmented ecosystem, starting with an open, developer-friendly approach and capturing value through the proprietary network.
+
+Open protocols create the largest addressable markets. TCP/IP, HTTP, and SMTP demonstrate that when the protocol layer is open, the ecosystem grows faster and the infrastructure operator captures value at the network layer. Ultima Forma applies this structural logic to identity. The verification protocol is open. The orchestration network is proprietary.
+
 ## Why This Market Exists
 
 Identity verification is a structural need in regulated sectors (financial, insurance, healthcare, government) and in digital transactions in general. The market exists because third parties need to trust identity attributes (who they are, where they live, what qualifications they have) for credit decisions, onboarding, service access, and regulatory compliance.
 
 ## Why It Is Growing
 
-- **Digitization**: Transactions and relationships migrate to digital channels; remote verification replaces in-person.
+- **Digitization**: Transactions and relationships migrate to digital channels. Remote verification replaces in-person.
 - **Regulation**: eIDAS* 2.0 (Europe), LGPD* (Brazil), GDPR* and local frameworks raise consent and portability requirements.
 - **Behavior**: Users increasingly demand more control and transparency over personal data.
 - **Economics**: Cost reduction per verification and conversion improvement generate interest in new approaches.
@@ -18,6 +24,7 @@ Identity verification is a structural need in regulated sectors (financial, insu
 | **GDPR / LGPD** | Consent, data minimization, and right to be forgotten drive models based on portability and holder control |
 | **eIDAS 2.0** | Digital identity wallets and qualified credentials create demand for interoperable orchestration |
 | AML*/KYC* | Identity verification requirements sustain market; decentralized models need to prove compliance |
+| **Age Verification** | Online Safety Act (UK), Marco Legal Digital (Brazil), Social Media Minimum Age Act (Australia), DSA* (EU), and US state laws mandate age verification on digital platforms, games, and social media. Creates massive demand for privacy-preserving attribute verification — a native use case for verifiable credentials and ZKP* |
 
 ## Technological Drivers
 
@@ -27,7 +34,7 @@ Identity verification is a structural need in regulated sectors (financial, insu
 
 ## Behavioral Shift
 
-Consumers increasingly value privacy and portability. Acceptance of "share everything with each company" declines; the expectation of "having one credential and reusing it" increases. Companies perceive reputational and regulatory risk in models focused on data accumulation.
+Consumers increasingly value privacy and portability. Acceptance of "share everything with each company" declines. The expectation of "having one credential and reusing it" increases. Companies perceive reputational and regulatory risk in models focused on data accumulation.
 
 ---
 
@@ -37,9 +44,11 @@ To size the market, we use TAM*, SAM* and SOM*.
 
 ### TAM (Total Addressable Market)
 
-Global identity verification and KYC market. Reference estimates: US$ 15–25 billion by 2030, CAGR* (Compound Annual Growth Rate) around 12–15%.
+Global identity verification and KYC market. Reference estimates: US$ 15--25 billion by 2030, CAGR* (Compound Annual Growth Rate) around 12--15%.
 
-Methodology: triangulation of public market projections for "identity verification" and "KYC", noting that different reports use distinct taxonomies and scopes (software vs. services, verification vs. onboarding, biometric vs. non-biometric). We use the **US$ 15–25B** range as a conservative reference for digital verification and KYC scope in regulated sectors.
+Methodology: triangulation of public market projections for "identity verification" and "KYC", noting that different reports use distinct taxonomies and scopes (software vs. services, verification vs. onboarding, biometric vs. non-biometric). We use the **US$ 15--25B** range as a conservative reference for digital verification and KYC scope in regulated sectors.
+
+Mandatory age verification laws across multiple jurisdictions (UK, Brazil, Australia, EU, US states) expand the addressable market into sectors previously outside identity verification scope: gaming, social media, content platforms, and age-restricted e-commerce. Attribute verification (proving a user is over 16 or 18 without revealing date of birth or other personal data) is a direct use case for verifiable credentials and zero-knowledge proofs, aligned with the core of Ultima Forma's solution.
 
 **Public references**
 - Grand View Research — [Identity Verification Market report (forecast to 2030)](https://grandviewresearch.com/industry-analysis/identity-verification-market-report)
@@ -49,15 +58,15 @@ Methodology: triangulation of public market projections for "identity verificati
 
 ### SAM (Serviceable Addressable Market)
 
-Segment accessible with the current solution: mid and large companies in FinTech, healthcare, and public sector, in regions with favorable regulatory framework (EU*, Brazil, LATAM*) - around 15–25% of TAM, considering vertical and geography.
+Segment accessible with the current solution: mid and large companies in FinTech, healthcare, and public sector, in regions with favorable regulatory framework (EU*, Brazil, LATAM*) - around 15--25% of TAM, considering vertical and geography.
 
 ### SOM (Serviceable Obtainable Market)
 
-Realistic share in the first 3–5 years: enterprise clients in initial geographies and verticals - around 0.5–2% of SAM over a 36-month horizon. Conservative assumptions. Refinement will be done with pilot data.
+Realistic share in the first 3--5 years: enterprise clients in initial geographies and verticals - around 0.5--2% of SAM over a 36-month horizon. Conservative assumptions. Refinement will be done with pilot data.
 
 ---
 
-*Note: Values vary by market definition and research methodology; the range above is a triangulated reference to guide sizing (TAM/SAM/SOM) and should be refined in commercial diligence by vertical and geography.*
+*Note: Values vary by market definition and research methodology. The range above is a triangulated reference to guide sizing (TAM/SAM/SOM) and should be refined in commercial diligence by vertical and geography.*
 
 ---
 
@@ -67,6 +76,7 @@ Realistic share in the first 3–5 years: enterprise clients in initial geograph
 - **API**: Application Programming Interface; interface for integration between systems.
 - **CAGR**: Compound Annual Growth Rate; compound annual growth rate.
 - **DID**: Decentralized Identifier; decentralized identifier.
+- **DSA**: Digital Services Act; European regulation on digital services.
 - **eIDAS**: European regulation on electronic identification and trust services.
 - **FinTech**: financial technology company.
 - **GDPR**: General Data Protection Regulation; European data protection regulation.
@@ -76,3 +86,4 @@ Realistic share in the first 3–5 years: enterprise clients in initial geograph
 - **SAM/SOM/TAM**: Serviceable/Obtainable/Addressable Market; market segments (addressable, serviceable, obtainable).
 - **UE**: European Union.
 - **W3C**: World Wide Web Consortium; standardization body (e.g., Verifiable Credentials).
+- **ZKP**: Zero-Knowledge Proof; cryptographic technique that proves an attribute (e.g., minimum age) without revealing the underlying data.

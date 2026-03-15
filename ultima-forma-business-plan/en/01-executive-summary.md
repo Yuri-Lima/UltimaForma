@@ -2,19 +2,25 @@
 
 ## Overview
 
-Ultima Forma is a neutral identity and credentials orchestration infrastructure that connects issuers, verifiers, and end users without centralizing data. The company provides a consent and interoperability layer that reduces KYC* costs, eliminates redundancy, and returns data control to holders, establishing the credential issuer as the single source of truth (SSOT). Companies use the API* to perform credential verifications, while users keep their credentials in sovereign wallets and decide what to share.
+Ultima Forma is building open protocol infrastructure for portable, verifiable identity. The company operates a credential orchestration network that connects issuers, verifiers, and end users without centralizing data. The verification protocol is open-source and auditable. The orchestration network is proprietary. Companies use the API* to perform credential verifications, while users keep their credentials in sovereign wallets and decide what to share.
+
+*Our protocol is open and auditable. Our network is proprietary.*
+
+The open-core model publishes verification libraries, SDKs, and the protocol specification as open-source, enabling external security audits, developer adoption, and regulatory transparency. The proprietary layer -- consent orchestration, enterprise APIs, issuer integrations, identity update routing, and fraud detection -- captures value through the network that no fork can replicate.
+
+**Strategic positioning in one sentence:** Ultima Forma is the open trust protocol for portable identity -- powered by a proprietary infrastructure network that reduces data collection and identity verification costs by 70--90% and total KYC workflow costs by 30--50% when combined with existing compliance tools, while users maintain sovereignty over their data.
 
 ## Market Opportunity
 
-The identity verification and KYC market is fragmented, with high operational costs (references point to **BRL 40–100** per verification in traditional flows for individuals and around **BRL 10–12,500** per corporate review), data inconsistency between systems, and exposure to fraud. Regulatory (eIDAS* 2.0, GDPR*, LGPD*) and technological drivers (W3C* Verifiable Credentials, DID*) create a window of opportunity for consent-based neutral infrastructure.
+The identity verification and KYC market is fragmented, with high operational costs (references point to **BRL 40--100** per verification in traditional flows for individuals and around **BRL 10--12,500** per corporate review), data inconsistency between systems, and exposure to fraud. Regulatory (eIDAS* 2.0, GDPR*, LGPD*) and technological drivers (W3C* Verifiable Credentials, DID*) create a window of opportunity for open, consent-based infrastructure. Mandatory age verification laws across multiple jurisdictions (UK, Brazil, Australia, EU, US) expand the addressable market into gaming, social media, and digital platforms — sectors now requiring large-scale attribute verification.
 
 ## Why Now
 
-European eIDAS 2.0 regulation sets standards for digital identity wallets; GDPR and LGPD reinforce consent and data minimization requirements. The adoption of verifiable credentials and sovereign identity shifts from concept to market requirement. The timing is favorable for neutral infrastructure before proprietary solutions dominate the ecosystem.
+European eIDAS 2.0 regulation sets standards for digital identity wallets. GDPR and LGPD reinforce consent and data minimization requirements. The adoption of verifiable credentials and sovereign identity shifts from concept to market requirement. In parallel, age verification laws (Online Safety Act in the UK, Marco Legal Digital in Brazil, legislation in Australia and US states) create immediate demand for privacy-preserving attribute verification. The timing is favorable for open protocol infrastructure before proprietary solutions dominate the ecosystem.
 
 ## Product Vision
 
-The solution includes: (1) Identity Wallet for end users, with sovereign storage and granular sharing control; (2) Orchestration Platform connecting issuers, verifiers, and wallets; (3) Enterprise API for integration with legacy systems and KYC/AML* flows.
+The solution includes: (1) Credential Consent Layer with three channels -- web-based consent flows (no app required), issuer-embedded SDK (credentials managed inside existing bank/telecom apps), and standalone Identity Wallet for power users. (2) Orchestration Platform connecting issuers, verifiers, and credential holders via any channel. (3) Enterprise API for integration with legacy systems and KYC/AML* flows. The platform complements existing compliance tools (PEP/sanctions screening, ongoing monitoring) rather than replacing them.
 
 ## Business Model
 
@@ -26,11 +32,7 @@ Current stage: pre-operational / pre-seed. Seeking funding for technical validat
 
 ## Funding Request
 
-**BRL 3.5 million (pre-seed round).** The capital enables a **16–18 month** execution cycle to deliver **MVP in production**, close **paid pilots**, and structure the commercial base for **recurring revenue** (subscriptions and first annual contracts), maintaining high reliability and audit trails.
-
----
-
-**Strategic positioning in one sentence:** Ultima Forma is the neutral infrastructure that orchestrates identity credentials with holder consent, enabling companies to reduce KYC costs and users to maintain sovereignty over their data, providing a neutral layer of portable and interoperable **identity**.
+**BRL 3.5 million (pre-seed round).** The capital enables a **16--18 month** execution cycle to deliver **MVP in production**, close **paid pilots**, and structure the commercial base for **recurring revenue** (subscriptions and first annual contracts), maintaining high reliability and audit trails.
 
 ---
 

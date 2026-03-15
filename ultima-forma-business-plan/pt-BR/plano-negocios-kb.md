@@ -8,7 +8,7 @@ Consolidação dos documentos do Plano de Negócios, organizados por tema.
 
 ### Visão Geral
 
-A Ultima Forma é uma infraestrutura neutra de orquestração de identidade e credenciais que conecta emissores, verificadores e usuários finais sem centralizar dados. A empresa oferece uma camada de consentimento e interoperabilidade que reduz custos de KYC, elimina redundância e devolve o controle de dados aos titulares. Empresas utilizam a API para realizar verificações de credenciais; usuários mantêm suas credenciais em carteiras soberanas e decidem o que compartilhar.
+A Ultima Forma é uma infraestrutura neutra de orquestração de identidade e credenciais que conecta emissores, verificadores e usuários finais sem centralizar dados. A empresa oferece uma camada de consentimento e interoperabilidade que reduz custos de KYC, elimina redundância e devolve o controle de dados aos titulares. Empresas utilizam a API para realizar verificações de credenciais. Usuários mantêm suas credenciais em carteiras soberanas e decidem o que compartilhar.
 
 ### Oportunidade de Mercado
 
@@ -16,11 +16,11 @@ O mercado de verificação de identidade e KYC está fragmentado, com custos ope
 
 ### Por Que Agora
 
-A regulamentação europeia eIDAS 2.0 estabelece padrões para carteiras de identidade digitais; o GDPR e a LGPD reforçam exigências de consentimento e minimização de dados. A adoção de credenciais verificáveis e identidade soberana passa de conceito para requisito de mercado. O momento é favorável para infraestrutura neutra antes que soluções proprietárias dominem o ecossistema.
+A regulamentação europeia eIDAS 2.0 estabelece padrões para carteiras de identidade digitais. O GDPR e a LGPD reforçam exigências de consentimento e minimização de dados. A adoção de credenciais verificáveis e identidade soberana passa de conceito para requisito de mercado. O momento é favorável para infraestrutura neutra antes que soluções proprietárias dominem o ecossistema.
 
 ### Visão do Produto
 
-A solução contempla: (1) Carteira de Identidade para usuários finais, com armazenamento soberano e controle granular de compartilhamento; (2) Plataforma de Orquestração que conecta emissores, verificadores e carteiras; (3) API Enterprise para integração com sistemas legados e fluxos de KYC/AML.
+A solução contempla: (1) Carteira de Identidade para usuários finais, com armazenamento soberano e controle granular de compartilhamento, (2) Plataforma de Orquestração que conecta emissores, verificadores e carteiras, (3) API Enterprise para integração com sistemas legados e fluxos de KYC/AML.
 
 ### Modelo de Negócio
 
@@ -42,7 +42,7 @@ Estágio atual: pré-operacional / pre-seed. Busca-se captação para validaçã
 
 ### Visão (Horizonte 10+ Anos)
 
-A Ultima Forma imagina um cenário em que a identidade digital seja infraestrutura portátil e controlada pelo usuário: credenciais emitidas uma vez, reutilizáveis em múltiplos contextos, sempre com consentimento explícito. Empresas e governos interoperam por meio de padrões abertos; a fragmentação de identidade deixa de ser obstáculo estrutural. O modelo centralizado de "pedir tudo e guardar tudo" é substituído por verificação sob demanda, minimizando dados e maximizando privacidade.
+A Ultima Forma imagina um cenário em que a identidade digital seja infraestrutura portátil e controlada pelo usuário: credenciais emitidas uma vez, reutilizáveis em múltiplos contextos, sempre com consentimento explícito. Empresas e governos interoperam por meio de padrões abertos. A fragmentação de identidade deixa de ser obstáculo. O modelo centralizado de "pedir tudo e guardar tudo" é substituído por verificação sob demanda, minimizando dados e maximizando privacidade.
 
 ### Missão (Horizonte 3 Anos)
 
@@ -71,7 +71,7 @@ Consolidar a Ultima Forma como referência em orquestração de credenciais no m
 - **Fragmentação**: Usuários acumulam identidades em dezenas de sistemas. Não há portabilidade.
 - **Redundância**: O mesmo indivíduo repete processos de verificação inúmeras vezes.
 - **Perda de Controle**: Após enviar documentos, o usuário perde visibilidade e controle.
-- **Riscos de Privacidade**: Bases centralizadas atraem ataques; vazamentos afetam milhões.
+- **Riscos de Privacidade**: Bases centralizadas atraem ataques. Vazamentos afetam milhões.
 
 ### Problemas no Nível Enterprise
 
@@ -118,10 +118,10 @@ Verificação de identidade é necessidade estrutural em setores regulados e em 
 
 ### Componentes Principais
 
-1. **Carteira de Identidade**: Aplicação controlada pelo usuário; armazenamento descentralizado; consentimento granular.
+1. **Carteira de Identidade**: Aplicação controlada pelo usuário, armazenamento descentralizado, consentimento granular.
 2. **Plataforma de Orquestração**: Backend que conecta emissores, verificadores e carteiras sem centralizar dados.
-3. **Emissores de Credenciais**: Governos, bancos, universidades; plataforma orquestra a conexão.
-4. **API Enterprise**: Interface para integração de verificadores; fluxos de KYC/AML.
+3. **Emissores de Credenciais**: Governos, bancos, universidades. Plataforma orquestra a conexão.
+4. **API Enterprise**: Interface para integração de verificadores e fluxos de KYC/AML.
 
 ### Modelo de Consentimento
 
@@ -143,7 +143,7 @@ Verificação de identidade é necessidade estrutural em setores regulados e em 
 
 ### Somos
 
-- **Infraestrutura Neutra**: Arquitetura agnóstica; escolha permanece com o ecossistema.
+- **Infraestrutura Neutra**: Arquitetura agnóstica, escolha permanece com o ecossistema.
 - **Camada de Consentimento**: Compartilhamento apenas com consentimento explícito e granular.
 - **Motor de Interoperabilidade**: Conectamos sistemas que operam em silos.
 
@@ -171,7 +171,7 @@ Verificação de identidade é necessidade estrutural em setores regulados e em 
 
 ### Meta de Receita Recorrente
 
-[PLACEHOLDER: ex.: 60–70%] recorrente (assinatura + SLA); [PLACEHOLDER: ex.: 30–40%] por evento.
+[PLACEHOLDER: ex.: 60–70%] recorrente (assinatura + SLA), [PLACEHOLDER: ex.: 30–40%] por evento.
 
 ---
 
@@ -187,9 +187,9 @@ Brasil e LATAM selecionado (México, Colômbia). Expansão para UE em fase poste
 
 ### Primeiros 3 ICPs
 
-1. **FinTech de Médio Porte**: 50–500 colaboradores; 5–50 mil verificações/ano.
-2. **Banco Digital / Neobank**: Operação 100% digital; integração com múltiplos provedores.
-3. **Empresa de Pagamentos / PSP**: Onboarding de comerciantes; requisitos AML/KYC.
+1. **FinTech de Médio Porte**: 50–500 colaboradores, 5–50 mil verificações/ano.
+2. **Banco Digital / Neobank**: Operação 100% digital, integração com múltiplos provedores.
+3. **Empresa de Pagamentos / PSP**: Onboarding de comerciantes, requisitos AML/KYC.
 
 ### Parcerias Estratégicas
 
@@ -224,7 +224,7 @@ Brasil e LATAM selecionado (México, Colômbia). Expansão para UE em fase poste
 
 ### Arquitetura Core
 
-- **Orquestrador**: Gerencia fluxos; não armazena credenciais.
+- **Orquestrador**: Gerencia fluxos. Não armazena credenciais.
 - **Resolução de DID**: Resolve identificadores para endpoints.
 - **API Gateway**: Autenticação, rate limiting, logging.
 
@@ -232,7 +232,7 @@ Brasil e LATAM selecionado (México, Colômbia). Expansão para UE em fase poste
 
 - Emissores mantêm sua infraestrutura de emissão.
 - Carteiras sob controle do usuário.
-- Orquestrador coordena; não é repositório de dados.
+- Orquestrador coordena. Não é repositório de dados.
 
 ### Modelo Criptográfico
 
@@ -246,12 +246,12 @@ Brasil e LATAM selecionado (México, Colômbia). Expansão para UE em fase poste
 
 ### GDPR e LGPD
 
-- Minimização de dados; consentimento; direitos do titular; transferência internacional.
+- Minimização de dados, consentimento, direitos do titular, transferência internacional.
 - Ultima Forma atua como **processador** (verificadores) e **facilitador** (titulares).
 
 ### AML/KYC
 
-- Não realizamos KYC; fornecemos dados attestados. Decisão de conformidade é do verificador.
+- Não realizamos KYC. Fornecemos dados attestados. Decisão de conformidade é do verificador.
 - Logs de consentimento permitem auditoria rastreável.
 
 ### Modelo de Armazenamento
@@ -268,12 +268,12 @@ Brasil e LATAM selecionado (México, Colômbia). Expansão para UE em fase poste
 
 ### Competidores Diretos
 
-Empresas de orquestração de credenciais e carteiras de identidade. **Diferenciação**: Infraestrutura neutra; não centralizar dados; foco Brasil/LATAM com LGPD.
+Empresas de orquestração de credenciais e carteiras de identidade. **Diferenciação**: Infraestrutura neutra, não centralizar dados, foco Brasil/LATAM com LGPD.
 
 ### Competidores Indiretos
 
 - **Provedores de KYC Tradicional**: Coletam e armazenam documentos. Ultima Forma orquestra credenciais existentes.
-- **Provedores de Autenticação**: SSO, MFA. Casos de uso distintos; possibilidade de integração.
+- **Provedores de Autenticação**: SSO, MFA. Casos de uso distintos, possibilidade de integração.
 
 ### Lacuna Estratégica
 
@@ -293,7 +293,7 @@ Neutra, descentralizada, interoperável, focada em regulado. Competidores direto
 
 ### O Que Não É Moat
 
-- Tecnologia isolada; primeiro-mover sem execução; regulação como barreira isolada.
+- Tecnologia isolada, primeiro-mover sem execução, regulação como barreira isolada.
 
 ---
 
@@ -330,8 +330,8 @@ Neutra, descentralizada, interoperável, focada em regulado. Competidores direto
 
 ### Objetivos por Rodada
 
-- **Pre-seed**: [PLACEHOLDER: R$ 2–3 milhões]; validação técnica, primeiro piloto. Runway 12–18 meses.
-- **Seed**: [PLACEHOLDER: R$ 8–15 milhões]; escala de clientes, expansão de produto. Runway 18–24 meses.
+- **Pre-seed**: [PLACEHOLDER: R$ 2–3 milhões]. Validação técnica, primeiro piloto. Runway 12–18 meses.
+- **Seed**: [PLACEHOLDER: R$ 8–15 milhões]. Escala de clientes, expansão de produto. Runway 18–24 meses.
 
 ### Plano de Contratação (Pre-seed)
 
@@ -382,4 +382,4 @@ Funds early-stage (FinTech, identidade), angels com experiência em regulado, fa
 
 ---
 
-*Documento vivo; revisar periodicamente com evolução do produto e do mercado.*
+*Documento vivo. Revisar periodicamente com evolução do produto e do mercado.*

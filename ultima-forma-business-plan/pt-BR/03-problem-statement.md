@@ -20,7 +20,7 @@ Após enviar documentos e dados, o usuário perde visibilidade e controle. Não 
 
 ### Riscos de Privacidade
 
-Bases centralizadas atraem ataques; vazamentos afetam milhões de titulares. Quanto mais dados centralizados, maior o alvo. A economia atual incentiva acúmulo, não minimização.
+Bases centralizadas atraem ataques. Vazamentos afetam milhões de titulares. Quanto mais dados centralizados, maior o alvo. A economia atual incentiva acúmulo, não minimização.
 
 ---
 
@@ -28,7 +28,7 @@ Bases centralizadas atraem ataques; vazamentos afetam milhões de titulares. Qua
 
 ### Custo de KYC
 
-Para clientes de varejo (PF), o processo tradicional de KYC* custa entre R$ 40 e R$ 100 por verificação quando considerados tempo operacional, ferramentas e retrabalho. Empresas com alto volume de onboarding arcam com custos significativos e margens reduzidas.
+Para clientes de varejo (PF), o processo tradicional de KYC* custa entre R$ 40 e R$ 100 por verificação quando considerados tempo operacional, ferramentas e retrabalho. Cada etapa adicional no onboarding aumenta o abandono: o CAC* investido para trazer o usuário até ali é perdido quando ele desiste no meio da verificação. Empresas com alto volume de onboarding arcam com custos significativos e margens reduzidas.
 
 Clientes Corporativos (PJ): Para empresas, o processo é muito mais caro devido à análise de quadros societários e beneficiários finais. Pesquisas indicam que uma revisão de KYC para um cliente comercial pode custar, em média, mais de USD 2,500 (aprox. R$ 12,500).
 
@@ -58,6 +58,12 @@ Documentos falsificados
 * RG/Passaporte adulterado
 * Selfie spoofing
 
+---
+
+*Nota: O detalhamento de como a arquitetura mitiga cada um desses vetores está na seção **Como a Arquitetura Reduz Fraude de Identidade** do documento de Arquitetura da Solução.*
+
+---
+
 ### Inconsistência de Dados
 
 Dados duplicados em sistemas legados geram conflitos, atualizações manuais e erros. Um mesmo titular pode constar com CPF ou endereço diferente em silos distintos.
@@ -66,7 +72,7 @@ Dados duplicados em sistemas legados geram conflitos, atualizações manuais e e
 
 Esses projetos têm como objetivo consolidar e reconciliar informações críticas de clientes e fornecedores que foram coletadas de forma fragmentada ao longo do tempo por múltiplos sistemas, canais e unidades de negócio.
 
-No entanto, o MDM atua majoritariamente na consolidação posterior dos dados, tratando sintomas como duplicidade, inconsistência e desatualização, sem resolver o problema estrutural: a identidade digital nasce descentralizada, redundante e dependente de múltiplas coletas independentes.
+No entanto, o MDM atua majoritariamente na consolidação posterior dos dados, tratando sintomas como duplicidade, inconsistência e desatualização, sem resolver o problema fundamental: a identidade digital nasce descentralizada, redundante e dependente de múltiplas coletas independentes.
 
 Como consequência:
 
@@ -85,7 +91,7 @@ Mesmo após investimentos substanciais em MDM, as organizações continuam enfre
 
 A arquitetura proposta atua em um nível anterior ao MDM tradicional, reduzindo drasticamente a necessidade de reconciliação e saneamento posterior.
 
-Ao permitir que dados de identidade sejam verificáveis, portáveis e atualizados na origem com consentimento do usuário, a solução diminui estruturalmente:
+Ao permitir que dados de identidade sejam verificáveis, portáveis e atualizados na origem com consentimento do usuário, a solução diminui por design:
 
 * A dependência de processos internos de consolidação
 * O esforço recorrente de qualidade de dados
@@ -98,8 +104,7 @@ Em vez de investir continuamente para corrigir inconsistências internas, as emp
 
 Equipes dedicadas a validação manual, conciliação e conformidade. Ciclos longos de onboarding prejudicam conversão e experiência do cliente.
 
-A identidade digital atual não funciona como infraestrutura --- funciona
-como um conjunto de silos desconectados.
+A identidade digital atual não funciona como infraestrutura. Funciona como um conjunto de silos desconectados.
 
 Cada empresa precisa reconstruir do zero o mesmo processo de:
 
@@ -115,7 +120,7 @@ digital.
 
 ### Redundância Sistêmica de Validação
 
-A mesma identidade é validada dezenas de vezes ao longo da vida de um
+A mesma identidade é validada milhares de vezes ao longo da vida de um
 usuário.
 
 Mesmo que um banco já tenha realizado um KYC completo, a próxima
@@ -132,7 +137,7 @@ Essa redundância gera:
 -   Tempo de processamento desnecessário
 -   Complexidade operacional acumulativa
 
-A identidade não é reutilizável. Ela é recriada repetidamente.
+A identidade não é reutilizável — é recriada repetidamente.
 
 ### Estrutura Operacional Pesada e Não Escalável
 
@@ -151,7 +156,7 @@ Esses processos:
 -   Aumentam o custo fixo da operação
 
 Sem uma camada de identidade interoperável, a eficiência operacional
-atinge um teto estrutural.
+atinge um teto fundamental.
 
 ### Onboarding Friccional e Perda de Receita
 
@@ -171,8 +176,7 @@ Consequências diretas:
 -   Redução de LTV* potencial
 -   Primeira experiência negativa com a marca
 
-Empresas investem pesado em aquisição --- e perdem usuários na validação
-de identidade.
+Empresas investem pesado em aquisição e perdem usuários na validação de identidade.
 
 ------------------------------------------------------------------------
 
@@ -198,12 +202,11 @@ Isso gera:
 -   Campanhas periódicas de recadastramento
 -   Custos contínuos de reconciliação
 
-A identidade é estática quando deveria ser dinâmica.
+A identidade permanece estática quando deveria ser dinâmica.
 
 ### Impacto Econômico Global
 
-O mercado global de verificação de identidade movimenta bilhões de
-dólares por ano --- e cresce impulsionado por:
+O mercado global de verificação de identidade movimenta bilhões de dólares por ano e cresce impulsionado por:
 
 -   Regulação mais rigorosa
 -   Aumento de fraude digital
@@ -230,7 +233,7 @@ A identidade digital atual:
 -   Não é sincronizada
 -   Não é interoperável
 
-Isso cria uma ineficiência estrutural que:
+Isso cria uma ineficiência inerente que:
 
 -   Eleva o custo de aquisição
 -   Aumenta o custo operacional

@@ -1,0 +1,26 @@
+---
+description: Writing style for business plan and documentation markdown files
+globs: "**/*.md"
+alwaysApply: false
+---
+
+# Writing Style for Markdown Documents
+
+When writing or editing markdown documents (.md), follow these rules to produce text that reads as natural, human-written prose.
+
+## Avoid AI Writing Patterns
+
+1. **No semicolons.** Rewrite as two sentences or restructure the clause.
+2. **Minimize bullet lists.** Prefer short paragraphs. Use lists only for truly enumerative content (feature specs, glossaries, comparison tables). Never use a bullet list when a paragraph would read better.
+3. **No filler transitions.** Do not use "Furthermore", "Moreover", "Additionally", "It's worth noting", "In today's rapidly evolving", "In conclusion", "To summarize". Start the sentence with the actual point.
+4. **No generic superlatives.** Do not use "groundbreaking", "revolutionary", "cutting-edge", "game-changing", "seamless", "robust" unless there is a concrete claim backing it.
+5. **No hedging clichés.** Avoid "It is important to note that", "One might argue", "It should be mentioned". State the claim directly.
+6. **Short paragraphs.** Two to four sentences. Break long paragraphs.
+7. **Direct tone.** Subject-verb-object. Active voice. Say what the thing does, not what "is achieved by" the thing.
+8. **No colon before a paragraph.** Do not end a sentence with ":" and then continue with a paragraph. Either integrate the sentence or use a heading.
+9. **Avoid em dash overuse (—).** One or two per document is fine. If you find yourself using them frequently, rewrite with periods or commas.
+10. **Vary sentence length.** Mix short declarative sentences with longer explanatory ones. Monotonous rhythm signals generated text.
+
+## Tone Reference
+
+Match the existing Ultima Forma business plan tone: direct, assertive, technical but accessible. Avoid corporate jargon. Write as if explaining to a smart colleague, not a committee.
