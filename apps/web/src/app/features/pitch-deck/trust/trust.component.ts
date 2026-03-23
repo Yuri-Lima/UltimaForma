@@ -177,7 +177,7 @@ import { TranslatePipe } from '@ngx-translate/core';
           {{ 'pitch.trust.deepDiveHint' | translate }}
         </p>
         <a
-          routerLink="/pitch-deck/kb/11-regulatory-strategy"
+          routerLink="/pitch-deck/kb/17-regulatory-strategy"
           class="inline-flex items-center gap-2 text-sm font-medium"
           style="color: var(--color-primary)"
         >

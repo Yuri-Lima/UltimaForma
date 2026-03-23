@@ -76,22 +76,20 @@ Monorepo Nx:
 - `libs/shared` — Tipos, DTOs e constantes compartilhados (`@ultima-forma/shared`)
 
 ```
-ultima-forma-business-plan/   # Plano de negócio completo
+ultima-forma-business-plan/   # Plano de negócio completo (por idioma: en/, pt-BR/, ...)
 ├── 01-executive-summary.md
 ├── 02-vision-mission-values.md
-├── 03-problem-statement.md
-├── 04-market-thesis.md
-├── 05-solution-architecture.md
-├── 06-what-we-are-and-are-not.md
-├── 07-business-model.md
-├── 08-go-to-market.md
-├── 09-roadmap-36-months.md
-├── 10-technology-strategy.md
-├── 11-regulatory-strategy.md
-├── 12-competitive-landscape.md
-├── 13-moat-and-defensibility.md
-├── 14-unit-economics.md
-├── 15-risk-analysis.md
-├── 16-fundraising-strategy.md
-└── 17-appendix.md
+├── …
+├── 09-technology-strategy.md
+├── 10-business-model.md
+├── 11-go-to-market.md
+├── 14-competitive-landscape.md
+├── 15-infrastructure-moat.md
+├── 17-regulatory-strategy.md
+├── 18-unit-economics.md
+├── 19-risk-analysis.md
+├── 20-fundraising-strategy.md
+├── 21-roadmap-36-months.md
+└── 22-appendix.md
 ```
+(Outros documentos de apoio também existem em `en/` e `pt-BR/`, por exemplo `ultima-forma-vc-plan.md` e `plano-negocios-kb.md`.)
