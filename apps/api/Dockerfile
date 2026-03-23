@@ -12,6 +12,7 @@ FROM node:22-alpine
 WORKDIR /app
 COPY --from=build /app/dist/apps/api .
 RUN corepack enable && corepack prepare pnpm@latest --activate
+ENV CI=true
 RUN pnpm install --prod --frozen-lockfile --ignore-scripts
 ENV NODE_ENV=production
 EXPOSE 3000

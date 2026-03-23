@@ -1,0 +1,35 @@
+# Dependencies (reinstalled in container)
+node_modules
+.pnpm-store
+.venv-rembg
+
+# Build outputs (rebuilt in container)
+dist
+build
+.angular
+.nx
+
+# Git
+.git
+.gitignore
+
+# Environment and secrets
+.env
+.env.*
+*.pem
+id_rsa
+
+# Deploy config (not needed for app build)
+deploy
+
+# IDE and OS
+.idea
+.vscode
+.DS_Store
+Thumbs.db
+
+# Cache and logs
+.cache
+*.log
+npm-debug.log*
+vitest.config.*.timestamp*
