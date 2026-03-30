@@ -88,7 +88,7 @@ const KB_DOCS = [
               class="kb-nav-link rounded-md px-3 py-2 text-sm transition-colors"
               style="color: var(--color-text-muted)"
             >
-              {{ 'docTitles.' + doc.id | translate }}
+              {{ ('docTitles.' + doc.id) | translate }}
             </a>
           }
         </nav>

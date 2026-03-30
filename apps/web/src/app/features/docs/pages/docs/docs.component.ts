@@ -49,7 +49,7 @@ import { TranslatePipe } from '@ngx-translate/core';
               (click)="sidebarOpen.set(false)"
               class="docs-nav-link rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-offset-2"
             >
-              {{ 'docTitles.' + doc.id | translate }}
+              {{ ('docTitles.' + doc.id) | translate }}
             </a>
           }
         </nav>
